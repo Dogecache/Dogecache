@@ -6,7 +6,8 @@
 node_modules/
 public/lib
 test/coverage
-mean.iml
+public/stylesheets/*.css
+*.iml
 
 npm-debug.log
 /config/dogeapi.js
