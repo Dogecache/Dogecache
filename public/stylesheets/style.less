@@ -1,8 +1,65 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@textColor: white;
+
+
+html {
+  height: 100%;
 }
 
-a {
-  color: #00B7FF;
+body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
 }
+
+.navbar {
+  height: 45px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  #profile-pic {
+    height: 45px;
+    width: 45px;
+    margin-left: 10px;
+    margin-top: 10px;
+    background: white;
+    border-radius: 30px;
+    border: 2px solid white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+  }
+}
+
+#map {
+  height: calc(~"100% - 100px");
+  width: 100%;
+  background: blue;
+  margin-bottom:0
+}
+
+
+.actions {
+
+  #wager {
+    width: 100%;
+    height:50px;
+    background: white;
+  }
+
+  .search-area {
+    height: 50px;
+    width: 100%;
+    background: #e74c3c;
+    color: @textColor;
+    line-height: 100%;
+
+    #search-slider {
+      height: 50px;
+      width: 50px;
+      background:green;
+      line-height:60px;
+    }
+  }
+}
+
+
