@@ -6,7 +6,8 @@ doge = new dogeAPI();
 var userSchema = new mongoose.Schema({
     fbId: Number,
     displayName: String,
-    dogeAddress: String
+    dogeAddress: String,
+    balance: Number
 });
 
 userSchema.statics.findOrCreate = function (profile, callback) {
@@ -24,7 +25,12 @@ userSchema.statics.findOrCreate = function (profile, callback) {
                 }
                 var paymentAddress = res.data.address;
                 // create new user
-                user = new that({fbId: profile.id, displayName: profile.displayName, dogeAddress: paymentAddress});
+                user = new that({
+                    fbId: profile.id, 
+                    displayName: profile.displayName,
+                    dogeAddress: paymentAddress,
+                    balance: 0
+                });
             });
 
 

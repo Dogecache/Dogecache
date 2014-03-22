@@ -13,7 +13,7 @@ doge.getUsers(function (error, res) {
         if (balance > 0) {
             var userid = elem.user_id;
 
-            doge.moveToUser('dogcache_master', userid, balance, function (error, transactionid) {
+            doge.moveToUser('master', userid, balance, function (error, transactionid) {
                 if (error) {
                     // @todo Handle error
                 }
