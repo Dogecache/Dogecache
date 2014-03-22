@@ -6,7 +6,7 @@
 node_modules/
 public/lib
 test/coverage
-mean.iml
+*.iml
 
 npm-debug.log
 /config/env/development.js
