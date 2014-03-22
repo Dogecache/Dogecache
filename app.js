@@ -10,6 +10,12 @@ var express = require('express')
   , http = require('http')
   , path = require('path');
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/dogecache');
+
+var loginRoute = require('./routes/login');
+var apiRoute = require('./routes/api');
+
 var app = express();
 
 app.configure(function(){
@@ -32,6 +38,8 @@ app.configure('development', function(){
 app.get('/', routes.index);
 app.get('/settings', settings.index);
 app.get('/users', user.list);
+app.get('/login', loginRoute.login);
+app.get('/login/callback', loginRoute.loginCallback);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
