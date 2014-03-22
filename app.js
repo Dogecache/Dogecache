@@ -13,7 +13,7 @@ var express = require('express')
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/dogecache');
 
-var loginRoute = require('./routes/login');
+var authRoute = require('./routes/auth');
 var apiRoute = require('./routes/api');
 
 var app = express();
@@ -38,8 +38,9 @@ app.configure('development', function(){
 app.get('/', routes.index);
 app.get('/settings', settings.index);
 app.get('/users', user.list);
-app.get('/login', loginRoute.login);
-app.get('/login/callback', loginRoute.loginCallback);
+app.get('/auth/login', authRoute.login);
+app.get('/auth/callback', authRoute.loginCallback);
+app.get('/auth/logout', authRoute.logout);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
