@@ -3,7 +3,8 @@ var mongoose = require('mongoose');
 var userSchema = new mongoose.Schema({
     fbId: Number,
     displayName: String,
-    dogeAddress: String
+    dogeAddress: String,
+    balance: Number
 });
 
 userSchema.statics.findOrCreate = function(profile, callback) {
@@ -14,7 +15,11 @@ userSchema.statics.findOrCreate = function(profile, callback) {
             callback(null, result);
         } else {
             // create new user
-            var user = new that({fbId: profile.id, displayName: profile.displayName});
+            var user = new that({
+                fbId: profile.id,
+                displayName: profile.displayName,
+                balance: 0}
+            );
 
             // TODO: initialize dogeAddress
 
