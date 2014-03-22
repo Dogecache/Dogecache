@@ -7,13 +7,14 @@ var userSchema = new mongoose.Schema({
 });
 
 userSchema.statics.findOrCreate = function(profile, callback) {
+    var that = this;
     // try to check if user already exists
-    this.findOne({fbId: profile.id}, function(err, result) {
+    that.findOne({fbId: profile.id}, function(err, result) {
         if (!err && result) {
             callback(null, result);
         } else {
             // create new user
-            var user = new this({fbId: profile.id, displayName: profile.displayName});
+            var user = new that({fbId: profile.id, displayName: profile.displayName});
 
             // TODO: initialize dogeAddress
 
