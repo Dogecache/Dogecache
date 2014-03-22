@@ -10,6 +10,4 @@ mean.iml
 public/stylesheets/*.css
 
 npm-debug.log
-/config/env/development.js
-/config/env/production.js
-/config/env/test.js
+/config/dogeapi.js
