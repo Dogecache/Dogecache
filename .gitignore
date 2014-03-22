@@ -6,9 +6,8 @@
 node_modules/
 public/lib
 test/coverage
+public/stylesheets/*.css
 *.iml
 
 npm-debug.log
-/config/env/development.js
-/config/env/production.js
-/config/env/test.js
+/config/dogeapi.js

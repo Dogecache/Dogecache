@@ -10,6 +10,7 @@
     "ejs": "*",
     "less-middleware": "*",
     "passport": "~0.2.0",
-    "passport-facebook": "~1.0.3"
+    "passport-facebook": "~1.0.3",
+    "dogeapi": "git+https://github.com/brutalhonesty/dogeapi.js.git"
   }
 }
