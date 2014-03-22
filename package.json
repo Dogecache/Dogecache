@@ -1,0 +1,19 @@
+{
+  "name": "dogecache",
+  "version": "0.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://mhsu@bitbucket.org/mhsu/dogecache.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "mongoose": "~3.8.8",
+    "express": "~3.5.0"
+  }
+}
