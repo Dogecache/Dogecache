@@ -6,7 +6,7 @@
 exports.index = function(req, res){
   if (req.user) {
     res.render('map', {
-      title: 'Express',
+      title: 'DogeCache',
       user: req.user,
       isMap: true
     });
