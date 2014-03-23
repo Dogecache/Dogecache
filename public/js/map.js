@@ -77,7 +77,7 @@
                     that.enable();
                 } else {
                     API.cache(amount, function(data) {
-                        notify("Search Complete!", "You have" + balance + " dogecoin now.")
+                        notify("Search Complete!", "You have " + balance.getBalance() + " dogecoin now.")
                         that.enable();
                     });
                 }
