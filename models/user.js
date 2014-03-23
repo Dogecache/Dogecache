@@ -6,7 +6,7 @@ var doge = new dogeAPI();
 async = require("async");
 
 var userSchema = new mongoose.Schema({
-    fbId: Number,
+    fbId: {type: Number, unique: true},
     displayName: String,
     dogeAddress: String,
     email: String,
