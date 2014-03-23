@@ -2,6 +2,11 @@ var Cache = require('../models/cache');
 var User = require('../models/user');
 var passport = require('passport');
 
+var dogeAPI = require('../libraries/dogeapi');
+var doge = new dogeAPI();
+
+var config = require('../config');
+
 function auth(req, res, callback) {
     if (req.user) return callback(null, req.user);
 
@@ -36,6 +41,20 @@ exports.cache = function(req, res) {
                     });
                 })
             }
+        });
+    });
+};
+
+exports.deposit = function(req, res) {
+    auth(req, res, function(err, user) {
+        res.send(user.dogeAddress);
+    });
+};
+
+exports.withdraw = function(req, res) {
+    auth(req, res, function(err, user) {
+        doge.withdrawFromUser(user.fbId, req.body.address, req.body.amount, config.dogeapiPin, function(err, result) {
+            res.send(result);
         });
     });
 };
