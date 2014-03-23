@@ -78,6 +78,7 @@
             zoom: 1
         };
         this.gmap = new google.maps.Map(this.$container.find('.map_gmap').get()[0], mapOptions);
+        google.maps.event.trigger(this.gmap, 'resize'); // https://stackoverflow.com/questions/3437907/google-maps-api-resizing-generates-blank-white-space
         this._updateRadius(10);
         navigator.geolocation.watchPosition(function(position) {
             that._updateCenter(position);
