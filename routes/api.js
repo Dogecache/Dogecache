@@ -59,8 +59,21 @@ exports.deposit = function(req, res) {
 
 exports.withdraw = function(req, res) {
     auth(req, res, function(err, user) {
-        doge.withdrawFromUser(user.fbId, req.body.address, req.body.amount, config.dogeapiPin, function(err, result) {
-            res.send(result);
+        var address = req.body.address;
+        var amount = req.body.amount;
+
+        // ensure that the user has sufficient balance
+        if (amount > user.balance) {
+            res.send(500, {error: 'Insufficient user balance'});
+            return;
+        }
+
+        doge.withdrawFromUser('dogecachemaster', address, amount, config.dogeapiPin, function(err, result) {
+            if (err) return res.send(500, {error: 'Error sending funds. No amount withdrawn.'});
+            user.balance -= amount;
+            user.save(function(err) {
+                res.send(result);
+            });
         });
     });
 };
