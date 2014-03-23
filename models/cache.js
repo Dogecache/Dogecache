@@ -11,14 +11,14 @@ var cacheSchema = new mongoose.Schema({
     }
 });
 
-cacheSchema.statics.addCache = function(user, amount, longitude, latitude, callback) {
+cacheSchema.statics.addCache = function (user, amount, longitude, latitude, callback) {
     var that = this;
 
     // check that the user has enough money left
     if (user.balance < amount) return callback("Not enough money remaining");
 
     // Subtract the amount from the balance
-    user.update({$inc: {balance: -amount}}, function(err) {
+    user.update({$inc: {balance: -amount}}, function (err) {
         if (err) {
             console.log(err);
             return callback(err);
@@ -31,13 +31,13 @@ cacheSchema.statics.addCache = function(user, amount, longitude, latitude, callb
             loc: [longitude, latitude]
         });
 
-        cache.save(function(err) {
+        cache.save(function (err) {
             callback(err, cache);
         });
     });
 };
 
-cacheSchema.statics.findCaches = function(user, maxDistance, longitude, latitude, callback) {
+cacheSchema.statics.findCaches = function (user, maxDistance, longitude, latitude, callback) {
     var that = this;
     that.find({
         fbId: {
@@ -52,32 +52,35 @@ cacheSchema.statics.findCaches = function(user, maxDistance, longitude, latitude
                 $maxDistance: maxDistance
             }
         }
-    }, function(err, results) {
+    }, function (err, results) {
         callback(err, results);
     });
 };
 
-cacheSchema.statics.gatherCaches = function(user, caches, callback) {
+cacheSchema.statics.gatherCaches = function (user, caches, callback) {
     // total up the amount of doge received
     var total = 0;
-    for (var i=0; i<caches.length; i++) {
-        total += caches[i].amount;
-    }
-
-    async.parallel([
-        // remove the caches
-        function(done) {
-            async.each(caches, function(cache, done) {
-                cache.remove(done)
-            }, done);
-        },
-        // add balance to user
-        function(done) {
-            user.update({$inc: {balance: total}}, done);
+    if (typeof caches != "undefined") {
+        for (var i = 0; i < caches.length; i++) {
+            total += caches[i].amount;
         }
-    ], function(err){
-        callback(err, total);
-    });
+
+
+        async.parallel([
+            // remove the caches
+            function (done) {
+                async.each(caches, function (cache, done) {
+                    cache.remove(done)
+                }, done);
+            },
+            // add balance to user
+            function (done) {
+                user.update({$inc: {balance: total}}, done);
+            }
+        ], function (err) {
+            callback(err, total);
+        });
+    }
 };
 
 module.exports = mongoose.model('cache', cacheSchema);
