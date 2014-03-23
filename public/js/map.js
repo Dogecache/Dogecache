@@ -1,3 +1,5 @@
+(function() {
+
 $(document).ready(function () {
 
     $('#search-slider').draggable({
@@ -28,7 +30,10 @@ $(document).ready(function () {
     navigator.geolocation.getCurrentPosition(gpsPermissionGranted);
 });
 
+var initialLocation;
+
 function gpsPermissionGranted(position) {
+  initialLocation = position;
   $('#gpsApproval h1').html(':)');
   $('#gpsApproval').animate({
     backgroundColor: '#27ae60'
@@ -44,3 +49,5 @@ function gpsPermissionGranted(position) {
 function printPosition(position) {
   console.log(position.coords.latitude + ', ' + position.coords.longitude);
 }
+
+})();
