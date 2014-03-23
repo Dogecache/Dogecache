@@ -1,4 +1,5 @@
 module.exports = {
     dogeapiKey: '',
-    dogeapiPin: ''
+    dogeapiPin: '',
+    worldweatherapiKey: ''
 };
