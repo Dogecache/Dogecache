@@ -1,15 +1,5 @@
 <%- include header.ejs %>
-
-<div class="navbar">
-  <div id="profile-pic">
-    <img src="/img/profile-pic-default.png" />
-  </div>
-  <div class="user-info">
-    <div id="name">Andrew Millman</div>
-    <br/>
-    <div id="balance">6,403 Doge</div>
-  </div>
-</div>
+<%- include navbar.ejs %>
 
 <div id="map"></div>
 
@@ -21,6 +11,14 @@
     Slide to Search
     <div id="search-slider"><i class="fa fa-arrow-right"></i></div>
     <div id="search-drop"></div>
+  </div>
+</div>
+
+<div id="gpsApproval">
+  <div class="cell">
+    <div class="content">
+      <h1>Waiting for GPS permissions...</h1>
+    </div>
   </div>
 </div>
 

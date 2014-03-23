@@ -11,3 +11,5 @@ public/stylesheets/*.css
 
 npm-debug.log
 /config.js
+*.xdk
+*.xdke
