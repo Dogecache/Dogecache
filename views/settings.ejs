@@ -16,11 +16,11 @@
       <h1>Withdraw</h1>
       <div class="content">
         <div id="reader" style="width: 300px; height: 250px; margin: 0 auto"></div>
-        <form>
+        <form method="post" action="/api/withdraw" id="withdrawForm">
           <input data-role="none" type="text" name="send_address" placeholder="Send Address..." />
           <input data-role="none" type="text" name="amount" placeholder="Amount..." />
           <input data-role="none" type="submit" value="Send">
-          <span>There is a 1% fee on withdrawals to help cover server costs.</span>
+          <span>There is a 1% fee on withdrawals to help cover transaction fees. For testing purposes, you must also maintain a balance of 1000 doge in order to withdraw funds.</span>
         </form>
       </div>
     </div>
@@ -38,5 +38,15 @@
                 console.log('video stream error', videoError);
             }
     );
+</script>
+<script src="//malsup.github.com/jquery.form.js"></script>
+<script>
+    // wait for the DOM to be loaded
+    $(document).ready(function() {
+        // bind 'myForm' and provide a simple callback function
+        $('#withdrawForm').ajaxForm(function() {
+            alert("Thank you for your withdrawl!");
+        });
+    });
 </script>
 <%- include footer.ejs %>

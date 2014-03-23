@@ -60,6 +60,7 @@ app.get('/auth/login', authRoute.login);
 app.get('/auth/callback', authRoute.loginCallback);
 app.get('/auth/logout', authRoute.logout);
 app.post('/api/cache', apiRoute.cache);
+app.post('/api/withdraw', apiRoute.withdraw);
 
 //app.get('/test/radar',function(req, res){res.render('d3test')});
 app.get('/test/error', function() {throw new Error("test")});
