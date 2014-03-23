@@ -1,16 +1,22 @@
-
 /*
  * GET stats page.
  */
+var History = require('../models/history.js');
 
-exports.index = function(req, res){
-  if (req.user) {
-    res.render('stats', {
-      title: 'Statistics',
-      user: req.user,
-      isMap: false
-    });
-  } else {
-    res.redirect('/');
-  }
+exports.index = function (req, res) {
+    if (req.user) {
+        History.getHistory(req.user.fbId, 5, function (err, result) {
+            console.log(result);
+            res.render('stats', {
+                title: 'Statistics',
+                user: req.user,
+                history: result,
+                isMap: false
+            });
+        });
+    }
+    else {
+        res.redirect('/');
+    }
+
 };
