@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var historySchema = new mongoose.Schema({
-    userId: mongoose.Schema.ObjectId, //@todo use facebook id in place
+    fbId: mongoose.Schema.ObjectId, //@todo use facebook id in place
     loss: Number,
     gain: Number,
     date: {type: Date, default: Date.now},
@@ -16,7 +16,7 @@ historySchema.statics.addHistory = function (user, loss, gain, longitude, latitu
 
     // Create the entry
     var history = new that({
-        userId: user.id,
+        fbId: user.id,
         loss: loss,
         gain: gain,
         loc: [longitude, latitude]
@@ -30,7 +30,7 @@ historySchema.statics.addHistory = function (user, loss, gain, longitude, latitu
 historySchema.statics.getHistory = function (userid, limit, callback) {
     var that = this;
     that
-        .find({userId: userid})
+        .find({fbId: userid})
         .sort({'date': -1})
         .limit(limit)
         .exec(function (err, results) {
