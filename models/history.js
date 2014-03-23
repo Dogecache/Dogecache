@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var User = require('./user');
 
 var historySchema = new mongoose.Schema({
     fbId: Number,
