@@ -2,33 +2,6 @@
     var map;
 
     $(document).ready(function () {
-        $('#search-slider').draggable({
-            containment: '.search-area',
-            axis: 'x',
-            revert: 'invalid',
-            drag: function (event, ui) {
-                $('.search-area').css("color", "rgba(255,255,255, " + ( $('.search-area').width() - $('#search-slider').position().left ) / $('.search-area').width() + ")");
-            },
-            stop: function (event, ui) {
-                $('.search-area').css("color", "rgba(255,255,255, " + ( $('.search-area').width() - $('#search-slider').position().left ) / $('.search-area').width() + ")");
-            }
-        });
-
-        $("#search-drop").droppable({
-            accept: '#search-slider',
-            drop: function (event, ui) {
-                $("#search-slider").draggable("disable").animate({
-                    "right": "0px",
-                    "left": $(".search-area").width() - $("#search-slider").width() }, 200);
-                $('.search-area').css("color", "rgba(255,255,255, 0)");
-
-                //PUT STUFF HERE FOR WHEN USER SUCCESSFULLY SEARCHES
-                if (parseInt($('#wager-slider').val())>parseInt($('#balance').text())) {
-                    notify('Insufficient Doge', 'Please deposit more dogecoin.');
-                }
-            }
-        });
-
         map = new Map('map');
         navigator.geolocation.getCurrentPosition(gpsPermissionGranted);
 
@@ -53,6 +26,18 @@
 
         map.init(position);
     }
+
+    var API = function() {};
+    API.cache = function(amount, callback) {
+        var position = map.getPosition();
+        $.post('/api/cache', {
+            amount: amount,
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+        }, function(data) {
+            if (callback) callback(data);
+        });
+    };
 
     var SearchSlider = function(slider, drop, area) {
         var that = this;
@@ -84,7 +69,13 @@
                 that.$area.css("color", "rgba(255,255,255, 0)");
 
                 //PUT STUFF HERE FOR WHEN USER SUCCESSFULLY SEARCHES
-
+                if (parseInt($("#wager-slider").val())>parseInt($('#balance').text())) {
+                    notify('Insufficient Doge', 'Please deposit more dogecoin.');
+                } else {
+                    API.cache($("#wager-slider").val(), function() {
+                        that.enable();
+                    });
+                }
             }
         });
 
@@ -185,5 +176,8 @@
     };
     Map.prototype._positionToLatLng = function(position) {
         return new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+    };
+    Map.prototype.getPosition = function() {
+        return this.center;
     };
 })();
