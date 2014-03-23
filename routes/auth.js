@@ -8,20 +8,26 @@ passport.use(new FacebookStrategy({
     callbackURL: 'http://localhost:3000/auth/callback'
 }, function(accessToken, refreshToken, profile, done) {
     User.findOrCreate(profile, function(err, user) {
-        done(user);
+        done(null, user);
     });
 }));
 
-exports.login = function(req, res) {
-    passport.authenticate('facebook');
-};
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
 
-exports.loginCallback = function(req, res) {
-    passport.authenticate('facebook', {
-        successRedirect: '/map',
-        failureRedirect: '/'
+passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user) {
+        done(err, user);
     });
-};
+});
+
+exports.login = passport.authenticate('facebook');
+
+exports.loginCallback = passport.authenticate('facebook', {
+    successRedirect: '/map',
+    failureRedirect: '/'
+});
 
 exports.logout = function(req, res) {
     req.logout();

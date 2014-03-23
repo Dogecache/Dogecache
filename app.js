@@ -10,6 +10,7 @@ var express = require('express')
   , http = require('http')
   , path = require('path');
 
+var passport = require('passport');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/dogecache');
 
@@ -23,9 +24,13 @@ app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
   app.use(express.favicon());
+  app.use(express.cookieParser('uu*Sw*9&A4h1*UaA85z1xFL1iFpT4l'));
+  app.use(express.session());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
+  app.use(passport.initialize());
+  app.use(passport.session());
   app.use(app.router);
   app.use(require('less-middleware')(path.join(__dirname, 'public')));
   app.use(express.static(path.join(__dirname, 'public')));
