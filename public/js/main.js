@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  $('.card').css('opacity', 0).css('top', $(window).height());
+  /*$('.card').css('opacity', 0).css('top', $(window).height());
   var del=0;
   $('.card').each(function(){
     $(this).delay(del).animate({
@@ -25,7 +25,7 @@ $(document).ready(function(){
     }, 1000);
   $('.home-button-wrapper').delay(1500).animate({
       opacity: 1,
-    }, 1000);
+    }, 1000);*/
 
 });
 

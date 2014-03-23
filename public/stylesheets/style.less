@@ -119,7 +119,7 @@ body {
 
     * {
       color: @navItemColor;
-      font-size: 20px;
+      font-size: 15px;
       line-height:20px;
       text-shadow: 0 0 20px #fff,
         0 0 20px #fff,
@@ -355,6 +355,17 @@ body {
       text-align: center;
       color:white;
       z-index:100;
+
+      &:active i, &:hover i {
+        text-shadow: 0 0 20px #fff,
+        0 0 40px #fff,
+        0 0 40px #fff,
+        0 0 40px #fff,
+        0 0 40px #fff,
+        0 0 40px #fff,
+        0 0 40px #fff,
+        0 0 40px #fff!important;
+      }
     }
 
     #search-drop {
