@@ -12,6 +12,7 @@
     <% if (!isMap) {%>
         $(document).bind("mobileinit", function(){
           $.mobile.hidePageLoadingMsg();
+          $.mobile.defaultPageTransition = 'none';
         });
         <% } %>
     </script>
