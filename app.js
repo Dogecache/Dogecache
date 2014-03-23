@@ -6,6 +6,7 @@
 var express = require('express')
   , routes = require('./routes')
   , settings = require('./routes/settings')
+  , login = require('./routes/login')
   , user = require('./routes/user')
   , http = require('http')
   , path = require('path');
@@ -42,6 +43,7 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/settings', settings.index);
+app.get('/login', login.index);
 app.get('/users', user.list);
 app.get('/auth/login', authRoute.login);
 app.get('/auth/callback', authRoute.loginCallback);

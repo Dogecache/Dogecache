@@ -1,8 +1,9 @@
 @bg: #dddddd;
 @mainBg: lighten(@bg, 10%);
 @navHeight: 45px;
-@btnMainColor: #2980b9;
+@btnMainColor: #d35400;
 @textColor: white;
+@mainColor: #f39c12;
 
 * {
   box-sizing: border-box;
@@ -147,6 +148,36 @@ body {
   }
   input[type="submit"] {
       background-color: @btnMainColor;
-      color: white;
+      color: @textColor;
     }
+}
+
+.splash-page {
+  position: fixed;
+  width: 100%;
+  top: 0px;
+  bottom: 0px;
+  background-color: @mainColor;
+
+  .logo {
+    width: 100%;
+    padding-top: 50px;
+
+    img {
+      width: 50%;
+      margin-left: 25%;
+    }
+  }
+
+  h1 {
+    color: @textColor;
+    text-align: center;
+  }
+
+  .description {
+    font-size: 30px;
+    text-align: center;
+    color: @textColor;
+    padding-bottom: 20px;
+  }
 }
