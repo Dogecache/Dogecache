@@ -18,7 +18,7 @@ cacheSchema.statics.addCache = function (user, amount, longitude, latitude, call
     if (user.balance < amount) return callback("Not enough money remaining");
 
     // Subtract the amount from the balance
-    user.update({fbId: user.fbId},{$inc: {balance: -amount}}, function (err) {
+    User.update({fbId: user.fbId}, {$inc: {balance: -amount}}, function (err) {
         if (err) {
             console.log(err);
             return callback(err);
@@ -75,7 +75,8 @@ cacheSchema.statics.gatherCaches = function (user, caches, callback) {
             },
             // add balance to user
             function (done) {
-                user.update({$inc: {balance: total}}, done);
+            console.log(user.fbId);
+                User.update({fbId: user.fbId}, {$inc: {balance: total}}, done);
             }
         ], function (err) {
             callback(err, total);
