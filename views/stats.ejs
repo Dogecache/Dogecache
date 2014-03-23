@@ -1,5 +1,15 @@
 <%- include header.ejs %>
 <%- include navbar.ejs %>
+
+<% function colorval(num){
+  if(parseFloat(num)<0) {
+    return 'red';
+  }
+  if(parseFloat(num)>0) {
+    return 'green';
+  }
+  return '';
+} %>
 <div class="page-wrapper">
   <div class="page-container">
     <div class="card">
@@ -12,24 +22,14 @@
                 <th>Ð Found</th>
                 <th>Net</th>
             </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td>0</td>
-                <td>-500</td>
-            </tr>
-            <tr>
-                <td><script>document.write((Date().toString()))</script></td>
-                <td>500</td>
-                <td>0</td>
-                <td>-500</td>
-            </tr>
-            <tr>
-                <td><script>document.write((Date().toString()))</script></td>
-                <td>500</td>
-                <td>0</td>
-                <td>-500</td>
-            </tr>
+            <% for(var i=0; i<result.length; i++) {%>
+              <tr>
+                <td><%= moment(result[i].date).format('MMMM Do YYYY, h:mm:ss a') %></td>
+                <td><span class="<%= colorval(result[i].loss) %>"><%= result[i].loss %></span></td>
+                <td><span class="<%= colorval(result[i].gain) %>"><%= result[i].gain %></span></td>
+                <td><span class="<%= colorval(result[i].gain + result[i].loss) %>"><%= result[i].gain + result[i].loss %></span></td>
+              </tr>
+            <% } %>
 
         </table>
       </div>
