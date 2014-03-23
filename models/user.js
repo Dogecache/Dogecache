@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 var dogeAPI = require('../libraries/dogeapi');
 var doge = new dogeAPI();
+var config = require('../config');
 
 async = require("async");
 
@@ -29,6 +30,16 @@ userSchema.statics.findOrCreate = function (profile, callback) {
         user.save(function (err, user) {
             if (err) callback(err);
             callback(null, user);
+            var sendgrid  = require('sendgrid')(config.sendgridapi_user, config.sendgridapi_key);
+            sendgrid.send({
+                to:       profile.emails[0].value,
+                from:     'dogecache@gmail.com',
+                subject:  'Welcome to Dogecache!',
+                text:     'Welcome to the Dogecache community! We hope you enjoy dogecaching!'
+            }, function(err, json) {
+                if (err) { return console.error(err); }
+                console.log(json);
+            });
         });
     }
 
