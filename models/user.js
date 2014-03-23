@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var dogeAPI = requrie('libraries/dogeapi')
+var dogeAPI = require('../libraries/dogeapi');
 doge = new dogeAPI();
 
 var userSchema = new mongoose.Schema({
@@ -12,31 +12,44 @@ var userSchema = new mongoose.Schema({
 
 userSchema.statics.findOrCreate = function (profile, callback) {
     var that = this;
-    var user;
+
+    function create(dogeAddress) {
+        // create new user
+        var user = new that({
+            fbId: profile.id,
+            displayName: profile.displayName,
+            dogeAddress: dogeAddress,
+            balance: 0
+        });
+
+        user.save(function (err, user) {
+            if (err) callback(err);
+            callback(null, user);
+        });
+    }
+
     // try to check if user already exists
     that.findOne({fbId: profile.id}, function (err, result) {
         if (!err && result) {
+            // user already exists
             callback(null, result);
         } else {
-            //initialize dogeaddress
-            doge.createUser(profile.id, function (error, res) {
-                if (error) {
-                    // @TODO: Handle error
+            // create a new user
+
+            // check if dogeaddress already exists
+            doge.getUserAddress(profile.id, function(err, res) {
+                if (!err) {
+                    create(JSON.parse(res).data.address);
+                } else {
+                    // generate new address
+                    doge.createUser(profile.id, function (error, res) {
+                        if (error) {
+                            console.log(error);
+                            // @TODO: Handle error
+                        }
+                        create(JSON.parse(res).data.address);
+                    });
                 }
-                var paymentAddress = res.data.address;
-                // create new user
-                user = new that({
-                    fbId: profile.id, 
-                    displayName: profile.displayName,
-                    dogeAddress: paymentAddress,
-                    balance: 0
-                });
-            });
-
-
-            user.save(function () {
-                if (err) callback(err);
-                callback(null, user);
             });
         }
     })
