@@ -1,10 +1,16 @@
 /*
  * GET settings page.
  */
+var googlecharts = require('../libraries/googlechartsapi');
 
 exports.index = function(req, res){
-  res.render('settings', {
-    title: 'Settings',
-    user: req.user
-  });
+  if (req.user) {
+    res.render('settings', {
+      title: 'Settings',
+      user: req.user,
+      qr: googlecharts.qr(300,300,req.user.dogeAddress)
+    });
+  } else {
+    res.redirect('/');
+  }
 };

@@ -1,5 +1,5 @@
-@bg: #dddddd;
-@mainBg: lighten(@bg, 10%);
+@bg: #eeeeee;
+@mainBg: lighten(@bg, 5%);
 
 .navBg {
   background: -webkit-linear-gradient(@bg, rgba(0,0,0,0));
@@ -20,7 +20,7 @@
 @textColor: white;
 @mainColor: #f39c12;
 
-@actionHeight: 50px;
+@actionHeight: 60px;
 
 .transition {
   -webkit-transition: all 0.1s ease;
@@ -40,6 +40,11 @@ html {
   height: 100%;
 }
 
+.ui-page, .ui-body-c, .ui-page-active, .ui-overlay-c, .ui-mobile-viewport
+{
+    background: transparent !important;
+}
+
 body {
   height: 100%;
   padding: 0;
@@ -47,6 +52,10 @@ body {
   background-color: @bg;
   font: 14px "Lato", Helvetica, Arial, sans-serif;
   font-family: "Lato"!important;
+}
+
+.ui-overlay-a {
+  background-color: @bg!important;
 }
 
 .navbar {
@@ -74,13 +83,13 @@ body {
       background: white;
       border-radius: 30px;
       border: 2px solid white;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
     }
   }
 
   .user-info {
     position: absolute;
-    top: 7px;
+    top: 9px;
     left: 70px;
 
     * {
@@ -123,8 +132,8 @@ body {
         content: "WAGER";
         color: #555;
         height:100%;
-        width: 60px;
-        padding-top: 5px;
+        width: 62px;
+        padding-top: 10px;
         text-align: center;
       }
 
@@ -133,8 +142,8 @@ body {
         padding-top: 20px;
         box-shadow: none;
         border: none;
-        width: 60px;
-        font-size: 15px;
+        width: 62px;
+        font-size: 17px;
         font-weight: normal;
       }
 
@@ -150,7 +159,7 @@ body {
       }
 
       .ui-slider-track {
-        margin-left: 60px;
+        margin-left: 65px;
         top: 45%;
         height:10%;
         border: none;
@@ -268,11 +277,14 @@ body {
 
   input {
     display: block;
-    padding: 10px;
+    padding: 15px;
     border: none;
     width: 100%;
     + input {
       margin-top: 10px;
+    }
+    &:focus {
+      outline: 1px solid lightgray;
     }
   }
   input[type="submit"] {
@@ -332,13 +344,13 @@ body {
     bottom: 0px;
     left: 0px;
     position: fixed;
-    padding: 20px;
+    padding: 0px;
     margin: 0px;
     background-color: #3B5998;
     color: white;
     text-align: center;
     font-size: 20px;
-    line-height: 64px;
+    line-height: 60px;
     border: none;
     border-radius: 0;
     box-shadow:none;
@@ -352,10 +364,13 @@ body {
       .transition;
     }
     .fb-login-button-icon {
-      float: left;
+      position: absolute;
       background: url(../img/basic_social/colored/64/rounded_square/facebook.png);
-      width: 64px;
-      height: 64px;
+      top: 5px;
+      left: 5px;
+      background-size: 50px 50px;
+      width: 50px;
+      height: 50px;
     }
   }
 }

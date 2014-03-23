@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var dogeAPI = require('../libraries/dogeapi');
-doge = new dogeAPI();
+var doge = new dogeAPI();
 
 async = require("async");
 
