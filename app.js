@@ -15,7 +15,7 @@ var express = require('express')
 var moment = require('moment');
 var passport = require('passport');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/dogecache');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/dogecache');
 
 var authRoute = require('./routes/auth');
 var apiRoute = require('./routes/api');
