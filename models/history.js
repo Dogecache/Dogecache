@@ -30,7 +30,7 @@ historySchema.statics.addHistory = function (user, loss, gain, longitude, latitu
 historySchema.statics.getHistory = function (userid, limit, callback) {
     var that = this;
     that
-        .find({userId: userid})
+        .find({fbId: userid})
         .sort({'date': -1})
         .limit(limit)
         .exec(function (err, results) {
