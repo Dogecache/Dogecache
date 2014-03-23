@@ -33,4 +33,20 @@ cacheSchema.statics.addCache = function(user, amount, longitude, latitude, callb
     });
 };
 
+cacheSchema.statics.findCaches = function(user, maxDistance, longitude, latitude, callback) {
+    Cache.find({
+        loc: {
+            $near: {
+                $geometry: {
+                    type: "Point",
+                    coordinates: [longitude, latitude]
+                },
+                $maxDistance: maxDistance
+            }
+        }
+    }, function(err, results) {
+        callback(err, results);
+    });
+};
+
 module.exports = mongoose.model('cache', cacheSchema);
