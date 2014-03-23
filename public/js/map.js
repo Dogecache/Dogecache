@@ -173,10 +173,35 @@
         var pixelWidth = Math.min(this.$container.width(), this.$container.height());
         var zoom = Math.floor(Math.log(pixelWidth * 360 / angle / GLOBE_WIDTH) / Math.LN2);
 
-        console.log(zoom);
         this.gmap.setZoom(zoom);
 
+        // Calculate field of view angle
+        var fov = (pixelWidth * 360) / (Math.pow(2, zoom) * GLOBE_WIDTH);
+//        console.log(zoom, fov);
 
+        function distance(lat1, lon1, lat2, lon2) {
+            var R = 6371; // km
+            var dLat = (lat2-lat1) * Math.PI / 180;
+            var dLon = (lon2-lon1) * Math.PI / 180;
+            lat1 = lat1 * Math.PI / 180;
+            lat2 = lat2 * Math.PI / 180;
+
+            var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return d = R * c * 1000;
+        }
+
+        var displayRadius = distance(this.center.coords.latitude, this.center.coords.longitude - fov/2, this.center.coords.latitude, this.center.coords.longitude + fov/2) / 2;
+
+        var circleRadius = radius / displayRadius * pixelWidth;
+
+        $('.map_circle').css({
+            width: circleRadius + "px",
+            height: circleRadius + "px",
+            "margin-top": -circleRadius/2 + "px",
+            "margin-left": -circleRadius/2 + "px"
+        })
     };
     Map.prototype._onResize = function() {
         // immediately recenter the map
