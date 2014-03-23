@@ -2,7 +2,7 @@
 @mainBg: lighten(@bg, 5%);
 
 .radial-gradient(@centerX: center, @centerY: center, @shape: circle, @size: contain, @startColor: #555, @startPos: 0, @endColor: #333, @endPos: 100%) {
-  background-color:@endColor;
+//  background-color:@endColor;
   background-image: -moz-radial-gradient(@centerX @centerY, @shape @size, @startColor @startPos, @endColor @endPos);
   background-image: -webkit-gradient(radial, @centerX @centerY, @shape @size, @startColor @startPos, @endColor @endPos);
   background-image: -webkit-radial-gradient(@centerX @centerY, @shape @size, @startColor @startPos, @endColor @endPos);
@@ -162,6 +162,7 @@ body {
   bottom: 2*(@actionHeight+10)+10;
   width: 100%;
   margin-bottom:0;
+  overflow: hidden;
 
   .map_gmap {
     width: 100%;
@@ -182,9 +183,8 @@ body {
     margin: 0;
     bottom: 2*@actionHeight;
     z-index: 3;
-    overflow: hidden;
-    border: 3px solid #45ca3a;
-    border-radius: 1000px;
+//    border: 3px solid #45ca3a;
+    border-radius: 50%;
 
 //    pointer-events: none;
 
@@ -194,7 +194,7 @@ body {
         height:0px;
         opacity:0;
       }
-      10% { opacity:1; }
+      15% { opacity:1; }
       70% {
         opacity:0.5;
       }
@@ -204,6 +204,16 @@ body {
         opacity:0;
       }
     }
+
+    .map_circle_outer {
+      border-radius: 50%;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      .radial-gradient(50%, 50%, circle, cover, fade(#45CA3A, 0%), 60%, #45CA3A, 100%);
+      z-index: 11;
+    }
+
     .map_circle_inner {
       // TODO: non-Webkit prefixes
       border-radius:50%;
@@ -211,11 +221,12 @@ body {
       height: 0px; width: 0px;
       opacity: 0;
       top: 50%; left:50%;
+      z-index: 10;
 //      border: 2px solid rgba(66, 152, 181, 1);
       -webkit-animation: pulsate 1s infinite;
 //      background-color:#4298b5;
       border: 5px solid fade(darken(#45CA3A, 20%),10%);
-      .radial-gradient(50%, 50%, circle, cover, fade(#45CA3A, 20%), 60%, #45CA3A, 80%);
+      .radial-gradient(50%, 50%, circle, cover, fade(#45CA3A, 70%), 60%, #45CA3A, 80%);
       -webkit-transform:translateX(-50%) translateY(-50%);
     }
   }
