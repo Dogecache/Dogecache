@@ -11,7 +11,7 @@ var userSchema = new mongoose.Schema({
     dogeAddress: String,
     email: String,
     balance: Number
-}, { _id: false });
+}, {_id: false});
 
 userSchema.statics.findOrCreate = function (profile, callback) {
     var that = this;

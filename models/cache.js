@@ -26,7 +26,7 @@ cacheSchema.statics.addCache = function(user, amount, longitude, latitude, callb
 
         // Create the cache
         var cache = new that({
-            fbId: user.id,
+            fbId: user.fbId,
             amount: amount,
             loc: [longitude, latitude]
         });
@@ -41,7 +41,7 @@ cacheSchema.statics.findCaches = function(user, maxDistance, longitude, latitude
     var that = this;
     that.find({
         fbId: {
-            $ne: user.id
+            $ne: user.fbId
         },
         loc: {
             $near: {
