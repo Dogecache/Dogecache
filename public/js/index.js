@@ -29,10 +29,10 @@ $(document).ready(function () {
 });
 
 function gpsPermissionGranted(position) {
-  $('#gpsApproval h1').html(':)');
+  $('#gpsApproval h1').html('<i class="fa fa-thumbs-o-up"></i>');
   $('#gpsApproval').animate({
     backgroundColor: '#27ae60'
-  }, 100).delay(400).animate({
+  }, 100).delay(500).animate({
     opacity: 0
   }, 200, function(){
     $('#gpsApproval').css('zIndex', '-1')
