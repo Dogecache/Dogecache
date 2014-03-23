@@ -36,9 +36,14 @@ exports.cache = function(req, res) {
                 var maxDistance = req.body.amount; // max search radius in meters TODO: scale the amount to the distance via function
                 Cache.findCaches(user, maxDistance, req.body.longitude, req.body.latitude, function(err, caches) {
                     // Third, gather caches
-                    Cache.gatherCaches(user, caches, function(err) {
-                        // Done
-                        res.send(caches);
+                    Cache.gatherCaches(user, caches, function(err, gain) {
+                        //Add a new transaction entry
+                       History.addHistory(user, req.body.amount, gain, req.body.longitude, req.body.latitude, function(err, history) {
+                           // Done
+                           res.send(caches);
+                       })
+
+
                     });
                 })
             }

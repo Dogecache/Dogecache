@@ -74,8 +74,10 @@
                 //PUT STUFF HERE FOR WHEN USER SUCCESSFULLY SEARCHES
                 if (!balance.check(amount)) {
                     notify('Insufficient Doge', 'Please deposit more dogecoin.');
+                    that.enable();
                 } else {
-                    API.cache(amount, function() {
+                    API.cache(amount, function(data) {
+                        notify("Search Complete!", "You have" + balance + " dogecoin now.")
                         that.enable();
                     });
                 }

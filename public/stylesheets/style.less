@@ -103,7 +103,14 @@ body {
       color: @navItemColor;
       font-size: 12px;
       line-height:15px;
-      text-shadow: 0 0 5px white!important
+      text-shadow: 0 0 20px #fff,
+        0 0 20px #fff,
+        0 0 20px #fff,
+        0 0 20px #fff,
+        0 0 20px #fff,
+        0 0 20px #fff,
+        0 0 20px #fff,
+        0 0 20px #fff!important;
     }
 
   }
@@ -345,6 +352,30 @@ body {
       background-color: @btnMainColor;
       color: @textColor;
     }
+
+  .content {
+    table {
+      border-collapse:collapse;
+      th {
+        padding-left: 15px;
+        padding-right: 15px;
+        background-color: white;
+      }
+      td {
+        padding: 5px;
+        padding-left: 15px;
+        padding-right: 15px;
+        border: none;
+        text-align: center;
+        &:first-of-type {
+          text-align: left;
+        }
+      }
+      tr:nth-child(odd) {
+        background-color: white;
+      }
+    }
+  }
 }
 
 .splash-page {
@@ -473,8 +504,8 @@ body {
       .close-btn {
         font-family: fontawesome;
         position: absolute;
-        right: 3px;
-        top: 2px;
+        right: 7px;
+        top: 5px;
         font-size: 20px;
         &:hover {
           cursor: pointer;
