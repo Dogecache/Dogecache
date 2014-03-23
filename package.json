@@ -13,6 +13,7 @@
     "passport-facebook": "~1.0.3",
     "validator": "~3.5.0",
     "request": "~2.34.0",
-    "async": "~0.2.10"
+    "async": "~0.2.10",
+    "sendgrid": "~1.0.2"
   }
 }

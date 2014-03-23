@@ -22,7 +22,7 @@ passport.deserializeUser(function(id, done) {
     });
 });
 
-exports.login = passport.authenticate('facebook');
+exports.login = passport.authenticate('facebook', {scope: "email"});
 
 exports.loginCallback = passport.authenticate('facebook', {
     successRedirect: '/map',
