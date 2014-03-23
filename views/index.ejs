@@ -1,13 +1,24 @@
 <%- include header.ejs %>
 
 <div class="navbar">
-  <img id="profile-pic" src="../hthsyrs.png" />
+  <div id="profile-pic">
+    <img src="/img/profile-pic-default.png" />
+  </div>
+  <div class="user-info">
+    <div id="name">Andrew Millman</div>
+    <br/>
+    <div id="balance">6,403 Doge</div>
+  </div>
 </div>
+
 <div id="map"></div>
+
 <div class="actions">
-  <div id="wager"></div>
+  <div class="wager"></div>
   <div class="search-area">
-    <div id="search-slider"></div>
+    Slide to Search
+    <div id="search-slider"><i class="fa fa-arrow-right"></i></div>
+    <div id="search-drop"></div>
   </div>
 </div>
 
