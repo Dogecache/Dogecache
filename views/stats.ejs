@@ -49,7 +49,7 @@
                     <li>Total Wagered: <span class="minus"><%= zero ? 0 : aggregate[0].totalLoss %></span></li>
                     <li>Total Gained: <span class="plus"><%= zero ? 0 : aggregate[0].totalGain %></span></li>
                     <li>Average Wager: <%= zero ? 0 : aggregate[0].avgLoss %></li>
-                    <li>Average Gained: <%= zero ? 0 : aggregate[0].avgGain %></li>
+                    <li>Average Gained: <span class="<%= colorval(zero ? 0 : aggregate[0].avgGain) %>"><%= zero ? 0 : aggregate[0].avgGain %></span></li>
                     <li>Total Searches: <%= zero ? 0 : aggregate[0].totalSearches %></li>
                 </ul>
             </div>
