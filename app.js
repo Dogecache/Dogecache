@@ -6,6 +6,7 @@
 var express = require('express')
   , routes = require('./routes')
   , settings = require('./routes/settings')
+  , stats = require('./routes/stats')
   , login = require('./routes/login')
   , user = require('./routes/user')
   , http = require('http')
@@ -43,6 +44,7 @@ app.configure('development', function(){
 
 app.get('/map', routes.index);
 app.get('/settings', settings.index);
+app.get('/stats', stats.index);
 app.get('/', login.index);
 app.get('/users', user.list);
 app.get('/auth/login', authRoute.login);

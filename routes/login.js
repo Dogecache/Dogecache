@@ -1,6 +1,6 @@
 
 /*
- * GET settings page.
+ * GET login page.
  */
 
 exports.index = function(req, res){
