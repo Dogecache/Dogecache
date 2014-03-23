@@ -64,11 +64,3 @@ exports.withdraw = function(req, res) {
         });
     });
 };
-
-exports.history = function(req, res) {
-    auth(req, res, function(err, user) {
-        History.getHistory(user.fbId,5, function(err, result) {
-            res.send(result);
-        })
-    })
-}

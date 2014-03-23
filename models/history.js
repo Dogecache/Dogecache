@@ -16,7 +16,7 @@ historySchema.statics.addHistory = function (user, loss, gain, longitude, latitu
 
     // Create the entry
     var history = new that({
-        userId: user.id,
+        fbId: user.fbId,
         loss: loss,
         gain: gain,
         loc: [longitude, latitude]

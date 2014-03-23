@@ -431,7 +431,7 @@ body {
     padding-bottom: 20px;
   }
 
-  .fb-login-button {
+  .map-button, .fb-login-button {
     width:100%;
     height: 60px;
     bottom: 0px;
@@ -461,6 +461,13 @@ body {
       font-size: 28px;
       left: 20px;
       top: 18px;
+    }
+  }
+
+  .map-button {
+    background-color: rgb(24, 147, 18);
+    &:hover, &:active, &:focus {
+      background: lighten(rgb(24, 147, 18), 10%);
     }
   }
 }
