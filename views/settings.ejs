@@ -8,7 +8,7 @@
         <div class="qr-code">
           <img src="<%- qr %>" />
         </div><div class="doge-address">
-          <%- user.dogeAddress %>
+          <%= user.dogeAddress %>
         </div>
       </div>
     </div>
@@ -16,9 +16,9 @@
       <h1>Withdraw</h1>
       <div class="content">
         <form>
-          <input type="text" name="send_address" placeholder="Send Address..." />
-          <input type="text" name="amount" placeholder="Amount..." />
-          <input type="submit" value="Send">
+          <input data-role="none" type="text" name="send_address" placeholder="Send Address..." />
+          <input data-role="none" type="text" name="amount" placeholder="Amount..." />
+          <input data-role="none" type="submit" value="Send">
         </form>
       </div>
     </div>

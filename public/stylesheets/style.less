@@ -1,5 +1,5 @@
-@bg: #dddddd;
-@mainBg: lighten(@bg, 10%);
+@bg: #eeeeee;
+@mainBg: lighten(@bg, 5%);
 
 .navBg {
   background: -webkit-linear-gradient(@bg, rgba(0,0,0,0));
@@ -40,6 +40,11 @@ html {
   height: 100%;
 }
 
+.ui-page, .ui-body-c, .ui-page-active, .ui-overlay-c, .ui-mobile-viewport
+{
+    background: transparent !important;
+}
+
 body {
   height: 100%;
   padding: 0;
@@ -47,6 +52,10 @@ body {
   background-color: @bg;
   font: 14px "Lato", Helvetica, Arial, sans-serif;
   font-family: "Lato"!important;
+}
+
+.ui-overlay-a {
+  background-color: @bg!important;
 }
 
 .navbar {
@@ -267,11 +276,14 @@ body {
 
   input {
     display: block;
-    padding: 10px;
+    padding: 15px;
     border: none;
     width: 100%;
     + input {
       margin-top: 10px;
+    }
+    &:focus {
+      outline: 1px solid lightgray;
     }
   }
   input[type="submit"] {
