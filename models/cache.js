@@ -40,6 +40,9 @@ cacheSchema.statics.addCache = function(user, amount, longitude, latitude, callb
 cacheSchema.statics.findCaches = function(user, maxDistance, longitude, latitude, callback) {
     var that = this;
     that.find({
+        userId: {
+            $ne: user.id
+        },
         loc: {
             $near: {
                 $geometry: {
