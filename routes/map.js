@@ -4,5 +4,9 @@
  */
 
 exports.index = function(req, res){
-  res.render('map', { title: 'Express' });
+  if (req.user) {
+    res.render('map', { title: 'Express' });
+  } else {
+    res.redirect('/');
+  }
 };
