@@ -74,11 +74,20 @@ body {
     display:inline-block;
   }
 
+//background: -moz-linear-gradient(-45deg,  rgba(238,238,238,1) 0%, rgba(238,238,238,0.71) 51%, rgba(238,238,238,0) 100%); /* FF3.6+ */
+//background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(238,238,238,1)), color-stop(51%,rgba(238,238,238,0.71)), color-stop(100%,rgba(238,238,238,0))); /* Chrome,Safari4+ */
+//background: -webkit-linear-gradient(-45deg,  rgba(238,238,238,1) 0%,rgba(238,238,238,0.71) 51%,rgba(238,238,238,0) 100%); /* Chrome10+,Safari5.1+ */
+//background: -o-linear-gradient(-45deg,  rgba(238,238,238,1) 0%,rgba(238,238,238,0.71) 51%,rgba(238,238,238,0) 100%); /* Opera 11.10+ */
+//background: -ms-linear-gradient(-45deg,  rgba(238,238,238,1) 0%,rgba(238,238,238,0.71) 51%,rgba(238,238,238,0) 100%); /* IE10+ */
+//background: linear-gradient(135deg,  rgba(238,238,238,1) 0%,rgba(238,238,238,0.71) 51%,rgba(238,238,238,0) 100%); /* W3C */
+//filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#00eeeeee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+
   #back-button {
     height: 100%;
     width: 10px;
     position: relative;
-    top: -12px;
+    top: -20px;
     left: 0;
     line-height: 45px;
     padding-left: 5px;
@@ -88,8 +97,8 @@ body {
   }
 
   #profile-pic {
-    height: 45px;
-    width: 45px;
+    height: 60px;
+    width: 60px;
     margin-left: 10px;
     margin-top: 10px;
 
@@ -105,12 +114,12 @@ body {
 
   .user-info {
     position: absolute;
-    top: 9px;
-    left: 75px;
+    top: 13px;
+    left: 90px;
 
     * {
       color: @navItemColor;
-      font-size: 12px;
+      font-size: 20px;
       line-height:15px;
       text-shadow: 0 0 20px #fff,
         0 0 20px #fff,
@@ -126,7 +135,7 @@ body {
 
   .nav-buttons {
     position: absolute;
-    top: 0;
+    top: 10px;
     right: 0;
     height: 100%;
     padding-right: 5px;
@@ -253,12 +262,12 @@ body {
       }
 
       .ui-slider-handle {
-        width: 20px;
+        width: 10px;
         margin: 0;
         height: 50px;
         top: -20px;
         border: none;
-        background: #666;
+        background: #bbb;
         box-shadow: none;
         border-radius: 0;
       }
@@ -268,7 +277,7 @@ body {
         top: 44%;
         height:20%;
         border: none;
-        background: #999;
+        background: #ddd;
         box-shadow: none;
         border-radius: 0;
       }
