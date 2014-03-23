@@ -1,52 +1,59 @@
 <%- include header.ejs %>
 <%- include navbar.ejs %>
-
-<% function colorval(num){
-  if(parseFloat(num)<0) {
-    return 'minus';
-  }
-  if(parseFloat(num)>0) {
-    return 'plus';
-  }
-  return '';
+<% function colorval(num) {
+    if (parseFloat(num) < 0) {
+        return 'minus';
+    }
+    if (parseFloat(num) > 0) {
+        return 'plus';
+    }
+    return '';
 } %>
 <div class="page-wrapper">
-  <div class="page-container">
-    <div class="card">
-      <h1>History</h1>
-      <div class="content">
-        <table>
-            <tr>
-                <th>Date</th>
-                <th>Ð Wagered</th>
-                <th>Ð Found</th>
-                <th>Net</th>
-            </tr>
-            <% for(var i=0; i<history.length; i++) {%>
-              <tr>
-                <td><%= moment(history[i].date).format('MMMM Do YYYY, h:mm:ss a') %></td>
-                <td><span class="<%= history[i].loss = 0 ? 'none' : 'minus' %>"><%= history[i].loss %></span></td>
-                <td><span class="<%= history[i].gain = 0 ? 'none' : 'plus' %>""><%= history[i].gain %></span></td>
-                <td><span class="<%= colorval(history[i].gain - history[i].loss) %>"><%= history[i].gain - history[i].loss %></span></td>
-              </tr>
-            <% } %>
-        </table>
-        <% if (history.length==0) { %>
-          <div class="notransactions">You have no transactions yet :(</div>
-        <% } %>
-      </div>
+    <div class="page-container">
+        <div class="card">
+            <h1>History</h1>
+
+            <div class="content">
+                <table>
+                    <tr>
+                        <th>Date</th>
+                        <th>Ð Wagered</th>
+                        <th>Ð Found</th>
+                        <th>Net</th>
+                    </tr>
+                    <% for(var i = 0; i < history.length; i++) { %>
+                    <tr>
+                        <td><%= moment(history[i].date).format('MMMM Do YYYY, h:mm:ss a') %></td>
+                        <td><span class="<%= history[i].loss = 0 ? 'none' : 'minus' %>"><%= history[i].loss %></span>
+                        </td>
+                        <td><span class="<%= history[i].gain = 0 ? 'none' : 'plus' %>""><%= history[i].gain %></span>
+                        </td>
+                        <td>
+                            <span class="<%= colorval(history[i].gain - history[i].loss) %>"><%= history[i].gain - history[i].loss %></span>
+                        </td>
+                    </tr>
+                    <% } %>
+                </table>
+                <% if (history.length == 0) { %>
+                <div class="notransactions">You have no transactions yet :(</div>
+                <% } %>
+            </div>
+        </div>
+        <div class="card">
+            <h1>Statistics</h1>
+
+            <div class="content">
+                <ul>
+                    <% if (aggregate.length == 0) var zero = true; %>
+                    <li>Total Wagered: <span class="minus"><%= zero ? 0 : aggregate[0].totalLoss %></span></li>
+                    <li>Total Gained: <span class="plus"><%= zero ? 0 : aggregate[0].totalGain %></span></li>
+                    <li>Average Wager: <%= zero ? 0 : aggregate[0].avgLoss %></li>
+                    <li>Average Gained: <%= zero ? 0 : aggregate[0].avgGain %></li>
+                    <li>Total Searches: <%= zero ? 0 : aggregate[0].totalSearches %></li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <!--<div class="card">
-      <h1>Statistics</h1>
-      <div class="content">
-        <ul>
-          <li>Gain: <span class="plus">3345345234</span></li>
-          <li>Lost: <span class="minus">348570923</span></li>
-          <li>Total Searches: 234</li>
-          <li>Avg. Per Search: <span class="plus">3452</span></li>
-        </ul>
-      </div>
-    </div>-->
-  </div>
 </div>
 <%- include footer.ejs %>
