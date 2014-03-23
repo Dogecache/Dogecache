@@ -36,6 +36,12 @@
         });
     });
 
+
+    function _enableSlider() {
+        $("#search-slider").draggable("enable").css("left", 0);
+        $('.search-area').css("color", "rgba(255,255,255, 0)");
+    }
+
     function gpsPermissionGranted(position) {
         $('#gpsApproval h1').html('<i class="fa fa-thumbs-o-up"></i>');
         $('#gpsApproval').animate({
