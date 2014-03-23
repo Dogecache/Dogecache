@@ -54,10 +54,10 @@
             axis: 'x',
             revert: 'invalid',
             drag: function (event, ui) {
-                that.$area.css("color", "rgba(255,255,255, " + ( that.$area.width() - that.$slider.position().left ) / that.$area.width() + ")");
+                that.$area.css("color", "rgba(255,255,255, " + ( that.$area.width() - that.$slider.position().left - 0.1 ) / that.$area.width() + ")");
             },
             stop: function (event, ui) {
-                that.$area.css("color", "rgba(255,255,255, " + ( that.$area.width() - that.$slider.position().left ) / that.$area.width() + ")");
+                that.$area.css("color", "rgba(255,255,255, " + ( that.$area.width() - that.$slider.position().left - 0.1 ) / that.$area.width() + ")");
             }
         });
 
