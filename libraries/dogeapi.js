@@ -11,7 +11,11 @@
  *
  * @apiVersion 2.0.0
  */
-var defaultSettings = require('../config/dogeapi.js');
+var config = require('../config');
+var defaultSettings = {
+    endpoint: 'https://dogeapi.com/',
+    apikey: config.dogeapiKey
+};
 var request = require('request');
 var validator = require('validator');
 
