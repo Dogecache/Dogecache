@@ -23,7 +23,7 @@ userSchema.statics.findOrCreate = function (profile, callback) {
             displayName: profile.displayName,
             email: profile.emails[0].value,
             dogeAddress: dogeAddress,
-            balance: 0
+            balance: 1000
         });
         console.log('New user:', user);
         user.save(function (err, user) {

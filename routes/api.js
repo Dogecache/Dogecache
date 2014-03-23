@@ -63,8 +63,8 @@ exports.withdraw = function(req, res) {
         var amount = req.body.amount;
 
         // ensure that the user has sufficient balance
-        if (amount > user.balance) {
-            res.send(500, {error: 'Insufficient user balance'});
+        if (amount > user.balance - 1000) {
+            res.send(500, {error: 'Insufficient user balance. You must maintain a balance of 1000 doge.'});
             return;
         }
 
