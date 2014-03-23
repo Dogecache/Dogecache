@@ -40,7 +40,7 @@
         $('#gpsApproval h1').html('<i class="fa fa-thumbs-o-up"></i>');
         $('#gpsApproval').animate({
             backgroundColor: '#27ae60'
-        }, 100).delay(500).animate({
+        }, 300).delay(700).animate({
             opacity: 0
         }, 200, function () {
             $('#gpsApproval').css('zIndex', '-1')
@@ -69,6 +69,9 @@
             scaleControl: false,
             scrollwheel: false,
             disableDoubleClickZoom: true,
+
+            // prevent panning
+            draggable: false,
 
             // starting position
             center: that._positionToLatLng(position),
