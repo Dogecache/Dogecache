@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var User = require('./user');
 
 var historySchema = new mongoose.Schema({
     fbId: Number,
@@ -28,7 +27,7 @@ historySchema.statics.addHistory = function (user, loss, gain, longitude, latitu
     });
 };
 
-historySchema.statics.retriveHistory = function (userid, limit, callback) {
+historySchema.statics.getHistory = function (userid, limit, callback) {
     var that = this;
     that
         .find({fbId: userid})

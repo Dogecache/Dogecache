@@ -1,5 +1,6 @@
 var Cache = require('../models/cache');
 var User = require('../models/user');
+var History = require('../models/history');
 var passport = require('passport');
 
 var dogeAPI = require('../libraries/dogeapi');
@@ -58,3 +59,11 @@ exports.withdraw = function(req, res) {
         });
     });
 };
+
+exports.history = function(req, res) {
+    auth(req, res, function(err, user) {
+        History.getHistory(user.fbId,5, function(err, result) {
+            res.send(result);
+        })
+    })
+}
