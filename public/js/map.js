@@ -116,9 +116,8 @@
         var pixelWidth = this.$container.width();
         var zoom = Math.floor(Math.log(pixelWidth * 360 / angle / GLOBE_WIDTH) / Math.LN2);
 
-        console.log(angle, zoom);
-
-
+        console.log(zoom);
+        this.gmap.setZoom(zoom-10);
     };
     Map.prototype._onResize = function() {
         // immediately recenter the map
