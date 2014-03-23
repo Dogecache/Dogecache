@@ -46,6 +46,7 @@ app.get('/users', user.list);
 app.get('/auth/login', authRoute.login);
 app.get('/auth/callback', authRoute.loginCallback);
 app.get('/auth/logout', authRoute.logout);
+app.post('/api/cache', apiRoute.cache);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
