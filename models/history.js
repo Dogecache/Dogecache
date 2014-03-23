@@ -38,5 +38,28 @@ historySchema.statics.getHistory = function (userid, limit, callback) {
         });
 };
 
+historySchema.statics.getAggregate = function(userid, callback) {
+    var that = this;
+
+    // and here are the grouping request:
+    that.aggregate([
+        { $match: {fbId: userid} },
+        {
+            $group: {
+                _id: null,
+                totalLoss: { $sum: '$loss'},
+                totalGain: { $sum: '$gain'},
+                maxGain: {$max: '$gain'},
+                maxLoss: {$max: '$loss'},
+                avgGain: {$avg: '$gain'},
+                avgLoss: {$avg: '$loss'},
+                totalSearches: { $sum: 1 }
+            }
+        }]
+    , function(err, res){
+        callback(err, res)
+    });
+}
+
 
 module.exports = mongoose.model('history', historySchema);
