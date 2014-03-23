@@ -1,3 +1,17 @@
+$(document).ready(function(){
+  $('.card').css('opacity', 0).css('top', $(window).height());
+  var del=0;
+  $('.card').each(function(){
+    $(this).delay(del).animate({
+      opacity: 1,
+      top: 0
+    }, 500)
+    del += 200;
+  }, function(){
+    del=0;
+  })
+});
+
 function notify(title, body) {
   $('.notification .pane h1').html(title);
   $('.notification .content').html(body);

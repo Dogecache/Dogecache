@@ -15,6 +15,7 @@
     <div class="card">
       <h1>Withdraw</h1>
       <div class="content">
+        <div id="reader" style="width: 300px; height: 250px; margin: 0 auto"></div>
         <form>
           <input data-role="none" type="text" name="send_address" placeholder="Send Address..." />
           <input data-role="none" type="text" name="amount" placeholder="Amount..." />
@@ -25,4 +26,17 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript" src="/js/html5-qrcode/lib/html5-qrcode.min.js"></script>
+<script type="text/javascript">
+    $('#reader').html5_qrcode(function(data){
+                $('input[name="send_address"]').val(data.replace(/^dogecoin:/, ''));
+            },
+            function(error){
+                console.log('read error', error);
+            }, function(videoError){
+                console.log('video stream error', videoError);
+            }
+    );
+</script>
 <%- include footer.ejs %>
