@@ -13,11 +13,6 @@
         var searchSlider = new SearchSlider('#search-slider', '#search-drop', '.search-area');
     });
 
-
-    function _enableSlider() {
-
-    }
-
     function gpsPermissionGranted(position) {
         $('#gpsApproval h1').html('<i class="fa fa-thumbs-o-up"></i>');
         $('#gpsApproval').animate({
@@ -70,8 +65,8 @@
     };
     SearchSlider.prototype.enable = function() {
         this.isDropped = false;
-        this.$slider.draggable("enable").css("left", 0);
-        this.$area.css("color", "rgba(255,255,255, 0)");
+        this.$slider.draggable("enable").animate({"left": 0}, 500);
+        this.$area.animate({"color": "rgba(255,255,255, 1)"}, 500);
     };
     SearchSlider.prototype._onResize = function(e) {
         if (this.isDropped) {
