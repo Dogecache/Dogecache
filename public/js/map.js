@@ -76,12 +76,18 @@
                     notify('Insufficient Doge', 'Please deposit more dogecoin.');
                     that.enable();
                 } else {
-                    API.cache(amount, function(data) {
-                        map.showCaches(data, function() {
-                            notify("Search Complete!", "You have " + balance.getBalance() + " dogecoin now.");
-                            that.enable()
+                    $('.map_circle_radar').css({opacity: 1});
+                    $('.map_circle_inner_wrap').css({opacity: 0});
+                    setTimeout(function() {
+                        API.cache(amount, function(data) {
+                            map.showCaches(data, function() {
+                                $('.map_circle_radar').css({opacity: 0});
+                                $('.map_circle_inner_wrap').css({opacity: 1});
+                                notify("Search Complete!", "You have " + balance.getBalance() + " dogecoin now.");
+                                that.enable()
+                            });
                         });
-                    });
+                    }, 1500);
                 }
             }
         });

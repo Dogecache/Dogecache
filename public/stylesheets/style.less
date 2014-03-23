@@ -195,8 +195,11 @@ body {
         opacity:0;
       }
       15% { opacity:1; }
-      70% {
+      40% {
         opacity:0.5;
+      }
+      70% {
+        opacity: 0.1%;
       }
       100% {
         width: 100%;
@@ -214,6 +217,10 @@ body {
       z-index: 11;
     }
 
+    .map_circle_inner_wrap {
+      -webkit-transition: opacity 0.75s;
+    }
+
     .map_circle_inner {
       // TODO: non-Webkit prefixes
       border-radius:50%;
@@ -223,11 +230,35 @@ body {
       top: 50%; left:50%;
       z-index: 10;
 //      border: 2px solid rgba(66, 152, 181, 1);
-      -webkit-animation: pulsate 1s infinite;
+      -webkit-animation: pulsate 2s infinite;
 //      background-color:#4298b5;
       border: 5px solid fade(darken(#45CA3A, 20%),10%);
       .radial-gradient(50%, 50%, circle, cover, fade(#45CA3A, 70%), 60%, #45CA3A, 80%);
       -webkit-transform:translateX(-50%) translateY(-50%);
+    }
+
+    @-webkit-keyframes rotating {
+      from{
+        -webkit-transform: rotate(0deg);
+      }
+      to{
+        -webkit-transform: rotate(360deg);
+      }
+    }
+
+    .map_circle_radar {
+      background: url(../img/radar.png);
+      background-size: cover;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      top: 50%;
+      left: 50%;
+      margin-top: -50%;
+      margin-left: -50%;
+      -webkit-animation: rotating 2s linear infinite;
+      -webkit-transition: opacity 0.75s;
     }
   }
 }
