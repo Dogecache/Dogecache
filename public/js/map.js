@@ -1,5 +1,5 @@
 (function () {
-    var map;
+    var map, balance;
 
     $(document).ready(function () {
         map = new Map('map');
@@ -11,6 +11,7 @@
         });
 
         var searchSlider = new SearchSlider('#search-slider', '#search-drop', '.search-area');
+        balance = new Balance(startingBalance, '#balance_num');
     });
 
     function gpsPermissionGranted(position) {
@@ -35,6 +36,7 @@
             latitude: position.coords.latitude,
             longitude: position.coords.longitude
         }, function(data) {
+            balance.subtract(amount);
             if (callback) callback(data);
         });
     };
@@ -68,11 +70,12 @@
                     "left": that.$area.width() - that.$slider.width() }, 200);
                 that.$area.css("color", "rgba(255,255,255, 0)");
 
+                var amount = $("#wager-slider").val();
                 //PUT STUFF HERE FOR WHEN USER SUCCESSFULLY SEARCHES
-                if (parseInt($("#wager-slider").val())>parseInt($('#balance').text())) {
+                if (!balance.check(amount)) {
                     notify('Insufficient Doge', 'Please deposit more dogecoin.');
                 } else {
-                    API.cache($("#wager-slider").val(), function() {
+                    API.cache(amount, function() {
                         that.enable();
                     });
                 }
@@ -179,5 +182,24 @@
     };
     Map.prototype.getPosition = function() {
         return this.center;
+    };
+
+    var Balance = function(startingBalance, selector) {
+        this.$elem = $(selector);
+        this.balance = startingBalance;
+        this._update();
+    };
+    Balance.prototype._update = function() {
+        this.$elem.text(this.balance);
+    };
+    Balance.prototype.getBalance = function() {
+        return this.balance;
+    };
+    Balance.prototype.subtract = function(amount) {
+        this.balance -= amount;
+        this._update();
+    };
+    Balance.prototype.check = function(amount) {
+        return amount <= this.balance;
     };
 })();

@@ -27,5 +27,8 @@
 
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKMNiwXFPxNyNczYX2j_Hc3KQWCuR_SBo&sensor=true"></script>
 <script type="text/javascript" src="/js/jquery.throttledresize.js"></script>
+<script type="text/javascript">
+    window.startingBalance = <%= user.balance %>;
+</script>
 <script type="text/javascript" src="/js/map.js"></script>
 <%- include footer.ejs %>
