@@ -24,7 +24,8 @@
 
 
 * {
-  box-sizing: border-box;
+  box-sizing: border-box!important;
+  text-shadow: none!important;
 }
 
 html {
@@ -101,6 +102,58 @@ body {
     width: 100%;
     height: @actionHeight;
     background: white;
+
+
+    .ui-slider {
+
+      height: 100%;
+
+      &:before {
+        position: absolute;
+        content: "WAGER";
+        color: #555;
+        height:100%;
+        width: 60px;
+        padding-top: 5px;
+        text-align: center;
+      }
+
+      #wager-slider {
+        height: 100%;
+        padding-top: 20px;
+        box-shadow: none;
+        border: none;
+        width: 60px;
+        font-size: 15px;
+        font-weight: normal;
+      }
+
+      .ui-slider-handle {
+        width: 5px;
+        margin: 0;
+        height: 30px;
+        top: -13px;
+        border: none;
+        background: #666;
+        box-shadow: none;
+        border-radius: 0;
+      }
+
+      .ui-slider-track {
+        margin-left: 60px;
+        top: 45%;
+        height:10%;
+        border: none;
+        background: #999;
+        box-shadow: none;
+        border-radius: 0;
+      }
+
+      .ui-slider-bg {
+        background: #3498db;
+      }
+
+    }
   }
 
   .search-area {
