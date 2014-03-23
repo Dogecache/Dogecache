@@ -4,5 +4,12 @@
  */
 
 exports.index = function(req, res){
-  res.render('stats', { title: 'Statistics' });
+  if (req.user) {
+    res.render('stats', {
+      title: 'Statistics',
+      user: req.user
+    });
+  } else {
+    res.redirect('/');
+  }
 };
