@@ -30,11 +30,10 @@
                 <td><span class="<%= colorval(history[i].gain - history[i].loss) %>"><%= history[i].gain - history[i].loss %></span></td>
               </tr>
             <% } %>
-            <% if (history.length==0) { %>
-              <span>You have no transactions yet :(</span>
-            <% } %>
-
         </table>
+        <% if (history.length==0) { %>
+          <div class="notransactions">You have no transactions yet :(</div>
+        <% } %>
       </div>
     </div>
     <!--<div class="card">
