@@ -1,6 +1,15 @@
 @bg: #eeeeee;
 @mainBg: lighten(@bg, 5%);
 
+.radial-gradient(@centerX: center, @centerY: center, @shape: circle, @size: contain, @startColor: #555, @startPos: 0, @endColor: #333, @endPos: 100%) {
+  background-color:@endColor;
+  background-image: -moz-radial-gradient(@centerX @centerY, @shape @size, @startColor @startPos, @endColor @endPos);
+  background-image: -webkit-gradient(radial, @centerX @centerY, @shape @size, @startColor @startPos, @endColor @endPos);
+  background-image: -webkit-radial-gradient(@centerX @centerY, @shape @size, @startColor @startPos, @endColor @endPos);
+  background-image: -o-radial-gradient(@centerX @centerY, @shape @size, @startColor @startPos, @endColor @endPos);
+  background-image: -ms-radial-gradient(@centerX @centerY, @shape @size, @startColor @startPos, @endColor @endPos);
+  background-image: radial-gradient(@shape at @centerX @centerY, @startColor @startPos, @endColor @endPos);
+}
 
 .gradientReverse {
   background: -webkit-linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1));
@@ -163,7 +172,38 @@ body {
     left:0;
     bottom: 2*@actionHeight;
     z-index: 3;
+    overflow: hidden;
 //    pointer-events: none;
+
+    @-webkit-keyframes pulsate {
+      0% {
+        width:0px;
+        height:0px;
+        opacity:0;
+      }
+      1% { opacity:1; }
+      70% {
+        opacity:0.5;
+      }
+      100% {
+        width:950px;
+        height:950px;
+        opacity:0;
+      }
+    }
+    .map_circle_inner {
+      border-radius:50%;
+      position:absolute;
+      height: 0px; width: 0px;
+      top: 50%; left:50%;
+//      border: 2px solid rgba(66, 152, 181, 1);
+      -webkit-animation: pulsate 2s infinite;
+      animation: pulsate 2s infinite;
+//      background-color:#4298b5;
+      .radial-gradient(50%, 50%, circle, cover, fade(#45CA3A, 20%), 0%, #45CA3A, 80%);
+      -webkit-transform:translateX(-50%) translateY(-50%);
+      transform:translateX(-50%) translateY(-50%);
+    }
   }
 }
 
