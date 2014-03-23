@@ -40,7 +40,7 @@
         $('#gpsApproval h1').html('<i class="fa fa-thumbs-o-up"></i>');
         $('#gpsApproval').animate({
             backgroundColor: '#27ae60'
-        }, 100).delay(500).animate({
+        }, 300).delay(700).animate({
             opacity: 0
         }, 200, function () {
             $('#gpsApproval').css('zIndex', '-1')
@@ -70,11 +70,15 @@
             scrollwheel: false,
             disableDoubleClickZoom: true,
 
+            // prevent panning
+            draggable: false,
+
             // starting position
             center: that._positionToLatLng(position),
             zoom: 1
         };
         this.gmap = new google.maps.Map(this.$container.find('.map_gmap').get()[0], mapOptions);
+        google.maps.event.trigger(this.gmap, 'resize'); // https://stackoverflow.com/questions/3437907/google-maps-api-resizing-generates-blank-white-space
         this._updateRadius(10);
         navigator.geolocation.watchPosition(function(position) {
             that._updateCenter(position);
@@ -83,6 +87,9 @@
             enableHighAccuracy: true
         });
 
+        $(window).on("throttledresize", function( event ) {
+            that._onResize();
+        });
     };
     Map.prototype._updateCenter = function(center, animate) {
         this.center = center;
@@ -114,7 +121,7 @@
         if (angle < 0) {
             angle += 360;
         }
-        var pixelWidth = this.$container.width();
+        var pixelWidth = Math.min(this.$container.width(), this.$container.height());
         var zoom = Math.floor(Math.log(pixelWidth * 360 / angle / GLOBE_WIDTH) / Math.LN2);
 
         console.log(zoom);

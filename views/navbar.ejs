@@ -1,10 +1,19 @@
 <div class="navbar">
-  <div id="profile-pic">
+  <a id="back-button" href="map" style=<% if (isMap == true) { %>
+    <%= "display:none" %>
+  <% } %>
+  ><i class="fa fa-angle-left"></i></a>
+  <a id="profile-pic" href="map"
+  >
     <img src= <%= "https://graph.facebook.com/" + user.fbId + "/picture?width=90&height=90" %> />
-  </div>
+  </a>
   <div class="user-info">
     <div id="name"><%= user.displayName %></div>
     <br/>
     <div id="balance"><%= user.balance + ' Doge' %></div>
+  </div>
+  <div class="nav-buttons">
+    <a href="stats"><i class="fa fa-info-circle"></i></a>
+    <a href="settings"><i class="fa fa-gear"></i></a>
   </div>
 </div>

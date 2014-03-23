@@ -2,10 +2,14 @@
 @mainBg: lighten(@bg, 5%);
 
 .navBg {
-  background: -webkit-linear-gradient(@bg, rgba(0,0,0,0));
-  background: -o-linear-gradient(@bg, rgba(0,0,0,0));
-  background: -moz-linear-gradient(@bg, rgba(0,0,0,0));
-  background: linear-gradient(@bg, rgba(0,0,0,0));
+  background: -moz-linear-gradient(top,  rgba(117,117,117,1) 0%, rgba(164,164,164,1) 34%, rgba(221,221,221,0.5) 75%, rgba(255,255,255,0) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(117,117,117,1)), color-stop(34%,rgba(164,164,164,1)), color-stop(75%,rgba(221,221,221,0.5)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(117,117,117,1) 0%,rgba(164,164,164,1) 34%,rgba(221,221,221,0.5) 75%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(117,117,117,1) 0%,rgba(164,164,164,1) 34%,rgba(221,221,221,0.5) 75%,rgba(255,255,255,0) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(117,117,117,1) 0%,rgba(164,164,164,1) 34%,rgba(221,221,221,0.5) 75%,rgba(255,255,255,0) 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  rgba(117,117,117,1) 0%,rgba(164,164,164,1) 34%,rgba(221,221,221,0.5) 75%,rgba(255,255,255,0) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#757575', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
+
 }
 
 .gradientReverse {
@@ -71,6 +75,19 @@ body {
     display:inline-block;
   }
 
+  #back-button {
+    height: 100%;
+    width: 10px;
+    position: relative;
+    top: -12px;
+    left: 0;
+    line-height: 45px;
+    padding-left: 5px;
+    font-size: 35px;
+    color: #333;
+
+  }
+
   #profile-pic {
     height: 45px;
     width: 45px;
@@ -90,13 +107,34 @@ body {
   .user-info {
     position: absolute;
     top: 9px;
-    left: 70px;
+    left: 75px;
 
     * {
       font-size: 12px;
       line-height:15px;
     }
 
+  }
+
+  .nav-buttons {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    padding-right: 10px;
+
+    a {
+      line-height: @navHeight;
+      color: #333;
+      font-size: 30px;
+      padding-left: 7px;
+      padding-right: 7px;
+
+      &:hover, &:active {
+        cursor: pointer;
+        color: black;
+      }
+    }
   }
 }
 
@@ -126,7 +164,7 @@ body {
     left:0;
     bottom: 2*@actionHeight;
     z-index: 3;
-    pointer-events: none;
+//    pointer-events: none;
   }
 }
 
