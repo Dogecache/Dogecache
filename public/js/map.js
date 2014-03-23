@@ -3,7 +3,7 @@
 
     $(document).ready(function () {
         map = new Map('map');
-        navigator.geolocation.getCurrentPosition(gpsPermissionGranted);
+        navigator.geolocation.getCurrentPosition(gpsPermissionGranted, {enableHighAccuracy: true});
 
         $("#wager-slider").bind("change", function(e) {
             var value = e.target.value;
@@ -130,7 +130,7 @@
         navigator.geolocation.watchPosition(function(position) {
             that._updateCenter(position);
             that._updateRadius(that.radius);
-        }, null, {
+        }, {
             enableHighAccuracy: true
         });
 
