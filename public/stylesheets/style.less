@@ -2,7 +2,7 @@
 @mainBg: lighten(@bg, 5%);
 
 .radial-gradient(@centerX: center, @centerY: center, @shape: circle, @size: contain, @startColor: #555, @startPos: 0, @endColor: #333, @endPos: 100%) {
-  background-color:@endColor;
+//  background-color:@endColor;
   background-image: -moz-radial-gradient(@centerX @centerY, @shape @size, @startColor @startPos, @endColor @endPos);
   background-image: -webkit-gradient(radial, @centerX @centerY, @shape @size, @startColor @startPos, @endColor @endPos);
   background-image: -webkit-radial-gradient(@centerX @centerY, @shape @size, @startColor @startPos, @endColor @endPos);
@@ -74,11 +74,20 @@ body {
     display:inline-block;
   }
 
+//background: -moz-linear-gradient(-45deg,  rgba(238,238,238,1) 0%, rgba(238,238,238,0.71) 51%, rgba(238,238,238,0) 100%); /* FF3.6+ */
+//background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(238,238,238,1)), color-stop(51%,rgba(238,238,238,0.71)), color-stop(100%,rgba(238,238,238,0))); /* Chrome,Safari4+ */
+//background: -webkit-linear-gradient(-45deg,  rgba(238,238,238,1) 0%,rgba(238,238,238,0.71) 51%,rgba(238,238,238,0) 100%); /* Chrome10+,Safari5.1+ */
+//background: -o-linear-gradient(-45deg,  rgba(238,238,238,1) 0%,rgba(238,238,238,0.71) 51%,rgba(238,238,238,0) 100%); /* Opera 11.10+ */
+//background: -ms-linear-gradient(-45deg,  rgba(238,238,238,1) 0%,rgba(238,238,238,0.71) 51%,rgba(238,238,238,0) 100%); /* IE10+ */
+//background: linear-gradient(135deg,  rgba(238,238,238,1) 0%,rgba(238,238,238,0.71) 51%,rgba(238,238,238,0) 100%); /* W3C */
+//filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#00eeeeee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+
   #back-button {
     height: 100%;
     width: 10px;
     position: relative;
-    top: -12px;
+    top: -20px;
     left: 0;
     line-height: 45px;
     padding-left: 5px;
@@ -88,8 +97,8 @@ body {
   }
 
   #profile-pic {
-    height: 45px;
-    width: 45px;
+    height: 60px;
+    width: 60px;
     margin-left: 10px;
     margin-top: 10px;
 
@@ -105,13 +114,13 @@ body {
 
   .user-info {
     position: absolute;
-    top: 9px;
-    left: 75px;
+    top: 13px;
+    left: 90px;
 
     * {
       color: @navItemColor;
-      font-size: 12px;
-      line-height:15px;
+      font-size: 15px;
+      line-height:20px;
       text-shadow: 0 0 20px #fff,
         0 0 20px #fff,
         0 0 20px #fff,
@@ -126,7 +135,7 @@ body {
 
   .nav-buttons {
     position: absolute;
-    top: 0;
+    top: 10px;
     right: 0;
     height: 100%;
     padding-right: 5px;
@@ -153,6 +162,7 @@ body {
   bottom: 2*(@actionHeight+10)+10;
   width: 100%;
   margin-bottom:0;
+  overflow: hidden;
 
   .map_gmap {
     width: 100%;
@@ -173,9 +183,8 @@ body {
     margin: 0;
     bottom: 2*@actionHeight;
     z-index: 3;
-    overflow: hidden;
-    border: 3px solid #45ca3a;
-    border-radius: 1000px;
+//    border: 3px solid #45ca3a;
+    border-radius: 50%;
 
 //    pointer-events: none;
 
@@ -185,9 +194,12 @@ body {
         height:0px;
         opacity:0;
       }
-      10% { opacity:1; }
-      70% {
+      15% { opacity:1; }
+      40% {
         opacity:0.5;
+      }
+      70% {
+        opacity: 0.1%;
       }
       100% {
         width: 100%;
@@ -195,6 +207,20 @@ body {
         opacity:0;
       }
     }
+
+    .map_circle_outer {
+      border-radius: 50%;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      .radial-gradient(50%, 50%, circle, cover, fade(#45CA3A, 0%), 60%, #45CA3A, 100%);
+      z-index: 11;
+    }
+
+    .map_circle_inner_wrap {
+      -webkit-transition: opacity 0.75s;
+    }
+
     .map_circle_inner {
       // TODO: non-Webkit prefixes
       border-radius:50%;
@@ -202,12 +228,37 @@ body {
       height: 0px; width: 0px;
       opacity: 0;
       top: 50%; left:50%;
+      z-index: 10;
 //      border: 2px solid rgba(66, 152, 181, 1);
-      -webkit-animation: pulsate 1s infinite;
+      -webkit-animation: pulsate 2s infinite;
 //      background-color:#4298b5;
       border: 5px solid fade(darken(#45CA3A, 20%),10%);
-      .radial-gradient(50%, 50%, circle, cover, fade(#45CA3A, 20%), 60%, #45CA3A, 80%);
+      .radial-gradient(50%, 50%, circle, cover, fade(#45CA3A, 70%), 60%, #45CA3A, 80%);
       -webkit-transform:translateX(-50%) translateY(-50%);
+    }
+
+    @-webkit-keyframes rotating {
+      from{
+        -webkit-transform: rotate(0deg);
+      }
+      to{
+        -webkit-transform: rotate(360deg);
+      }
+    }
+
+    .map_circle_radar {
+      background: url(../img/radar.png);
+      background-size: cover;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      top: 50%;
+      left: 50%;
+      margin-top: -50%;
+      margin-left: -50%;
+      -webkit-animation: rotating 2s linear infinite;
+      -webkit-transition: opacity 0.75s;
     }
   }
 }
@@ -253,12 +304,12 @@ body {
       }
 
       .ui-slider-handle {
-        width: 20px;
+        width: 10px;
         margin: 0;
         height: 50px;
         top: -20px;
         border: none;
-        background: #666;
+        background: #bbb;
         box-shadow: none;
         border-radius: 0;
       }
@@ -268,7 +319,7 @@ body {
         top: 44%;
         height:20%;
         border: none;
-        background: #999;
+        background: #ddd;
         box-shadow: none;
         border-radius: 0;
       }
@@ -291,7 +342,7 @@ body {
     font-size:25px;
     text-align: center;
     line-height: @actionHeight;
-    .transition;
+    //.transition;
 
     #search-slider {
 
@@ -304,6 +355,17 @@ body {
       text-align: center;
       color:white;
       z-index:100;
+
+      &:active i, &:hover i {
+        text-shadow: 0 0 20px #fff,
+        0 0 40px #fff,
+        0 0 40px #fff,
+        0 0 40px #fff,
+        0 0 40px #fff,
+        0 0 40px #fff,
+        0 0 40px #fff,
+        0 0 40px #fff!important;
+      }
     }
 
     #search-drop {
@@ -320,7 +382,7 @@ body {
 
 .page-wrapper {
   position: absolute;
-  top: @navHeight;
+  top: @navHeight + 15px;
   bottom: 0px;
   width: 100%;
 }

@@ -54,10 +54,10 @@
             axis: 'x',
             revert: 'invalid',
             drag: function (event, ui) {
-                that.$area.css("color", "rgba(255,255,255, " + ( that.$area.width() - that.$slider.position().left ) / that.$area.width() + ")");
+                that.$area.css("color", "rgba(255,255,255, " + (( that.$area.width() - that.$slider.position().left) / that.$area.width() - 0.4) + ")");
             },
             stop: function (event, ui) {
-                that.$area.css("color", "rgba(255,255,255, " + ( that.$area.width() - that.$slider.position().left ) / that.$area.width() + ")");
+                that.$area.css("color", "rgba(255,255,255, " + (( that.$area.width() - that.$slider.position().left) / that.$area.width()) + ")");
             }
         });
 
@@ -76,10 +76,18 @@
                     notify('Insufficient Doge', 'Please deposit more dogecoin.');
                     that.enable();
                 } else {
-                    API.cache(amount, function(data) {
-                        notify("Search Complete!", "You have " + balance.getBalance() + " dogecoin now.")
-                        that.enable();
-                    });
+                    $('.map_circle_radar').css({opacity: 1});
+                    $('.map_circle_inner_wrap').css({opacity: 0});
+                    setTimeout(function() {
+                        API.cache(amount, function(data) {
+                            map.showCaches(data, function() {
+                                $('.map_circle_radar').css({opacity: 0});
+                                $('.map_circle_inner_wrap').css({opacity: 1});
+                                notify("Search Complete!", "You have " + balance.getBalance() + " dogecoin now.");
+                                that.enable()
+                            });
+                        });
+                    }, 1500);
                 }
             }
         });
@@ -213,6 +221,27 @@
     };
     Map.prototype.getPosition = function() {
         return this.center;
+    };
+    Map.prototype.showCaches = function(caches, callback) {
+        var that = this;
+        async.map(caches, function(cache, done) {
+            setTimeout(function() {
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(cache.loc[1], cache.loc[0]),
+                    animation: google.maps.Animation.DROP,
+                    map: that.gmap
+                });
+                done(null, marker);
+            }, Math.random() * 1000);
+        }, function(err, markers) {
+            console.log(markers);
+            async.each(markers, function(marker, done) {
+                setTimeout(function() {
+                    marker.setMap(null);
+                    done();
+                }, (1.5 + Math.random()*1.5) * 1000);
+            }, callback);
+        });
     };
 
     var Balance = function(startingBalance, selector) {
