@@ -1,12 +1,6 @@
-@bg: #dddddd;
-@mainBg: lighten(@bg, 10%);
+@bg: #eeeeee;
+@mainBg: lighten(@bg, 5%);
 
-.navBg {
-  background: -webkit-linear-gradient(@bg, rgba(0,0,0,0));
-  background: -o-linear-gradient(@bg, rgba(0,0,0,0));
-  background: -moz-linear-gradient(@bg, rgba(0,0,0,0));
-  background: linear-gradient(@bg, rgba(0,0,0,0));
-}
 
 .gradientReverse {
   background: -webkit-linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1));
@@ -16,6 +10,7 @@
 }
 
 @navHeight: 45px;
+@navItemColor: #333;
 @btnMainColor: #d35400;
 @textColor: white;
 @mainColor: #f39c12;
@@ -40,6 +35,11 @@ html {
   height: 100%;
 }
 
+.ui-page, .ui-body-c, .ui-page-active, .ui-overlay-c, .ui-mobile-viewport
+{
+    background: transparent !important;
+}
+
 body {
   height: 100%;
   padding: 0;
@@ -49,6 +49,10 @@ body {
   font-family: "Lato"!important;
 }
 
+.ui-overlay-a {
+  background-color: @bg!important;
+}
+
 .navbar {
   height: @navHeight;
   width: 100%;
@@ -56,10 +60,22 @@ body {
   top: 0;
   left: 0;
   z-index: 10;
-  .navBg;
 
   * {
     display:inline-block;
+  }
+
+  #back-button {
+    height: 100%;
+    width: 10px;
+    position: relative;
+    top: -12px;
+    left: 0;
+    line-height: 45px;
+    padding-left: 5px;
+    font-size: 35px;
+    color: @navItemColor;
+
   }
 
   #profile-pic {
@@ -81,24 +97,67 @@ body {
   .user-info {
     position: absolute;
     top: 9px;
-    left: 70px;
+    left: 75px;
 
     * {
+      color: @navItemColor;
       font-size: 12px;
       line-height:15px;
+      text-shadow: 0 0 5px white!important
     }
 
+  }
+
+  .nav-buttons {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    padding-right: 5px;
+
+    a {
+      line-height: @navHeight;
+      color: @navItemColor;
+      font-size: 30px;
+      padding-left: 7px;
+      padding-right: 7px;
+
+      &:hover, &:active {
+        cursor: pointer;
+        color: black;
+      }
+    }
   }
 }
 
 #map {
-  position: fixed;
+  position: absolute;
   top:0;
   left:0;
-  bottom: 2*@actionHeight;
+  bottom: 2*(@actionHeight+10)+10;
   width: 100%;
-  background: #cccccc;
   margin-bottom:0;
+
+  .map_gmap {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    left:0;
+    bottom: 2*@actionHeight;
+    z-index: 2;
+  }
+
+  .map_circle {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    left:0;
+    bottom: 2*@actionHeight;
+    z-index: 3;
+//    pointer-events: none;
+  }
 }
 
 .actions {
@@ -106,11 +165,14 @@ body {
   position:fixed;
   bottom: 0px;
   width: 100%;
+  padding: 10px;
+  padding-top: 5px;
+  background-color: @mainBg;
 
   .wager {
     width: 100%;
     height: @actionHeight;
-    background: white;
+    margin-bottom: 10px;
 
 
     .ui-slider {
@@ -122,7 +184,7 @@ body {
         content: "WAGER";
         color: #555;
         height:100%;
-        width: 62px;
+        width: 57px;
         padding-top: 10px;
         text-align: center;
       }
@@ -132,9 +194,10 @@ body {
         padding-top: 20px;
         box-shadow: none;
         border: none;
-        width: 62px;
+        width: 55px;
         font-size: 17px;
         font-weight: normal;
+        background-color: transparent;
       }
 
       .ui-slider-handle {
@@ -170,7 +233,8 @@ body {
     position:relative;
     height: @actionHeight;
     width: 100%;
-    background: #e74c3c;
+    //background: #e74c3c;
+    background: @btnMainColor;
     color: white;
     font-size:25px;
     text-align: center;
@@ -182,7 +246,7 @@ body {
       position:absolute;
       top: 0;
       height: @actionHeight;
-      width: 50px;
+      width: @actionHeight;
       font-size: 25px;
       line-height:@actionHeight;
       text-align: center;
@@ -267,11 +331,14 @@ body {
 
   input {
     display: block;
-    padding: 10px;
+    padding: 15px;
     border: none;
     width: 100%;
     + input {
       margin-top: 10px;
+    }
+    &:focus {
+      outline: 1px solid lightgray;
     }
   }
   input[type="submit"] {
@@ -350,14 +417,11 @@ body {
       background: #4B70BE;
       .transition;
     }
-    .fb-login-button-icon {
+    .fa.fa-facebook {
       position: absolute;
-      background: url(../img/basic_social/colored/64/rounded_square/facebook.png);
-      top: 5px;
-      left: 5px;
-      background-size: 50px 50px;
-      width: 50px;
-      height: 50px;
+      font-size: 28px;
+      left: 20px;
+      top: 18px;
     }
   }
 }
