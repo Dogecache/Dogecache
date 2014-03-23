@@ -59,13 +59,12 @@ userSchema.statics.findOrCreate = function (profile, callback) {
     })
 };
 
-userSchema.bulkUpdateBalances = function (userBalArray, callback) {
+userSchema.statics.bulkUpdateBalances = function (userBalArray, callback) {
+    var that = this;
     async.each(userBalArray, function (elem, callback) {
-        var that = this;
-        that.update({dogeAddress: elem.userid}, {$inc: {balance: balance}})
+        that.update({fbId: elem.userid}, {$inc: {balance: elem.inc}});
         callback();
-    },
-    callback(err));
+    }, callback);
 };
 
 module.exports = mongoose.model('user', userSchema);
