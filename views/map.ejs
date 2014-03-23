@@ -1,7 +1,10 @@
 <%- include header.ejs %>
 <%- include navbar.ejs %>
 
-<div id="map"></div>
+<div id="map">
+    <div class="map_gmap"></div>
+    <div class="map_circle"></div>
+</div>
 
 <div class="actions">
   <div class="wager">
@@ -22,5 +25,6 @@
   </div>
 </div>
 
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKMNiwXFPxNyNczYX2j_Hc3KQWCuR_SBo&sensor=true"></script>
 <script type="text/javascript" src="/js/map.js"></script>
 <%- include footer.ejs %>
