@@ -1,7 +1,25 @@
 @bg: #dddddd;
 @mainBg: lighten(@bg, 10%);
+
+.navBg {
+  background: -webkit-linear-gradient(@bg, rgba(0,0,0,0));
+  background: -o-linear-gradient(@bg, rgba(0,0,0,0));
+  background: -moz-linear-gradient(@bg, rgba(0,0,0,0));
+  background: linear-gradient(@bg, rgba(0,0,0,0));
+}
 @navHeight: 45px;
 @textColor: white;
+
+@actionHeight: 50px;
+
+.transition {
+  -webkit-transition: all 0.1s ease;
+  -moz-transition: all 0.1s ease;
+  -o-transition: all 0.1s ease;
+  -ms-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+}
+
 
 * {
   box-sizing: border-box;
@@ -26,7 +44,11 @@ body {
   top: 0;
   left: 0;
   z-index: 10;
-  background: @bg;
+  .navBg;
+
+  * {
+    display:inline-block;
+  }
 
 
   #profile-pic {
@@ -34,41 +56,85 @@ body {
     width: 45px;
     margin-left: 10px;
     margin-top: 10px;
-    background: white;
-    border-radius: 30px;
-    border: 2px solid white;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+
+    img {
+      height: 100%;
+      width: 100%;
+      background: white;
+      border-radius: 30px;
+      border: 2px solid white;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  .user-info {
+    position: absolute;
+    top: 7px;
+    left: 70px;
+
+    * {
+      font-size: 12px;
+      line-height:15px;
+    }
+
   }
 }
 
 #map {
-  height: calc(~"100% - 100px");
+  position: fixed;
+  top:0;
+  left:0;
+  bottom: 2*@actionHeight;
   width: 100%;
-  background: blue;
-  margin-bottom:0
+  background: #cccccc;
+  margin-bottom:0;
 }
-
 
 .actions {
 
-  #wager {
+  position:fixed;
+  bottom: 0px;
+  width: 100%;
+
+  .wager {
     width: 100%;
-    height:50px;
+    height: @actionHeight;
     background: white;
   }
 
   .search-area {
-    height: 50px;
+
+    position:relative;
+    height: @actionHeight;
     width: 100%;
     background: #e74c3c;
-    color: @textColor;
-    line-height: 100%;
+    color: white;
+    font-size:25px;
+    text-align: center;
+    line-height: @actionHeight;
+    .transition;
 
     #search-slider {
-      height: 50px;
+
+      position:absolute;
+      top: 0;
+      height: @actionHeight;
       width: 50px;
-      background:green;
-      line-height:60px;
+      font-size: 25px;
+      line-height:@actionHeight;
+      text-align: center;
+      color:white;
+      z-index:100;
+    }
+
+    #search-drop {
+
+      position:absolute;
+      top: 0;
+      right:0;
+      height: @actionHeight;
+      width: 30%;
+      z-index:10;
     }
   }
 }
