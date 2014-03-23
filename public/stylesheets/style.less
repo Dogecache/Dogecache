@@ -104,7 +104,7 @@ body {
   position: absolute;
   top:0;
   left:0;
-  bottom: 2*@actionHeight;
+  bottom: 2*(@actionHeight+10)+10;
   width: 100%;
   margin-bottom:0;
 
@@ -135,11 +135,14 @@ body {
   position:fixed;
   bottom: 0px;
   width: 100%;
+  padding: 10px;
+  padding-top: 5px;
+  background-color: @mainBg;
 
   .wager {
     width: 100%;
     height: @actionHeight;
-    background: white;
+    margin-bottom: 10px;
 
 
     .ui-slider {
@@ -164,6 +167,7 @@ body {
         width: 62px;
         font-size: 17px;
         font-weight: normal;
+        background-color: transparent;
       }
 
       .ui-slider-handle {
@@ -199,7 +203,8 @@ body {
     position:relative;
     height: @actionHeight;
     width: 100%;
-    background: #e74c3c;
+    //background: #e74c3c;
+    background: @btnMainColor;
     color: white;
     font-size:25px;
     text-align: center;
