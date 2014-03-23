@@ -4,7 +4,7 @@ var historySchema = new mongoose.Schema({
     fbId: Number,
     loss: Number,
     gain: Number,
-    date: {type: date, default: Date.now},
+    date: {type: Date, default: Date.now},
     loc: {
         index: '2dsphere',
         type: [Number]
