@@ -45,6 +45,13 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+app.configure('production', function(){
+    process.on('uncaughtException', function(err) {
+        // handle the error safely
+        console.log(err);
+    });
+});
+
 app.get('/', home.index);
 app.get('/map', map.index);
 app.get('/settings', settings.index);
@@ -54,7 +61,7 @@ app.get('/auth/callback', authRoute.loginCallback);
 app.get('/auth/logout', authRoute.logout);
 app.post('/api/cache', apiRoute.cache);
 
-app.get('/test/radar',function(req, res){res.render('d3test')});
+//app.get('/test/radar',function(req, res){res.render('d3test')});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
