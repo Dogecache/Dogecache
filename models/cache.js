@@ -3,7 +3,7 @@ var User = require('./user');
 var async = require('async');
 
 var cacheSchema = new mongoose.Schema({
-    userId: mongoose.Schema.ObjectId,
+    fbId: Number,
     amount: Number,
     loc: {
         index: '2dsphere',
@@ -26,7 +26,7 @@ cacheSchema.statics.addCache = function(user, amount, longitude, latitude, callb
 
         // Create the cache
         var cache = new that({
-            userId: user.id,
+            fbId: user.id,
             amount: amount,
             loc: [longitude, latitude]
         });
@@ -40,7 +40,7 @@ cacheSchema.statics.addCache = function(user, amount, longitude, latitude, callb
 cacheSchema.statics.findCaches = function(user, maxDistance, longitude, latitude, callback) {
     var that = this;
     that.find({
-        userId: {
+        fbId: {
             $ne: user.id
         },
         loc: {
