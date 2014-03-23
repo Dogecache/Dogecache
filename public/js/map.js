@@ -36,7 +36,14 @@
             var value = e.target.value;
             map._updateRadius(value);
         });
+
+        var searchSlider = new SearchSlider('#search-slider', '#search-drop', '.search-area');
     });
+
+
+    function _enableSlider() {
+
+    }
 
     function gpsPermissionGranted(position) {
         $('#gpsApproval h1').html('<i class="fa fa-thumbs-o-up"></i>');
@@ -51,6 +58,53 @@
 
         map.init(position);
     }
+
+    var SearchSlider = function(slider, drop, area) {
+        var that = this;
+
+        this.$slider = $(slider);
+        this.$drop = $(drop);
+        this.$area = $(area);
+        this.isDropped = false;
+
+        this.$slider.draggable({
+            containment: '.search-area',
+            axis: 'x',
+            revert: 'invalid',
+            drag: function (event, ui) {
+                that.$area.css("color", "rgba(255,255,255, " + ( that.$area.width() - that.$slider.position().left ) / that.$area.width() + ")");
+            },
+            stop: function (event, ui) {
+                that.$area.css("color", "rgba(255,255,255, " + ( that.$area.width() - that.$slider.position().left ) / that.$area.width() + ")");
+            }
+        });
+
+        this.$drop.droppable({
+            accept: slider,
+            drop: function (event, ui) {
+                that.isDropped = true;
+                that.$slider.draggable("disable").animate({
+                    "right": "0px",
+                    "left": that.$area.width() - that.$slider.width() }, 200);
+                that.$area.css("color", "rgba(255,255,255, 0)");
+
+                //PUT STUFF HERE FOR WHEN USER SUCCESSFULLY SEARCHES
+
+            }
+        });
+
+        $(window).on("throttledresize", that._onResize.bind(this));
+    };
+    SearchSlider.prototype.enable = function() {
+        this.isDropped = false;
+        this.$slider.draggable("enable").css("left", 0);
+        this.$area.css("color", "rgba(255,255,255, 0)");
+    };
+    SearchSlider.prototype._onResize = function(e) {
+        if (this.isDropped) {
+            this.$slider.css({"left": this.$area.width() - this.$slider.width()});
+        }
+    };
 
     var Map = function (id) {
         console.log('Map created');
