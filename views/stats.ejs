@@ -30,11 +30,13 @@
                 <td><span class="<%= colorval(history[i].gain - history[i].loss) %>"><%= history[i].gain - history[i].loss %></span></td>
               </tr>
             <% } %>
-
         </table>
+        <% if (history.length==0) { %>
+          <div class="notransactions">You have no transactions yet :(</div>
+        <% } %>
       </div>
     </div>
-    <div class="card">
+    <!--<div class="card">
       <h1>Statistics</h1>
       <div class="content">
         <ul>
@@ -44,7 +46,7 @@
           <li>Avg. Per Search: <span class="plus">3452</span></li>
         </ul>
       </div>
-    </div>
+    </div>-->
   </div>
 </div>
 <%- include footer.ejs %>

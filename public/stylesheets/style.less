@@ -1,6 +1,15 @@
 @bg: #eeeeee;
 @mainBg: lighten(@bg, 5%);
 
+.radial-gradient(@centerX: center, @centerY: center, @shape: circle, @size: contain, @startColor: #555, @startPos: 0, @endColor: #333, @endPos: 100%) {
+  background-color:@endColor;
+  background-image: -moz-radial-gradient(@centerX @centerY, @shape @size, @startColor @startPos, @endColor @endPos);
+  background-image: -webkit-gradient(radial, @centerX @centerY, @shape @size, @startColor @startPos, @endColor @endPos);
+  background-image: -webkit-radial-gradient(@centerX @centerY, @shape @size, @startColor @startPos, @endColor @endPos);
+  background-image: -o-radial-gradient(@centerX @centerY, @shape @size, @startColor @startPos, @endColor @endPos);
+  background-image: -ms-radial-gradient(@centerX @centerY, @shape @size, @startColor @startPos, @endColor @endPos);
+  background-image: radial-gradient(@shape at @centerX @centerY, @startColor @startPos, @endColor @endPos);
+}
 
 .gradientReverse {
   background: -webkit-linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1));
@@ -163,7 +172,38 @@ body {
     left:0;
     bottom: 2*@actionHeight;
     z-index: 3;
+    overflow: hidden;
 //    pointer-events: none;
+
+    @-webkit-keyframes pulsate {
+      0% {
+        width:0px;
+        height:0px;
+        opacity:0;
+      }
+      1% { opacity:1; }
+      70% {
+        opacity:0.5;
+      }
+      100% {
+        width:950px;
+        height:950px;
+        opacity:0;
+      }
+    }
+    .map_circle_inner {
+      border-radius:50%;
+      position:absolute;
+      height: 0px; width: 0px;
+      top: 50%; left:50%;
+//      border: 2px solid rgba(66, 152, 181, 1);
+      -webkit-animation: pulsate 2s infinite;
+      animation: pulsate 2s infinite;
+//      background-color:#4298b5;
+      .radial-gradient(50%, 50%, circle, cover, fade(#45CA3A, 20%), 0%, #45CA3A, 80%);
+      -webkit-transform:translateX(-50%) translateY(-50%);
+      transform:translateX(-50%) translateY(-50%);
+    }
   }
 }
 
@@ -208,10 +248,10 @@ body {
       }
 
       .ui-slider-handle {
-        width: 5px;
+        width: 30px;
         margin: 0;
-        height: 30px;
-        top: -13px;
+        height: 50px;
+        top: -17px;
         border: none;
         background: #666;
         box-shadow: none;
@@ -221,7 +261,7 @@ body {
       .ui-slider-track {
         margin-left: 65px;
         top: 45%;
-        height:10%;
+        height:30%;
         border: none;
         background: #999;
         box-shadow: none;
@@ -314,6 +354,9 @@ body {
   .minus {
     color: red;
   }
+  .notransactions {
+    padding-top: 20px;
+  }
 
   .qr-code {
     width:  50%;
@@ -396,10 +439,11 @@ body {
   &:after {
     position: fixed;
     left: 0;
-    bottom: 60px;
-    height: 100px;
+    bottom: 0px;
+    height: 200px;
     width: 100%;
     content: "";
+    z-index: 10;
     .gradientReverse;
   }
 
@@ -418,6 +462,7 @@ body {
   h1 {
     color: @textColor;
     text-align: center;
+    font-size: 35px;
   }
 
   .header-icon {
@@ -436,43 +481,51 @@ body {
     padding-bottom: 20px;
   }
 
-  .map-button, .fb-login-button {
-    width:100%;
-    height: 60px;
-    bottom: 0px;
-    left: 0px;
-    position: fixed;
-    padding: 0px;
-    margin: 0px;
-    background-color: #3B5998;
-    color: white;
-    text-align: center;
-    font-size: 20px;
-    line-height: 60px;
-    border: none;
-    border-radius: 0;
-    box-shadow:none;
-    font-family: "Lato";
-    z-index: 100;
+  .home-button-wrapper {
 
-    &:hover, &:active, &:focus {
-      cursor: pointer;
+  position: fixed;
+  bottom: 0px;
+  left:0px;
+  width: 100%;
+  padding: 10px;
+  z-index: 100;
+
+    .map-button, .fb-login-button {
+
+      position: relative;
+      height: 60px;
+      width: 100%;
+      padding: 0px;
+      margin: 0px;
+      background-color: #3B5998;
       color: white;
-      background: #4B70BE;
-      .transition;
-    }
-    .fa.fa-facebook {
-      position: absolute;
-      font-size: 28px;
-      left: 20px;
-      top: 18px;
-    }
-  }
+      text-align: center;
+      font-size: 20px;
+      line-height: 60px;
+      border: none;
+      border-radius: 0;
+      box-shadow:none;
+      font-family: "Lato";
 
-  .map-button {
-    background-color: rgb(24, 147, 18);
-    &:hover, &:active, &:focus {
-      background: lighten(rgb(24, 147, 18), 10%);
+      &:hover, &:active, &:focus {
+        cursor: pointer;
+        color: white;
+        background: #4B70BE;
+        .transition;
+      }
+      .fa.fa-facebook {
+        position: absolute;
+        font-size: 28px;
+        left: 20px;
+        top: 18px;
+      }
+    }
+
+    .map-button {
+      background-color: rgb(24, 147, 18);
+      &:hover, &:active, &:focus {
+        background: lighten(rgb(24, 147, 18), 10%);
+      }
     }
   }
 }

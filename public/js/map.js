@@ -151,8 +151,8 @@
 
         // angle: http://www.movable-type.co.uk/scripts/latlong.html
         // "Destination point given distance and bearing from start point"
-        var lat1 = this.center.coords.latitude;
-        var lon1 = this.center.coords.latitude;
+        var lat1 = this.center.coords.latitude * Math.PI / 180;
+        var lon1 = this.center.coords.longitude * Math.PI / 180;
         var brng = Math.PI/2;
         var d = radius/1000;
         var R = 6371; // km
@@ -160,11 +160,13 @@
             Math.cos(lat1)*Math.sin(d/R)*Math.cos(brng) );
         var lon2 = lon1 + Math.atan2(Math.sin(brng)*Math.sin(d/R)*Math.cos(lat1),
                 Math.cos(d/R)-Math.sin(lat1)*Math.sin(lat2));
+        lat2 *= 180 / Math.PI;
+        lon2 *= 180 / Math.PI;
 
         // Figure out what zoom level should be used
         // https://stackoverflow.com/questions/6048975/google-maps-v3-how-to-calculate-the-zoom-level-for-a-given-bounds
         var GLOBE_WIDTH = 256; // a constant in Google's map projection
-        var angle = 2*(lon1-lon2);
+        var angle = 2*(lon2-this.center.coords.longitude);
         if (angle < 0) {
             angle += 360;
         }
@@ -172,7 +174,9 @@
         var zoom = Math.floor(Math.log(pixelWidth * 360 / angle / GLOBE_WIDTH) / Math.LN2);
 
         console.log(zoom);
-        this.gmap.setZoom(zoom-10);
+        this.gmap.setZoom(zoom);
+
+
     };
     Map.prototype._onResize = function() {
         // immediately recenter the map
