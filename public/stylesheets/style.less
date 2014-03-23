@@ -456,3 +456,41 @@ body {
   }
 
 }
+
+.notification {
+  background-color: rgba(0,0,0,0.7);
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  display: table;
+  opacity: 0;
+
+  .wrapper {
+    display: table-cell;
+    vertical-align: middle;
+    .pane {
+      width: 84%;
+      left: 8%;
+      position: relative;
+      background-color: @mainBg;
+      padding: 20px;
+
+      h1 {
+        margin-top: 0px;
+      }
+      .close-btn {
+        font-family: fontawesome;
+        position: absolute;
+        right: 3px;
+        top: 2px;
+        font-size: 20px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

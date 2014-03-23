@@ -23,7 +23,9 @@
                 $('.search-area').css("color", "rgba(255,255,255, 0)");
 
                 //PUT STUFF HERE FOR WHEN USER SUCCESSFULLY SEARCHES
-
+                if (parseInt($('#wager-slider').val())>parseInt($('#balance').text())) {
+                    notify('Insufficient Doge', 'Please deposit more dogecoin.');
+                }
             }
         });
 
