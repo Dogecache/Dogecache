@@ -8,7 +8,9 @@
   background: linear-gradient(@bg, rgba(0,0,0,0));
 }
 @navHeight: 45px;
+@btnMainColor: #d35400;
 @textColor: white;
+@mainColor: #f39c12;
 
 @actionHeight: 50px;
 
@@ -49,7 +51,6 @@ body {
   * {
     display:inline-block;
   }
-
 
   #profile-pic {
     height: 45px;
@@ -157,5 +158,92 @@ body {
 
   + .card {
     margin-top: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    margin-top: 0px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0px;
+
+    li {
+      + li {
+        padding-top: 5px;
+      }
+
+      .plus {
+        color: green;
+      }
+      .minus {
+        color: red;
+      }
+    }
+  }
+
+  .qr-code {
+    width:  50%;
+    display: inline-block;
+    vertical-align: top;
+    padding-right: 20px;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .doge-address {
+    width:  50%;
+    padding-left: 20px;
+    display: inline-block;
+    word-break:break-all;
+    vertical-align: top;
+    font-size: 24px;
+  }
+
+  input {
+    display: block;
+    padding: 10px;
+    border: none;
+    width: 100%;
+    + input {
+      margin-top: 10px;
+    }
+  }
+  input[type="submit"] {
+      background-color: @btnMainColor;
+      color: @textColor;
+    }
+}
+
+.splash-page {
+  position: fixed;
+  width: 100%;
+  top: 0px;
+  bottom: 0px;
+  background-color: @mainColor;
+
+  .logo {
+    width: 100%;
+    padding-top: 50px;
+
+    img {
+      width: 50%;
+      margin-left: 25%;
+    }
+  }
+
+  h1 {
+    color: @textColor;
+    text-align: center;
+  }
+
+  .description {
+    font-size: 30px;
+    text-align: center;
+    color: @textColor;
+    padding-bottom: 20px;
   }
 }

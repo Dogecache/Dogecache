@@ -10,4 +10,4 @@ public/stylesheets/*.css
 *.iml
 
 npm-debug.log
-/config/dogeapi.js
+/config.js

@@ -11,6 +11,8 @@
     "less-middleware": "*",
     "passport": "~0.2.0",
     "passport-facebook": "~1.0.3",
-    "dogeapi": "git+https://github.com/brutalhonesty/dogeapi.js.git"
+    "validator": "~3.5.0",
+    "request": "~2.34.0",
+    "async": "~0.2.10"
   }
 }
