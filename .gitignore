@@ -10,6 +10,6 @@ public/stylesheets/*.css
 *.iml
 
 npm-debug.log
-config.js
+/config.json
 *.xdk
 *.xdke
