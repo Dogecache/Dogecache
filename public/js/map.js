@@ -82,6 +82,7 @@
         }, null, {
             enableHighAccuracy: true
         });
+
     };
     Map.prototype._updateCenter = function(center, animate) {
         this.center = center;
