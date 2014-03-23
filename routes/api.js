@@ -2,29 +2,40 @@ var Cache = require('../models/cache');
 var User = require('../models/user');
 var passport = require('passport');
 
-exports.cache = function(req, res) {
-    if (!req.user) {
-        // TODO: more secure API key login method
-        User.findOne({fbId: req.body.fbId}, function(err, user) {
-            if (!err) {
-                req.login(user);
-            }
-        })
-    }
+function auth(req, res, callback) {
+    if (req.user) return callback(null, req.user);
 
-    // First, add the cache
-    Cache.addCache(req.user, req.body.amount, req.body.longitude, req.body.latitude, function(err, cache) {
-        if (err) {
-            console.log(err);
-            res.send(err);
+    // TODO: more secure API key login method
+    User.findOne({fbId: req.body.fbId}, function(err, user) {
+        if (!err) {
+            req.login(user, function(err) {
+                callback(null, user);
+            });
         } else {
-            // Second, find caches
-
-            // max search radius in meters
-            var maxDistance = res.query.amount; // TODO: scale the amount to the distance via function
-            Cache.findCaches(req.user, maxDistance, req.body.longitude, req.body.latitude, function(err, caches) {
-                res.send(caches);
-            })
+            callback(err);
         }
+    })
+}
+
+exports.cache = function(req, res) {
+    // Auth user
+    auth(req, res, function(err, user) {
+        // First, add the cache
+        Cache.addCache(user, req.body.amount, req.body.longitude, req.body.latitude, function(err, cache) {
+            if (err) {
+                console.log(err);
+                res.send(err);
+            } else {
+                // Second, find caches
+                var maxDistance = req.body.amount; // max search radius in meters TODO: scale the amount to the distance via function
+                Cache.findCaches(user, maxDistance, req.body.longitude, req.body.latitude, function(err, caches) {
+                    // Third, gather caches
+                    Cache.gatherCaches(user, caches, function(err) {
+                        // Done
+                        res.send(caches);
+                    });
+                })
+            }
+        });
     });
 };
