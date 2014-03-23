@@ -3,6 +3,8 @@ var mongoose = require('mongoose');
 var dogeAPI = require('../libraries/dogeapi');
 doge = new dogeAPI();
 
+async = require("async");
+
 var userSchema = new mongoose.Schema({
     fbId: Number,
     displayName: String,
@@ -37,7 +39,7 @@ userSchema.statics.findOrCreate = function (profile, callback) {
             // create a new user
 
             // check if dogeaddress already exists
-            doge.getUserAddress(profile.id, function(err, res) {
+            doge.getUserAddress(profile.id, function (err, res) {
                 if (!err) {
                     create(JSON.parse(res).data.address);
                 } else {
@@ -53,6 +55,15 @@ userSchema.statics.findOrCreate = function (profile, callback) {
             });
         }
     })
+};
+
+userSchema.bulkUpdateBalances = function (userBalArray, callback) {
+    async.each(userBalArray, function (elem, callback) {
+        var that = this;
+        that.update({dogeAddress: elem.userid}, {$inc: {balance: balance}})
+        callback();
+    },
+    callback(err));
 };
 
 module.exports = mongoose.model('user', userSchema);
