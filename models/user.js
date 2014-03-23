@@ -9,6 +9,7 @@ var userSchema = new mongoose.Schema({
     fbId: Number,
     displayName: String,
     dogeAddress: String,
+    email: String,
     balance: Number
 });
 
@@ -16,10 +17,11 @@ userSchema.statics.findOrCreate = function (profile, callback) {
     var that = this;
 
     function create(dogeAddress) {
-        // create new user
+        console.log(profile);
         var user = new that({
             fbId: profile.id,
             displayName: profile.displayName,
+            email: profile.emails[0].value,
             dogeAddress: dogeAddress,
             balance: 0
         });
