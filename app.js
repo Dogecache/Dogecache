@@ -12,6 +12,7 @@ var express = require('express')
   , http = require('http')
   , path = require('path');
 
+var moment = require('moment');
 var passport = require('passport');
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/dogecache');

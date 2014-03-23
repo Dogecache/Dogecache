@@ -352,6 +352,30 @@ body {
       background-color: @btnMainColor;
       color: @textColor;
     }
+
+  .content {
+    table {
+      border-collapse:collapse;
+      th {
+        padding-left: 15px;
+        padding-right: 15px;
+        background-color: white;
+      }
+      td {
+        padding: 5px;
+        padding-left: 15px;
+        padding-right: 15px;
+        border: none;
+        text-align: center;
+        &:first-of-type {
+          text-align: left;
+        }
+      }
+      tr:nth-child(odd) {
+        background-color: white;
+      }
+    }
+  }
 }
 
 .splash-page {

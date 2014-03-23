@@ -75,7 +75,9 @@ cacheSchema.statics.gatherCaches = function(user, caches, callback) {
         function(done) {
             user.update({$inc: {balance: total}}, done);
         }
-    ], callback);
+    ], function(err){
+        callback(err, total);
+    });
 };
 
 module.exports = mongoose.model('cache', cacheSchema);
