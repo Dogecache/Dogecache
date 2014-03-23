@@ -101,7 +101,7 @@ body {
 }
 
 #map {
-  position: fixed;
+  position: absolute;
   top:0;
   left:0;
   bottom: 2*@actionHeight;
@@ -109,6 +109,27 @@ body {
   height: 100%;
   background: url(../img/NO_LIBS_MAP_2010.jpg);
   margin-bottom:0;
+
+  .map_gmap {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    left:0;
+    bottom: 2*@actionHeight;
+    z-index: 2;
+  }
+
+  .map_circle {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    left:0;
+    bottom: 2*@actionHeight;
+    z-index: 3;
+    pointer-events: none;
+  }
 }
 
 .actions {
