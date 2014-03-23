@@ -1,5 +1,11 @@
+@bg: #dddddd;
+@mainBg: lighten(@bg, 10%);
+@navHeight: 45px;
 @textColor: white;
 
+* {
+  box-sizing: border-box;
+}
 
 html {
   height: 100%;
@@ -9,14 +15,19 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
+  background-color: @bg;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 .navbar {
-  height: 45px;
+  height: @navHeight;
   width: 100%;
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 10;
+  background: @bg;
+
 
   #profile-pic {
     height: 45px;
@@ -62,4 +73,23 @@ body {
   }
 }
 
+.page-wrapper {
+  position: absolute;
+  top: @navHeight;
+  bottom: 0px;
+  width: 100%;
+}
 
+.page-container {
+  padding: 20px;
+}
+
+.card {
+  background-color: @mainBg;
+  width: 100%;
+  padding: 20px;
+
+  + .card {
+    margin-top: 20px;
+  }
+}
