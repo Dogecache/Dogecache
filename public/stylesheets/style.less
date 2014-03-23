@@ -24,7 +24,8 @@
 
 
 * {
-  box-sizing: border-box;
+  box-sizing: border-box!important;
+  text-shadow: none!important;
 }
 
 html {
@@ -64,7 +65,7 @@ body {
       background: white;
       border-radius: 30px;
       border: 2px solid white;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     }
   }
 
@@ -101,6 +102,58 @@ body {
     width: 100%;
     height: @actionHeight;
     background: white;
+
+
+    .ui-slider {
+
+      height: 100%;
+
+      &:before {
+        position: absolute;
+        content: "WAGER";
+        color: #555;
+        height:100%;
+        width: 60px;
+        padding-top: 5px;
+        text-align: center;
+      }
+
+      #wager-slider {
+        height: 100%;
+        padding-top: 20px;
+        box-shadow: none;
+        border: none;
+        width: 60px;
+        font-size: 15px;
+        font-weight: normal;
+      }
+
+      .ui-slider-handle {
+        width: 5px;
+        margin: 0;
+        height: 30px;
+        top: -13px;
+        border: none;
+        background: #666;
+        box-shadow: none;
+        border-radius: 0;
+      }
+
+      .ui-slider-track {
+        margin-left: 60px;
+        top: 45%;
+        height:10%;
+        border: none;
+        background: #999;
+        box-shadow: none;
+        border-radius: 0;
+      }
+
+      .ui-slider-bg {
+        background: #3498db;
+      }
+
+    }
   }
 
   .search-area {
@@ -224,10 +277,13 @@ body {
   top: 0px;
   bottom: 0px;
   background-color: @mainColor;
+  overflow-y: auto;
 
   .logo {
     width: 100%;
     padding-top: 50px;
+    max-width: 500px;
+    margin: 0 auto;
 
     img {
       width: 50%;
@@ -245,6 +301,27 @@ body {
     text-align: center;
     color: @textColor;
     padding-bottom: 20px;
+  }
+
+  .fb-login-button {
+    width: 90%;
+    left: 5%;
+    position: relative;
+    background-color: #3B5998;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    line-height: 64px;
+    border: none;
+    &:hover {
+      cursor: pointer;
+    }
+    .fb-login-button-icon {
+      float: left;
+      background: url(../img/basic_social/colored/64/rounded_square/facebook.png);
+      width: 64px;
+      height: 64px;
+    }
   }
 }
 
