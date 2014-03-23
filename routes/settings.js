@@ -8,6 +8,7 @@ exports.index = function(req, res){
     res.render('settings', {
       title: 'Settings',
       user: req.user,
+      isMap: false,
       qr: googlecharts.qr(300,300,req.user.dogeAddress)
     });
   } else {
