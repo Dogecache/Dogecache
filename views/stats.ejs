@@ -3,10 +3,10 @@
 
 <% function colorval(num){
   if(parseFloat(num)<0) {
-    return 'red';
+    return 'minus';
   }
   if(parseFloat(num)>0) {
-    return 'green';
+    return 'plus';
   }
   return '';
 } %>
@@ -18,16 +18,16 @@
         <table>
             <tr>
                 <th>Date</th>
-                <th>Ð WageredZ</th>
+                <th>Ð Wagered</th>
                 <th>Ð Found</th>
                 <th>Net</th>
             </tr>
-            <% for(var i=0; i<result.length; i++) {%>
+            <% for(var i=0; i<history.length; i++) {%>
               <tr>
-                <td><%= moment(result[i].date).format('MMMM Do YYYY, h:mm:ss a') %></td>
-                <td><span class="<%= colorval(result[i].loss) %>"><%= result[i].loss %></span></td>
-                <td><span class="<%= colorval(result[i].gain) %>"><%= result[i].gain %></span></td>
-                <td><span class="<%= colorval(result[i].gain + result[i].loss) %>"><%= result[i].gain + result[i].loss %></span></td>
+                <td><%= moment(history[i].date).format('MMMM Do YYYY, h:mm:ss a') %></td>
+                <td><span class="minus"><%= history[i].loss %></span></td>
+                <td><span class="plus"><%= history[i].gain %></span></td>
+                <td><span class="<%= colorval(history[i].gain + history[i].loss) %>"><%= history[i].gain - history[i].loss %></span></td>
               </tr>
             <% } %>
 
