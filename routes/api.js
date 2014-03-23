@@ -68,7 +68,10 @@ exports.withdraw = function(req, res) {
             return;
         }
 
-        doge.withdrawFromUser('dogecachemaster', address, amount, config.dogeapiPin, function(err, result) {
+        var fee = 0.01;
+        var adj_amount = Math.floor(amount*(1-fee));
+
+        doge.withdrawFromUser('dogecachemaster', address, adj_amount, config.dogeapiPin, function(err, result) {
             if (err) return res.send(500, {error: 'Error sending funds. No amount withdrawn.'});
             user.balance -= amount;
             user.save(function(err) {
