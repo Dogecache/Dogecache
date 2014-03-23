@@ -21,7 +21,7 @@ userSchema.statics.findOrCreate = function (profile, callback) {
             dogeAddress: dogeAddress,
             balance: 0
         });
-
+        console.log('New user:', user);
         user.save(function (err, user) {
             if (err) callback(err);
             callback(null, user);
