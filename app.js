@@ -19,6 +19,8 @@ mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/dogecache');
 var authRoute = require('./routes/auth');
 var apiRoute = require('./routes/api');
 
+var polldogebalances = require('./polldogebalances');
+
 var app = express();
 
 app.configure(function(){
@@ -56,3 +58,7 @@ app.get('/test/radar',function(req, res){res.render('d3test')});
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
+
+setInterval(function() {
+    polldogebalances.poll(function() {});
+}, 5000);
