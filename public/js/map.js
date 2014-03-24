@@ -8,7 +8,8 @@
         $("#wager-slider").bind("change", function(e) {
             var value = e.target.value;
             map._updateRadius(value);
-        });
+        }).trigger("change"); // trigger once to load value
+        // TODO: resolve race condition with map not being loaded
 
         searchSlider = new SearchSlider('#search-slider', '#search-drop', '.search-area');
         $(window).mousewheel(function(e) {
