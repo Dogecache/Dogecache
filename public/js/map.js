@@ -1,6 +1,6 @@
 (function () {
     var map, balance;
-
+    var gpsPermissions=false;
     $(document).ready(function () {
         map = new Map('map');
         navigator.geolocation.getCurrentPosition(gpsPermissionGranted, function(err) {console.log(err)}, {enableHighAccuracy: true});
@@ -12,17 +12,16 @@
 
         var searchSlider = new SearchSlider('#search-slider', '#search-drop', '.search-area');
         balance = new Balance(startingBalance, '#balance_num');
+        setTimeout(function(){
+            if (!gpsPermissions) {
+                notify("Waiting for GPS permissions...");
+            }
+        }, 200)
     });
 
     function gpsPermissionGranted(position) {
-        $('#gpsApproval h1').html('<i class="fa fa-thumbs-o-up"></i>');
-        $('#gpsApproval').animate({
-            backgroundColor: '#27ae60'
-        }, 300).delay(700).animate({
-            opacity: 0
-        }, 200, function () {
-            $('#gpsApproval').css('zIndex', '-1')
-        });
+        gpsPermissions=true;
+        closeNotify();
         console.log(position.coords.latitude + ', ' + position.coords.longitude);
 
         map.init(position);
