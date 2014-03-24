@@ -11,6 +11,9 @@
         });
 
         searchSlider = new SearchSlider('#search-slider', '#search-drop', '.search-area');
+        $(window).mousewheel(function(e) {
+            $("#wager-slider").val(parseInt($("#wager-slider").val()) + e.deltaY * 10).trigger('change'); // TODO: more efficent selector
+        });
         balance = new Balance(window.startingBalance, '#balance_num');
     });
 
@@ -242,6 +245,9 @@
                 }, (1.5 + Math.random()*1.5) * 1000);
             }, callback);
         });
+    };
+    Map.prototype.zoomDelta = function(n) {
+        this._updateRadius(this.radius + n);
     };
 
     var Balance = function(startingBalance, selector) {
