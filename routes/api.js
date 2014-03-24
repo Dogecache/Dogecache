@@ -34,6 +34,7 @@ exports.cache = function(req, res) {
             } else {
                 // Second, find caches
                 var maxDistance = req.body.amount; // max search radius in meters TODO: scale the amount to the distance via function
+                //TODO use async
                 Cache.findCaches(user, maxDistance, req.body.longitude, req.body.latitude, function(err, caches) {
                     // Third, gather caches
                     Cache.gatherCaches(user, caches, function(err, gain) {

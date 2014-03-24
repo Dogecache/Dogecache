@@ -2,6 +2,7 @@
     var map, balance, searchSlider;
     var gpsPermissions=false;
 
+
     $(document).ready(function () {
         map = new Map('map', function() {
             $("#wager-slider").bind("change", function(e) {
