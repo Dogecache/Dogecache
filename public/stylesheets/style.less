@@ -396,6 +396,7 @@ body {
   width: 100%;
   padding: 20px;
   position: relative;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
 
   + .card {
     margin-top: 20px;
@@ -494,6 +495,19 @@ body {
     background-size: 100% auto;
   }
 }
+
+@media(min-height: 864px) {
+  .splash-page {
+    background-size: auto 100%;
+  }
+}
+
+@media(min-width: 1300px) and (min-height: 864px) {
+  .splash-page {
+    background-size: 100% 100%;
+  }
+}
+
 .splash-page {
   position: fixed;
   width: 100%;
@@ -562,7 +576,7 @@ body {
     .map-button, .fb-login-button {
 
       position: relative;
-      height: 60px;
+      height: @actionHeight;
       width: 100%;
       padding: 0px;
       margin: 0px;
@@ -591,9 +605,9 @@ body {
     }
 
     .map-button {
-      background-color: rgb(24, 147, 18);
+      background-color: @btnMainColor;
       &:hover, &:active, &:focus {
-        background: lighten(rgb(24, 147, 18), 10%);
+        background: lighten(@btnMainColor, 10%);
       }
     }
   }

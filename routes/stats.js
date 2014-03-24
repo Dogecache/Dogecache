@@ -11,7 +11,7 @@ exports.index = function (req, res) {
             History.getAggregate(req.user.fbId, function (err, aggregate) {
                 console.log(aggregate);
                 res.render('stats', {
-                    title: 'Statistics',
+                    title: 'Statistics | Dogecache',
                     user: req.user,
                     history: history,
                     aggregate: aggregate,
