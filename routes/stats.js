@@ -2,8 +2,8 @@
  * GET stats page.
  */
 var History = require('../models/history.js');
-var async = require('async');
-
+//@TODO Async the data retrieval
+//@TODO pass in user for consistency
 
 exports.index = function (req, res) {
     if (req.user) {
@@ -17,7 +17,7 @@ exports.index = function (req, res) {
             }
         }, function (err, data) {
             res.render('stats', {
-                title: 'Statistics',
+                title: 'Statistics | Dogecache',
                 user: req.user,
                 history: data.history,
                 aggregate: data.aggregate,

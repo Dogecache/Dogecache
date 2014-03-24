@@ -60,6 +60,7 @@ app.get('/auth/login', authRoute.login);
 app.get('/auth/callback', authRoute.loginCallback);
 app.get('/auth/logout', authRoute.logout);
 app.post('/api/cache', apiRoute.cache);
+app.post('/api/withdraw', apiRoute.withdraw);
 
 
 http.createServer(app).listen(app.get('port'), function(){
