@@ -1,5 +1,5 @@
 (function () {
-    var map, balance;
+    var map, balance, searchSlider;
 
     $(document).ready(function () {
         map = new Map('map');
@@ -10,8 +10,8 @@
             map._updateRadius(value);
         });
 
-        var searchSlider = new SearchSlider('#search-slider', '#search-drop', '.search-area');
-        balance = new Balance(startingBalance, '#balance_num');
+        searchSlider = new SearchSlider('#search-slider', '#search-drop', '.search-area');
+        balance = new Balance(window.startingBalance, '#balance_num');
     });
 
     function gpsPermissionGranted(position) {
