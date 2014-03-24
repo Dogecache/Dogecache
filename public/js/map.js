@@ -2,20 +2,19 @@
     var map, balance, searchSlider;
 
     $(document).ready(function () {
-        map = new Map('map');
-        navigator.geolocation.getCurrentPosition(gpsPermissionGranted, function(err) {console.log(err)}, {enableHighAccuracy: true});
+        map = new Map('map', function() {
+            $("#wager-slider").bind("change", function(e) {
+                var value = e.target.value;
+                map._updateRadius(value);
+            }).trigger("change"); // trigger once to load value
 
-        $("#wager-slider").bind("change", function(e) {
-            var value = e.target.value;
-            map._updateRadius(value);
-        }).trigger("change"); // trigger once to load value
-        // TODO: resolve race condition with map not being loaded
-
-        searchSlider = new SearchSlider('#search-slider', '#search-drop', '.search-area');
-        $(window).mousewheel(function(e) {
-            $("#wager-slider").val(parseInt($("#wager-slider").val()) + e.deltaY * 10).trigger('change'); // TODO: more efficent selector
+            searchSlider = new SearchSlider('#search-slider', '#search-drop', '.search-area');
+            $(window).mousewheel(function(e) {
+                $("#wager-slider").val(parseInt($("#wager-slider").val()) + e.deltaY * 10).trigger('change'); // TODO: more efficent selector
+            });
+            balance = new Balance(window.startingBalance, '#balance_num');
         });
-        balance = new Balance(window.startingBalance, '#balance_num');
+        navigator.geolocation.getCurrentPosition(gpsPermissionGranted, function(err) {console.log(err)}, {enableHighAccuracy: true});
     });
 
     function gpsPermissionGranted(position) {
@@ -109,11 +108,12 @@
         }
     };
 
-    var Map = function (id) {
+    var Map = function (id, callback) {
         console.log('Map created');
         this.id = id;
         var that = this;
         this.$container = $("#" + id);
+        this._onLoadCallback = callback;
     };
     Map.prototype.init = function (position) {
         var that = this;
@@ -149,6 +149,8 @@
         $(window).on("throttledresize", function( event ) {
             that._onResize();
         });
+
+        if (this._onLoadCallback) this._onLoadCallback();
     };
     Map.prototype._updateCenter = function(center, animate) {
         this.center = center;
