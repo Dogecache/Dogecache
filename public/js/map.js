@@ -1,6 +1,7 @@
 (function () {
     var map, balance;
 
+
     $(document).ready(function () {
         map = new Map('map');
         navigator.geolocation.getCurrentPosition(gpsPermissionGranted, function(err) {console.log(err)}, {enableHighAccuracy: true});

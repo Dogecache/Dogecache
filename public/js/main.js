@@ -36,13 +36,17 @@ function notify(title, body) {
   $('.notification').css('zIndex',1000)
   .animate({
     opacity: 1
-  }, 300);
+  }, 300)
+  .on('click', function(){closeNotify()});
   $('.notification .pane').animate({
     top: 0
-  }, 300);
+  }, 300)
+  .on('click', function(e){e.stopPropagation();});
+
 }
 
 function closeNotify() {
+  $('.notification .pane').unbind();
   $('.notification .pane').animate({
     top: -1*$(window).height()
   }, 300);
@@ -52,5 +56,5 @@ function closeNotify() {
     $('.notification').css('zIndex',-1);
     $('.notification .pane h1').html('');
     $('.notification .content').html('');
-  });
+  }).unbind();
 }
