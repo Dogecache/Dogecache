@@ -1,10 +1,5 @@
 (function () {
-<<<<<<< HEAD
     var map, balance, searchSlider;
-=======
-    var map, balance;
->>>>>>> f2353340cfbaf9861eda3272dbb2bb92c8fbb816
-
 
     $(document).ready(function () {
         map = new Map('map', function() {
