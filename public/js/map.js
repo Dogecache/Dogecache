@@ -1,5 +1,5 @@
 (function () {
-    
+
     var map, balance, searchSlider;
     var isSearching = false;
 
@@ -98,7 +98,7 @@
                                     gain += elem.amount;
                                 });
 
-                                notify("Search Complete!", "You found " + gain + " dogecoin!  You have " + balance.getBalance() + " dogecoin now.");
+                                notify("Search Complete!", "After wagering " + amount + " dogecoin, you found " + gain + " dogecoin!  You have " + balance.getBalance() + " dogecoin now.");
                                 that.enable()
                             });
                         });
