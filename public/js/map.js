@@ -197,10 +197,10 @@
         var pixelWidth = Math.min(this.$container.width(), this.$container.height());
         var zoom = Math.floor(Math.log(pixelWidth * 360 / angle / GLOBE_WIDTH) / Math.LN2);
 
-        this.gmap.setZoom(zoom);
+        this.gmap.setZoom(zoom); // if zoom level is past limit, Google Maps will zoom to limit
 
         // Calculate field of view angle
-        var fov = (pixelWidth * 360) / (Math.pow(2, zoom) * GLOBE_WIDTH);
+        var fov = (pixelWidth * 360) / (Math.pow(2, this.gmap.getZoom()) * GLOBE_WIDTH); // use getZoom() method in case map has been zoomed past limit
 //        console.log(zoom, fov);
 
         function distance(lat1, lon1, lat2, lon2) {
