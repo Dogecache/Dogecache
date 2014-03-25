@@ -3,8 +3,8 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var User = require('../models/user');
 
 passport.use(new FacebookStrategy({
-    clientID: 1496318680595746,
-    clientSecret: '3d32fd6636a759505f7252b54019cdf1',
+    clientID: facebook_clientid,
+    clientSecret: facebook_clientsecret,
     callbackURL: (process.env.NODE_ENV == 'production') ? 'https://dogecache.herokuapp.com/auth/callback' : 'http://localhost:3000/auth/callback'
 }, function(accessToken, refreshToken, profile, done) {
     User.findOrCreate(profile, function(err, user) {
