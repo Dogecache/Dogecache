@@ -1,14 +1,14 @@
 $(document).ready(function(){
 
-  if (! (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ) {
     var del=0;
     $('.card').each(function(){
-      $(this).css('-webkit-transition-delay', del/1000 + 's').addClass('card-shown');
-      del += 200;
+        $(this).css('-webkit-transition-delay', del/1000 + 's').addClass('card-shown');
+        del += 200;
     }, function(){
-      del=0;
-    })
+        del=0;
+    });
 
+  if (! (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ) {
     $('.logo').css('opacity', 0).css('margin-top', $(window).height());
     $('.splash-page h1').css('opacity', 0).css('margin-top', $(window).height());
     $('.home-button-wrapper').css('opacity', 0)
