@@ -1,4 +1,5 @@
 (function () {
+    
     var map, balance, searchSlider;
 
     $(document).ready(function () {
