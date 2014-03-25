@@ -419,6 +419,14 @@ body {
   padding: 20px;
   position: relative;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  -webkit-transform: translateY(500px) rotate(10deg);
+  opacity: 0;
+  -webkit-transition: all 1s;
+
+  &.card-shown {
+    -webkit-transform: translateY(0) rotate(0);
+    opacity: 1;
+  }
 
   + .card {
     margin-top: 20px;
