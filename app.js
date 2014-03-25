@@ -62,8 +62,6 @@ app.get('/auth/logout', authRoute.logout);
 app.post('/api/cache', apiRoute.cache);
 app.post('/api/withdraw', apiRoute.withdraw);
 
-//app.get('/test/radar',function(req, res){res.render('d3test')});
-app.get('/test/error', function() {throw new Error("test")});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

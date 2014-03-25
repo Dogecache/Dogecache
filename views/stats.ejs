@@ -27,7 +27,7 @@
                         <td><%= moment(history[i].date).format('MMMM Do YYYY, h:mm:ss a') %></td>
                         <td><span class="<%= history[i].loss = 0 ? 'none' : 'minus' %>"><%= history[i].loss %></span>
                         </td>
-                        <td><span class="<%= history[i].gain = 0 ? 'none' : 'plus' %>""><%= history[i].gain %></span>
+                        <td><span class="<%= history[i].gain = 0 ? 'none' : 'plus' %>"><%= history[i].gain %></span>
                         </td>
                         <td>
                             <span class="<%= colorval(history[i].gain - history[i].loss) %>"><%= history[i].gain - history[i].loss %></span>

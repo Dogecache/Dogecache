@@ -85,11 +85,17 @@
                     $('.map_circle_radar').css({opacity: 1});
                     $('.map_circle_inner_wrap').css({opacity: 0});
                     setTimeout(function() {
-                        API.cache(amount, function(data) {
-                            map.showCaches(data, function() {
+                        API.cache(amount, function(caches) {
+                            console.log(caches);
+                            map.showCaches(caches, function() {
                                 $('.map_circle_radar').css({opacity: 0});
                                 $('.map_circle_inner_wrap').css({opacity: 1});
-                                notify("Search Complete!", "You have " + balance.getBalance() + " dogecoin now.");
+                                var gain = 0;
+                                caches.forEach(function(elem) {
+                                    gain += elem.amount;
+                                });
+
+                                notify("Search Complete!", "You found " + gain + " dogecoin!  You have " + balance.getBalance() + " dogecoin now.");
                                 that.enable()
                             });
                         });
@@ -267,6 +273,10 @@
     Balance.prototype.getBalance = function() {
         return this.balance;
     };
+    Balance.prototype.add = function(amount) {
+        this.balance += amount;
+        this._update();
+    }
     Balance.prototype.subtract = function(amount) {
         this.balance -= amount;
         this._update();

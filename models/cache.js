@@ -60,7 +60,7 @@ cacheSchema.statics.findCaches = function (user, maxDistance, longitude, latitud
 cacheSchema.statics.gatherCaches = function (user, caches, callback) {
     // total up the amount of doge received
     var total = 0;
-    if (typeof caches != "undefined") {
+    if (Array.isArray(caches)) {
         for (var i = 0; i < caches.length; i++) {
             total += caches[i].amount;
         }

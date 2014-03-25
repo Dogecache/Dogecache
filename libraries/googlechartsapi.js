@@ -3,6 +3,7 @@ var settings = {
 };
 
 /**
+ * @TODO clean up docs
  * cht=qr    Required    Specifies a QR code.
  chs=<width>x<height>    Required     Image size.
  chl=<data>    Required    The data to encode. Data can be digits (0-9), alphanumeric characters, binary bytes of data, or Kanji. You cannot mix data types within a QR code. The data must be UTF-8 URL-encoded. Note that URLs have a 2K maximum length, so if you want to encode more than 2K bytes (minus the other URL characters), you will have to send your data using POST.
