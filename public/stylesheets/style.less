@@ -655,6 +655,13 @@ body {
   font-size: 30px;
   text-align: center;
   display: table;
+  opacity: 1;
+  -webkit-transition: background 0.3s linear 0s, opacity 0.2s linear 1s;
+
+  &.approved {
+    background-color: #27ae60;
+    opacity: 0;
+  }
 
   .cell {
     display:table-cell;

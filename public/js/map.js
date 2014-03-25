@@ -23,13 +23,10 @@
 
     function gpsPermissionGranted(position) {
         $('#gpsApproval h1').html('<i class="fa fa-thumbs-o-up"></i>');
-        $('#gpsApproval').animate({
-            backgroundColor: '#27ae60'
-        }, 300).delay(700).animate({
-            opacity: 0
-        }, 200, function () {
+        $('#gpsApproval').addClass('approved');
+        setTimeout(function () {
             $('#gpsApproval').css('zIndex', '-1')
-        });
+        }, 1200);
         console.log(position.coords.latitude + ', ' + position.coords.longitude);
 
         map.init(position);
