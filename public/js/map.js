@@ -1,6 +1,7 @@
 (function () {
     
     var map, balance, searchSlider;
+    var isSearching = false;
 
     $(document).ready(function () {
         map = new Map('map', function() {
@@ -11,6 +12,7 @@
 
             searchSlider = new SearchSlider('#search-slider', '#search-drop', '.search-area');
             $(window).mousewheel(function(e) {
+                if (isSearching) return;
                 $("#wager-slider").val(parseInt($("#wager-slider").val()) + e.deltaY * 10).trigger('change'); // TODO: more efficent selector
             });
             balance = new Balance(window.startingBalance, '#balance_num');
@@ -68,6 +70,7 @@
         this.$drop.droppable({
             accept: slider,
             drop: function (event, ui) {
+                isSearching = true;
                 that.isDropped = true;
                 that.$slider.draggable("disable").animate({
                     "right": "0px",
@@ -77,6 +80,7 @@
                 var amount = $("#wager-slider").val();
                 //PUT STUFF HERE FOR WHEN USER SUCCESSFULLY SEARCHES
                 if (!balance.check(amount)) {
+                    isSearching = false;
                     notify('Insufficient Doge', 'Please deposit more dogecoin.');
                     that.enable();
                 } else {
@@ -86,6 +90,7 @@
                         API.cache(amount, function(caches) {
                             console.log(caches);
                             map.showCaches(caches, function() {
+                                isSearching = false;
                                 $('.map_circle_radar').css({opacity: 0});
                                 $('.map_circle_inner_wrap').css({opacity: 1});
                                 var gain = 0;
