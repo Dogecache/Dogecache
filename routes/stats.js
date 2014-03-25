@@ -2,6 +2,7 @@
  * GET stats page.
  */
 var History = require('../models/history.js');
+var moment = require('moment');
 //@TODO Async the data retrieval
 //@TODO pass in user for consistency
 
@@ -21,7 +22,8 @@ exports.index = function (req, res) {
                 user: req.user,
                 history: data.history,
                 aggregate: data.aggregate,
-                isMap: false
+                isMap: false,
+                moment: moment
             })
         })
     }
