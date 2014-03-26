@@ -88,6 +88,7 @@
                     $('.map_circle_inner_wrap').css({opacity: 0});
                     setTimeout(function() {
                         API.cache(amount, function(caches) {
+                            console.log(caches);
                             map.showCaches(caches, function() {
                                 isSearching = false;
                                 $('.map_circle_radar').css({opacity: 0});
@@ -97,7 +98,7 @@
                                     gain += elem.amount;
                                 });
 
-                                notify("Search Complete!", "You wagered " + amount + " dogecoin and found " + gain + " dogecoin!  You now have " + balance.getBalance() + " dogecoin.");
+                                notify("Search Complete!", "After wagering " + amount + " dogecoin, you found " + gain + " dogecoin!  You now have " + balance.getBalance() + " dogecoin.");
                                 that.enable()
                             });
                         });
