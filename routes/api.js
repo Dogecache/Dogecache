@@ -1,12 +1,15 @@
 var Cache = require('../models/cache');
 var User = require('../models/user');
 var History = require('../models/history');
-var passport = require('passport');
 
 var dogeAPI = require('../libraries/dogeapi');
 var doge = new dogeAPI();
 
 var config = require('../config');
+
+const FEE = 1; //withdrawal fee, in percent
+
+
 
 function auth(req, res, callback) {
     if (req.user) return callback(null, req.user);
@@ -69,8 +72,7 @@ exports.withdraw = function(req, res) {
             return;
         }
 
-        var fee = 0.01;
-        var adj_amount = Math.floor(amount*(1-fee));
+        var adj_amount = Math.floor(amount*(1 - FEE*0.01));
 
         doge.withdrawFromUser('dogecachemaster', address, adj_amount, config.dogeapiPin, function(err, result) {
             if (err) return res.send(500, {error: 'Error sending funds. No amount withdrawn.'});

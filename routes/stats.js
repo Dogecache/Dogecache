@@ -3,15 +3,15 @@
  */
 var History = require('../models/history.js');
 var moment = require('moment');
-//@TODO Async the data retrieval
-//@TODO pass in user for consistency
+const RETRIEVAL_LIMIT = 5;
+//@todo make retrieval limit global
+
 
 exports.index = function (req, res) {
     if (req.user) {
         async.parallel({
             history: function (done) {
-                //@todo make retrieval limit global
-                History.getHistory(req.user, 5, done)
+                History.getHistory(req.user, RETRIEVAL_LIMIT, done)
             },
             aggregate: function (done) {
                 History.getAggregate(req.user, done)
