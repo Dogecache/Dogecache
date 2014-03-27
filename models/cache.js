@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 var User = require('./user');
 var async = require('async');
 
+const WAGER_FEE = 1; //wager fee deducted at time of wager, in percent
+
 var cacheSchema = new mongoose.Schema({
     fbId: Number,
     amount: Number,
@@ -23,6 +25,8 @@ cacheSchema.statics.addCache = function (user, amount, longitude, latitude, call
             console.log(err);
             return callback(err);
         }
+
+        amount = amount*(1-WAGER_FEE*0.01);
 
         // Create the cache
         var cache = new that({

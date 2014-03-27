@@ -8,7 +8,6 @@ var async = require('async');
 
 var config = require('../config');
 
-const WAGER_FEE = 1; //wager fee deducted at time of wager, in percent
 const TX_FEE = 1; //withdrawal fee to cover transaction fee, in doge
 const MIN_WITHDRAW = 10; //minimum withdrawal amount, in doge
 
@@ -39,8 +38,8 @@ exports.cache = function (req, res) {
         },
         //ii. add the cache
         function (done) {
-            var amount = req.body.amount*(1-WAGER_FEE*0.01);
-            Cache.addCache(user, amount, req.body.longitude, req.body.latitude, function (err, cache) {
+
+            Cache.addCache(user, req.body.amount, req.body.longitude, req.body.latitude, function (err, cache) {
                 var maxDistance = req.body.amount; // max search radius in meters TODO: scale the amount to the distance via function
                 done(err, maxDistance);
             })
