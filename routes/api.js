@@ -8,7 +8,9 @@ var async = require('async');
 
 var config = require('../config');
 
-const FEE = 1; //withdrawal fee, in percent
+const WAGER_FEE = 1; //wager fee deducted at time of wager, in percent
+const TX_FEE = 1; //withdrawal fee to cover transaction fee, in doge
+const MIN_WITHDRAW = 10; //minimum withdrawal amount, in doge
 
 
 function auth(req, res, callback) {
@@ -37,7 +39,8 @@ exports.cache = function (req, res) {
         },
         //ii. add the cache
         function (done) {
-            Cache.addCache(user, req.body.amount, req.body.longitude, req.body.latitude, function (err, cache) {
+            var amount = req.body.amount*(1-WAGER_FEE*0.01);
+            Cache.addCache(user, amount, req.body.longitude, req.body.latitude, function (err, cache) {
                 var maxDistance = req.body.amount; // max search radius in meters TODO: scale the amount to the distance via function
                 done(err, maxDistance);
             })
@@ -89,7 +92,13 @@ exports.withdraw = function (req, res) {
             return;
         }
 
-        var adj_amount = Math.floor(amount * (1 - FEE * 0.01));
+        //ensure that the user meets the minimum withdraw
+        if (amount < MIN_WITHDRAW) {
+            res.send(500,{error: 'Withdrawal amount does not meet minimum of ' + MIN_WITHDRAW + 'doge.'})
+            return;
+        }
+
+        var adj_amount = amount - TX_FEE;
 
         doge.withdrawFromUser('dogecachemaster', address, adj_amount, config.dogeapiPin, function (err, result) {
             if (err) return res.send(500, {error: 'Error sending funds. No amount withdrawn.'});
