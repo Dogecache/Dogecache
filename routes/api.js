@@ -4,20 +4,19 @@ var History = require('../models/history');
 
 var dogeAPI = require('../libraries/dogeapi');
 var doge = new dogeAPI();
+var async = require('async');
 
 var config = require('../config');
 
 const FEE = 1; //withdrawal fee, in percent
 
 
-
 function auth(req, res, callback) {
     if (req.user) return callback(null, req.user);
 
-    // TODO: more secure API key login method
-    User.findOne({fbId: req.body.fbId}, function(err, user) {
+    User.findOne({uuid: req.body.uuid}, function (err, user) {
         if (!err) {
-            req.login(user, function(err) {
+            req.login(user, function (err) {
                 callback(null, user);
             });
         } else {
@@ -26,43 +25,61 @@ function auth(req, res, callback) {
     })
 }
 
-exports.cache = function(req, res) {
-    // Auth user
-    auth(req, res, function(err, user) {
-        // First, add the cache
-        Cache.addCache(user, req.body.amount, req.body.longitude, req.body.latitude, function(err, cache) {
-            if (err) {
-                console.log(err);
-                res.send(err);
-            } else {
-                // Second, find caches
+exports.cache = function (req, res) {
+    var user;
+    async.waterfall([
+        //i. auth user
+        function (done) {
+            auth(req, res, function (err, result) {
+                user = result;
+                done(err);
+            })
+        },
+        //ii. add the cache
+        function (done) {
+            Cache.addCache(user, req.body.amount, req.body.longitude, req.body.latitude, function (err, cache) {
                 var maxDistance = req.body.amount; // max search radius in meters TODO: scale the amount to the distance via function
-                //TODO use async
-                Cache.findCaches(user, maxDistance, req.body.longitude, req.body.latitude, function(err, caches) {
-                    // Third, gather caches
-                    Cache.gatherCaches(user, caches, function(err, gain) {
-                        //Add a new transaction entry
-                       History.addHistory(user, req.body.amount, gain, req.body.longitude, req.body.latitude, function(err, history) {
-                           // Done
-                           res.send(caches);
-                       })
-
-
-                    });
-                })
-            }
-        });
-    });
+                done(err, maxDistance);
+            })
+        },
+        //iii. find caches
+        function (maxDistance, done) {
+            console.log(user)
+            Cache.findCaches(user, maxDistance, req.body.longitude, req.body.latitude, function (err, caches) {
+                done(err, caches);
+            })
+        },
+        //iv. gather caches
+        function (caches, done) {
+            Cache.gatherCaches(user, caches, function (err, gain) {
+                done(err, caches, gain);
+            })
+        },
+        //v. add a new transaction entry @todo this can be parallel
+        function (caches, gain, done) {
+            History.addHistory(user, req.body.amount, gain, req.body.longitude, req.body.latitude, function (err, history) {
+                done(caches);
+            })
+        }
+        //done
+    ], function (err, caches) {
+        if (err) {
+            console.log(err);
+            res.send(err);
+        } else {
+            res.send(caches);
+        }
+    })
 };
 
-exports.deposit = function(req, res) {
-    auth(req, res, function(err, user) {
+exports.deposit = function (req, res) {
+    auth(req, res, function (err, user) {
         res.send(user.dogeAddress);
     });
 };
 
-exports.withdraw = function(req, res) {
-    auth(req, res, function(err, user) {
+exports.withdraw = function (req, res) {
+    auth(req, res, function (err, user) {
         var address = req.body.address;
         var amount = req.body.amount;
 
@@ -72,12 +89,12 @@ exports.withdraw = function(req, res) {
             return;
         }
 
-        var adj_amount = Math.floor(amount*(1 - FEE*0.01));
+        var adj_amount = Math.floor(amount * (1 - FEE * 0.01));
 
-        doge.withdrawFromUser('dogecachemaster', address, adj_amount, config.dogeapiPin, function(err, result) {
+        doge.withdrawFromUser('dogecachemaster', address, adj_amount, config.dogeapiPin, function (err, result) {
             if (err) return res.send(500, {error: 'Error sending funds. No amount withdrawn.'});
             user.balance -= amount;
-            user.save(function(err) {
+            user.save(function (err) {
                 res.send(result);
             });
         });

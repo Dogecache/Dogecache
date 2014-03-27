@@ -75,7 +75,6 @@ cacheSchema.statics.gatherCaches = function (user, caches, callback) {
             },
             // add balance to user
             function (done) {
-            console.log(user.fbId);
                 User.update({fbId: user.fbId}, {$inc: {balance: total}}, done);
             }
         ], function (err) {

@@ -49,9 +49,9 @@
                     <li>Total Wagered: <span class="<%= colorval(iszero ? 0 : -1*aggregate[0].totalLoss) %>"><%= iszero ? 0 : aggregate[0].totalLoss %></span></li>
                     <li>Total Gained: <span class="<%= colorval(iszero ? 0 : aggregate[0].totalGain) %>"><%= iszero ? 0 : aggregate[0].totalGain %></span></li>
                     <li>Net Total: <span class="<%= colorval(iszero ? 0 : -1*aggregate[0].avgLoss) %>"><%= iszero ? 0 : aggregate[0].totalGain-aggregate[0].totalLoss %></span></li>
-                    <li>Average Wager: <span class="<%= colorval(iszero ? 0 : -1*aggregate[0].avgLoss) %>"><%= iszero ? 0 : aggregate[0].avgLoss %></li>
-                    <li>Average Gained: <span class="<%= colorval(iszero ? 0 : aggregate[0].avgGain) %>"><%= iszero ? 0 : aggregate[0].avgGain %></span></li>
-                    <li>Net Average: <span class="<%= colorval(iszero ? 0 : aggregate[0].avgGain-aggregate[0].avgLoss) %>"><%= iszero ? 0 : aggregate[0].avgGain-aggregate[0].avgLoss %></span></li>
+                    <li>Average Wager: <span class="<%= colorval(iszero ? 0 : -1*aggregate[0].avgLoss) %>"><%= iszero ? 0 : Math.round(aggregate[0].avgLoss*100)/100 /*@TODO better rounding implementation*/%></li>
+                    <li>Average Gained: <span class="<%= colorval(iszero ? 0 : aggregate[0].avgGain) %>"><%= iszero ? 0 : Math.round(aggregate[0].avgGain*100)/100 %></span></li>
+                    <li>Net Average: <span class="<%= colorval(iszero ? 0 : aggregate[0].avgGain-aggregate[0].avgLoss) %>"><%= iszero ? 0 : Math.round(aggregate[0].avgGain-aggregate[0].avgLoss*100)/100 %></span></li>
                     <li>Total Searches: <%= iszero ? 0 : aggregate[0].totalSearches %></li>
                 </ul>
             </div>

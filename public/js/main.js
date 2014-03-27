@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+    //TODO clean up selectors
     var del=0;
     $('.card').each(function(){
         $(this).css('-webkit-transition-delay', del/1000 + 's').addClass('card-shown');
