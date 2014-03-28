@@ -27,10 +27,10 @@ historySchema.statics.addHistory = function (user, loss, gain, longitude, latitu
     });
 };
 
-historySchema.statics.getHistory = function (userid, limit, callback) {
+historySchema.statics.getHistory = function (user, limit, callback) {
     var that = this;
     that
-        .find({fbId: userid})
+        .find({fbId: user.fbId})
         .sort({'date': -1})
         .limit(limit)
         .exec(function (err, results) {
@@ -38,12 +38,12 @@ historySchema.statics.getHistory = function (userid, limit, callback) {
         });
 };
 
-historySchema.statics.getAggregate = function(userid, callback) {
+historySchema.statics.getAggregate = function(user, callback) {
     var that = this;
 
     // and here are the grouping request:
     that.aggregate([
-        { $match: {fbId: userid} },
+        { $match: {fbId: user.fbId} },
         {
             $group: {
                 _id: null,

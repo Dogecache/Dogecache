@@ -1,18 +1,14 @@
 $(document).ready(function(){
-
-  if (! (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ) {
-    $('.card').css('opacity', 0).css('top', $(window).height());
+    //TODO clean up selectors
     var del=0;
     $('.card').each(function(){
-      $(this).delay(del).animate({
-        opacity: 1,
-        top: 0
-      }, 500)
-      del += 200;
+        $(this).css('-webkit-transition-delay', del/1000 + 's').addClass('card-shown');
+        del += 200;
     }, function(){
-      del=0;
-    })
+        del=0;
+    });
 
+  if (! (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ) {
     $('.logo').css('opacity', 0).css('margin-top', $(window).height());
     $('.splash-page h1').css('opacity', 0).css('margin-top', $(window).height());
     $('.home-button-wrapper').css('opacity', 0)
@@ -38,13 +34,17 @@ function notify(title, body) {
   $('.notification').css('zIndex',1000)
   .animate({
     opacity: 1
-  }, 300);
+  }, 300)
+  .on('click', function(){closeNotify()});
   $('.notification .pane').animate({
     top: 0
-  }, 300);
+  }, 300)
+  .on('click', function(e){e.stopPropagation();});
+
 }
 
 function closeNotify() {
+  $('.notification .pane').unbind();
   $('.notification .pane').animate({
     top: -1*$(window).height()
   }, 300);
@@ -54,5 +54,5 @@ function closeNotify() {
     $('.notification').css('zIndex',-1);
     $('.notification .pane h1').html('');
     $('.notification .content').html('');
-  });
+  }).unbind();
 }

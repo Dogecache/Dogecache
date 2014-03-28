@@ -3,5 +3,7 @@
     "dogeapiPin": "",
     "worldweatherapiKey": "",
     "sendgridapi_user": "",
-    "sendgridapi_key": ""
+    "sendgridapi_key": "",
+    "facebook_clientid": "",
+    "facebook_clientsecret": ""
 }

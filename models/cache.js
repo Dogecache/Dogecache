@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 var User = require('./user');
 var async = require('async');
 
+const WAGER_FEE = 1; //wager fee deducted at time of wager, in percent
+
 var cacheSchema = new mongoose.Schema({
     fbId: Number,
     amount: Number,
@@ -23,6 +25,8 @@ cacheSchema.statics.addCache = function (user, amount, longitude, latitude, call
             console.log(err);
             return callback(err);
         }
+
+        amount = amount*(1-WAGER_FEE*0.01);
 
         // Create the cache
         var cache = new that({
@@ -60,7 +64,7 @@ cacheSchema.statics.findCaches = function (user, maxDistance, longitude, latitud
 cacheSchema.statics.gatherCaches = function (user, caches, callback) {
     // total up the amount of doge received
     var total = 0;
-    if (typeof caches != "undefined") {
+    if (Array.isArray(caches)) {
         for (var i = 0; i < caches.length; i++) {
             total += caches[i].amount;
         }
@@ -75,7 +79,6 @@ cacheSchema.statics.gatherCaches = function (user, caches, callback) {
             },
             // add balance to user
             function (done) {
-            console.log(user.fbId);
                 User.update({fbId: user.fbId}, {$inc: {balance: total}}, done);
             }
         ], function (err) {

@@ -2,23 +2,30 @@
  * GET stats page.
  */
 var History = require('../models/history.js');
-//@TODO Async the data retrieval
-//@TODO pass in user for consistency
+var moment = require('moment');
+const RETRIEVAL_LIMIT = 5;
+//@todo make retrieval limit global
+
 
 exports.index = function (req, res) {
     if (req.user) {
-        History.getHistory(req.user.fbId, 5, function (err, history) {
-            History.getAggregate(req.user.fbId, function (err, aggregate) {
-                console.log(aggregate);
-                res.render('stats', {
-                    title: 'Statistics | Dogecache',
-                    user: req.user,
-                    history: history,
-                    aggregate: aggregate,
-                    isMap: false
-                });
-            });
-        });
+        async.parallel({
+            history: function (done) {
+                History.getHistory(req.user, RETRIEVAL_LIMIT, done)
+            },
+            aggregate: function (done) {
+                History.getAggregate(req.user, done)
+            }
+        }, function (err, data) {
+            res.render('stats', {
+                title: 'Statistics | Dogecache',
+                user: req.user,
+                history: data.history,
+                aggregate: data.aggregate,
+                isMap: false,
+                moment: moment
+            })
+        })
     }
     else {
         res.redirect('/');

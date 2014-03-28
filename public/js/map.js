@@ -1,5 +1,7 @@
 (function () {
+    
     var map, balance, searchSlider;
+    var isSearching = false;
 
     $(document).ready(function () {
         map = new Map('map', function() {
@@ -10,22 +12,23 @@
 
             searchSlider = new SearchSlider('#search-slider', '#search-drop', '.search-area');
             $(window).mousewheel(function(e) {
+                if (isSearching) return;
                 $("#wager-slider").val(parseInt($("#wager-slider").val()) + e.deltaY * 10).trigger('change'); // TODO: more efficent selector
             });
             balance = new Balance(window.startingBalance, '#balance_num');
         });
+        var searchSlider = new SearchSlider('#search-slider', '#search-drop', '.search-area');
+        balance = new Balance(startingBalance, '#balance_num');
+
         navigator.geolocation.getCurrentPosition(gpsPermissionGranted, function(err) {console.log(err)}, {enableHighAccuracy: true});
     });
 
     function gpsPermissionGranted(position) {
         $('#gpsApproval h1').html('<i class="fa fa-thumbs-o-up"></i>');
-        $('#gpsApproval').animate({
-            backgroundColor: '#27ae60'
-        }, 300).delay(700).animate({
-            opacity: 0
-        }, 200, function () {
+        $('#gpsApproval').addClass('approved');
+        setTimeout(function () {
             $('#gpsApproval').css('zIndex', '-1')
-        });
+        }, 1200);
         console.log(position.coords.latitude + ', ' + position.coords.longitude);
 
         map.init(position);
@@ -67,6 +70,7 @@
         this.$drop.droppable({
             accept: slider,
             drop: function (event, ui) {
+                isSearching = true;
                 that.isDropped = true;
                 that.$slider.draggable("disable").animate({
                     "right": "0px",
@@ -76,17 +80,25 @@
                 var amount = $("#wager-slider").val();
                 //PUT STUFF HERE FOR WHEN USER SUCCESSFULLY SEARCHES
                 if (!balance.check(amount)) {
+                    isSearching = false;
                     notify('Insufficient Doge', 'Please deposit more dogecoin.');
                     that.enable();
                 } else {
                     $('.map_circle_radar').css({opacity: 1});
                     $('.map_circle_inner_wrap').css({opacity: 0});
                     setTimeout(function() {
-                        API.cache(amount, function(data) {
-                            map.showCaches(data, function() {
+                        API.cache(amount, function(caches) {
+                            console.log(caches);
+                            map.showCaches(caches, function() {
+                                isSearching = false;
                                 $('.map_circle_radar').css({opacity: 0});
                                 $('.map_circle_inner_wrap').css({opacity: 1});
-                                notify("Search Complete!", "You have " + balance.getBalance() + " dogecoin now.");
+                                var gain = 0;
+                                caches.forEach(function(elem) {
+                                    gain += elem.amount;
+                                });
+
+                                notify("Search Complete!", "After wagering " + amount + " dogecoin, you found " + gain + " dogecoin!  You now have " + balance.getBalance() + " dogecoin.");
                                 that.enable()
                             });
                         });
@@ -187,10 +199,10 @@
         var pixelWidth = Math.min(this.$container.width(), this.$container.height());
         var zoom = Math.floor(Math.log(pixelWidth * 360 / angle / GLOBE_WIDTH) / Math.LN2);
 
-        this.gmap.setZoom(zoom);
+        this.gmap.setZoom(zoom); // if zoom level is past limit, Google Maps will zoom to limit
 
         // Calculate field of view angle
-        var fov = (pixelWidth * 360) / (Math.pow(2, zoom) * GLOBE_WIDTH);
+        var fov = (pixelWidth * 360) / (Math.pow(2, this.gmap.getZoom()) * GLOBE_WIDTH); // use getZoom() method in case map has been zoomed past limit
 //        console.log(zoom, fov);
 
         function distance(lat1, lon1, lat2, lon2) {
@@ -264,6 +276,10 @@
     Balance.prototype.getBalance = function() {
         return this.balance;
     };
+    Balance.prototype.add = function(amount) {
+        this.balance += amount;
+        this._update();
+    }
     Balance.prototype.subtract = function(amount) {
         this.balance -= amount;
         this._update();

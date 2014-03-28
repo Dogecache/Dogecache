@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-
+var uuid = require('node-uuid');
 var dogeAPI = require('../libraries/dogeapi');
 var doge = new dogeAPI();
 var config = require('../config');
@@ -8,6 +8,7 @@ async = require("async");
 
 var userSchema = new mongoose.Schema({
     fbId: {type: Number, unique: true},
+    uuid: {type: String, unique: true},
     displayName: String,
     dogeAddress: String,
     email: String,
@@ -21,6 +22,7 @@ userSchema.statics.findOrCreate = function (profile, callback) {
         console.log(profile);
         var user = new that({
             fbId: profile.id,
+            uuid: uuid.v4(),
             displayName: profile.displayName,
             email: profile.emails[0].value,
             dogeAddress: dogeAddress,

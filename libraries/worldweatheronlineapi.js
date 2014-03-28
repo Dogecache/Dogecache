@@ -14,6 +14,7 @@ function WorldWeatherAPI(settings) {
 
 
 /**
+ * @TODO clean up docs
  Get worldwide city and town weather by US Zipcode, UK Postcode, Canada Postalcode, IP address, Latitude/Longitude (decimal degree) and city name
 
  Parameter    Value    Type    Description
