@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 var historySchema = new mongoose.Schema({
     fbId: Number,
+    //type: {type: string, enum: ['search', 'withdraw']},
     loss: Number,
     gain: Number,
     date: {type: Date, default: Date.now},

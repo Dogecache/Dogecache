@@ -68,4 +68,4 @@ http.createServer(app).listen(app.get('port'), function(){
 
 setInterval(function() {
     polldogebalances.poll(function() {});
-}, 5000);
+}, 10000);
