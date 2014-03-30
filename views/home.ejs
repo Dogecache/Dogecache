@@ -41,12 +41,8 @@
     But if you do find some, it's yours!
   </div>
 
-  <div class="header-icon" style=<% if (isLoggedIn) { %>
-      <%= "color:#d35400" %>
-    <% } else { %>
-      <%= "color:#3b5998" %>
-    <% } %>
-  ><i class="fa fa-chevron-down"></i></div>
+  <div class="header-icon" style=<%= isLoggedIn ? "color:#d35400" : "color:#3b5998" %> >
+    <i class="fa fa-chevron-down"></i></div>
   <div class="description">
     What're you waiting for? Play now!
   </div>

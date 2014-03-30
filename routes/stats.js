@@ -2,15 +2,16 @@
  * GET stats page.
  */
 var History = require('../models/history.js');
-//@TODO Async the data retrieval
-//@TODO pass in user for consistency
+var moment = require('moment');
+const RETRIEVAL_LIMIT = 5;
+//@todo make retrieval limit global
+
 
 exports.index = function (req, res) {
     if (req.user) {
         async.parallel({
             history: function (done) {
-                //@todo make retrieval limit global
-                History.getHistory(req.user, 5, done)
+                History.getHistory(req.user, RETRIEVAL_LIMIT, done)
             },
             aggregate: function (done) {
                 History.getAggregate(req.user, done)
@@ -21,7 +22,8 @@ exports.index = function (req, res) {
                 user: req.user,
                 history: data.history,
                 aggregate: data.aggregate,
-                isMap: false
+                isMap: false,
+                moment: moment
             })
         })
     }

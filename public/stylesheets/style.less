@@ -90,9 +90,14 @@ body {
     top: -20px;
     left: 0;
     line-height: 45px;
-    padding-left: 5px;
+    padding-left: 10px;
     font-size: 35px;
     color: @navItemColor;
+    transform:scale(0.5,1); /* W3C */
+    -webkit-transform:scale(0.7,1); /* Safari and Chrome */
+    -moz-transform:scale(0.7,1); /* Firefox */
+    -ms-transform:scale(0.7,1); /* IE 9 */
+    -o-transform:scale(0.7,1); /* Opera */
 
   }
 
@@ -332,17 +337,38 @@ body {
   }
 
   .search-area {
+    @slideTextWidth: 500px;
+    @slideTextColor: white;
+    @slideTextColorFade: fade(@slideTextColor, 50%);
 
     position:relative;
     height: @actionHeight;
     width: 100%;
     //background: #e74c3c;
     background: @btnMainColor;
-    color: white;
+    color: @slideTextColor;
     font-size:25px;
     text-align: center;
     line-height: @actionHeight;
     //.transition;
+
+    span {
+      display: block;
+      margin: 0 auto;
+      background: -webkit-gradient(linear,left top,right top,color-stop(0, @slideTextColorFade),color-stop(0.4, @slideTextColorFade),color-stop(0.5, @slideTextColor),color-stop(0.6, @slideTextColorFade),color-stop(1, @slideTextColorFade));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -webkit-animation: slidetosearch 5s infinite;
+
+      @-webkit-keyframes slidetosearch {
+        0% {
+          background-position: -@slideTextWidth/2 0;
+        }
+        100%{
+          background-position: @slideTextWidth/2 0;
+        }
+      }
+    }
 
     #search-slider {
 
@@ -397,6 +423,14 @@ body {
   padding: 20px;
   position: relative;
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  -webkit-transform: translateY(500px) rotate(10deg);
+  opacity: 0;
+  -webkit-transition: all 1s;
+
+  &.card-shown {
+    -webkit-transform: translateY(0) rotate(0);
+    opacity: 1;
+  }
 
   + .card {
     margin-top: 20px;
@@ -625,6 +659,13 @@ body {
   font-size: 30px;
   text-align: center;
   display: table;
+  opacity: 1;
+  -webkit-transition: background 0.3s linear 0s, opacity 0.2s linear 1s;
+
+  &.approved {
+    background-color: #27ae60;
+    opacity: 0;
+  }
 
   .cell {
     display:table-cell;
