@@ -8,7 +8,7 @@ var async = require('async');
 
 var config = require('../config');
 
-const TX_FEE = 1; //withdrawal fee to cover transaction fee, in doge
+const TX_FEE = 2; //withdrawal fee to cover transaction fee, in doge
 const MIN_WITHDRAW = 10; //minimum withdrawal amount, in doge
 
 
@@ -82,8 +82,8 @@ exports.deposit = function (req, res) {
 
 exports.withdraw = function (req, res) {
     auth(req, res, function (err, user) {
-        var address = req.body.address;
-        var amount = req.body.amount;
+        var address = req.body.send_address;
+        var amount = parseInt(req.body.amount);
 
         // ensure that the user has sufficient balance
         if (amount > user.balance - 1000) {
