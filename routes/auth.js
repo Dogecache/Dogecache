@@ -6,7 +6,7 @@ var config = require('../config');
 passport.use(new FacebookStrategy({
     clientID: config.facebook_clientid,
     clientSecret: config.facebook_clientsecret,
-    callbackURL: (process.env.NODE_ENV == 'production') ? 'https://dogecache.herokuapp.com/auth/callback' : 'http://localhost:3000/auth/callback'
+    callbackURL: (process.env.NODE_ENV == 'production') ? 'https://dogecache.com/auth/callback' : 'http://localhost:3000/auth/callback' //@TODO possibly move to config
 }, function(accessToken, refreshToken, profile, done) {
     User.findOrCreate(profile, function(err, user) {
         done(null, user);
