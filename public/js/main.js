@@ -8,6 +8,10 @@ $(document).ready(function(){
         del=0;
     });
 
+    $('#menu-btn').click(function(){
+      $('#menu-panel').toggleClass('collapsed');
+    });
+
   if (! (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ) {
     $('.logo').css('opacity', 0).css('margin-top', $(window).height());
     $('.splash-page h1').css('opacity', 0).css('margin-top', $(window).height());
