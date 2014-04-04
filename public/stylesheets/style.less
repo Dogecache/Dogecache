@@ -73,37 +73,70 @@ body {
   * {
     display:inline-block;
   }
-  background-color: @mainBg;
-  box-shadow: 0px 1px 20px rgba(0,0,0,0.3);
 
-  ul {
+  table#menu-panel {
     list-style-type: none;
     margin: 0px;
     padding: 0px;
     width: 100%;
     max-width: 500px;
-    position: absolute;
+    position: fixed;
+    top: 110%;
+    bottom: 0px;
     right: 0px;
-    top: 45px;
-    box-shadow: 0px 20px 20px -10px rgba(0,00,0,0.3);
-    overflow: hidden;
-    transition: height 0.3s ease;
-    height: 232px;
+    box-shadow: 0px 0px 40px rgba(0,0,0,0.7);
+    overflow: show;
+    transition: all 0.5s ease;
+    background: @bg;
 
-    &.collapsed {
+    &:before {
+      position: absolute;
+      top: -10px;
+      right:15px;
+      width: 0px;
       height: 0px;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid @bg;
+      content:"";
     }
 
-    li {
-      padding: 20px;
-      background-color: @mainBg;
-      display: block;
-      border-bottom: 1px solid lightgray;
-      &:first-of-type {
-        border-top: 1px solid lightgray;
-      }
-      &:last-of-type {
-        border-bottom: none;
+    &.open {
+      top: 65px;
+    }
+
+    tbody {
+      width: 100%;
+      height: 100%;
+      padding:10px;
+
+      tr {
+        width:100%;
+        height: 50%;
+        overflow:hidden;
+
+        td {
+          width: 50%;
+          padding-top:20%;
+          border:0;
+          margin:-1px;
+          text-align: center;
+
+          & * {
+            color: @navItemColor;
+          }
+
+          .item-icon {
+            line-height: 20px;
+            font-size: 60px;
+
+            .item-text {
+              line-height: 30px;
+              font-size: 17px;
+              font-weight: normal;
+            }
+          }
+        }
       }
     }
   }
@@ -136,10 +169,12 @@ body {
   }
 
   #profile-pic {
-    height: 55px;
-    width: 55px;
-    margin-left: 25px;
-    margin-top: 5px;
+    height: 60px;
+    width: 60px;
+    margin-left: 10px;
+    margin-top: 10px;
+    position: relative;
+    z-index: 11;
 
     img {
       height: 100%;
@@ -153,7 +188,7 @@ body {
 
   .user-info {
     position: absolute;
-    top: 3px;
+    top: 13px;
     left: 90px;
 
     * {
@@ -174,7 +209,7 @@ body {
 
   .nav-buttons {
     position: absolute;
-    top: 0px;
+    top: 10px;
     right: 0;
     height: 100%;
     padding-right: 5px;
@@ -185,10 +220,16 @@ body {
       font-size: 30px;
       padding-left: 7px;
       padding-right: 7px;
+      transition: all 0.2s ease;
 
       &:hover, &:active {
         cursor: pointer;
         color: black;
+      }
+
+      #menu-btn.open {
+        transition: all 0.2s ease;
+        color: #888888;
       }
     }
   }

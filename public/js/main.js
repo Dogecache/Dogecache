@@ -9,7 +9,7 @@ $(document).ready(function(){
     });
 
     $('#menu-btn').click(function(){
-      $('#menu-panel').toggleClass('collapsed');
+      $('#menu-panel, #menu-btn').toggleClass('open');
     });
 
   if (! (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ) {

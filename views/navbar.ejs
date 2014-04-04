@@ -1,4 +1,36 @@
 <div class="navbar">
+  <table id="menu-panel">
+    <tbody>
+      <tr>
+        <td>
+          <a class="item-icon">
+            <i class="fa fa-info-circle" ></i><br/>
+            <div class="item-text">My Info</div>
+          </a>
+        </td>
+        <td>
+          <a class="item-icon">
+            <i class="fa fa-gear" ></i><br/>
+            <div class="item-text">Settings</div>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a class="item-icon">
+            <i class="fa fa-home" ></i><br/>
+            <div class="item-text">Home</div>
+          </a>
+        </td>
+        <td>
+          <a class="item-icon">
+            <i class="fa fa-question" ></i><br/>
+            <div class="item-text">About</div>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
   <a id="back-button" href="map" style=<%= isMap ? "display:none" : "" %> >
     <i class="fa fa-angle-left"></i>
   </a>
@@ -13,12 +45,6 @@
   <div class="nav-buttons">
     <!--<a href="stats"><i class="fa fa-info-circle"></i></a>
     <a href="settings"><i class="fa fa-gear"></i></a>-->
-    <a><i class="fa fa-gear" id="menu-btn"></i></a>
+    <a><i class="fa fa-bars" id="menu-btn"></i></a>
   </div>
-  <ul id="menu-panel">
-    <li>Deposit / Withdraw</li>
-    <li>Statistics</li>
-    <li>About</li>
-    <li>Logout</li>
-  </ul>
 </div>
