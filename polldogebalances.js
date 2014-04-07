@@ -31,6 +31,7 @@ exports.poll = function (callback) {
 
         console.log('Updating ' + usersToUpdate.length + ' balances');
 
+        //@TODO ERROR CHECKING - only update balance when move succeeds
         async.parallel([
             function (done) {
                 async.each(usersToUpdate, function (elem, callback) {
