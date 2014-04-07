@@ -20,6 +20,9 @@
 
 @navHeight: 45px;
 @navItemColor: #333;
+@menuBg: #ccc;
+@menuItemBg: lighten(@menuBg, 15%);
+
 @btnMainColor: #d35400;
 @textColor: white;
 @mainColor: #f39c12;
@@ -79,15 +82,15 @@ body {
     margin: 0px;
     padding: 0px;
     width: 100%;
-    max-width: 500px;
+    max-width: 350px;
+    max-height: 350px;
     position: fixed;
     top: 110%;
     bottom: 0px;
     right: 0px;
-    box-shadow: 0px 0px 60px rgba(0,0,0,0.3);
     overflow: show;
     transition: all 0.5s ease;
-    background: @bg;
+    background: @menuBg;
 
     &:before {
       position: absolute;
@@ -97,7 +100,7 @@ body {
       height: 0px;
       border-left: 10px solid transparent;
       border-right: 10px solid transparent;
-      border-bottom: 10px solid @bg;
+      border-bottom: 10px solid @menuBg;
       content:"";
     }
 
@@ -108,7 +111,7 @@ body {
     tbody {
       width: 100%;
       height: 100%;
-      padding:10px;
+      padding:6px;
 
       tr {
         width:100%;
@@ -132,8 +135,7 @@ body {
             line-height: 0px;
             font-size: 60px;
             display:table;
-            background: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            background: @menuItemBg;
 
             div.item-content {
               display:table-cell;
