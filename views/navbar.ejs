@@ -1,4 +1,44 @@
 <div class="navbar">
+  <table id="menu-panel">
+    <tbody>
+      <tr>
+        <td>
+          <a class="item-icon" href="stats">
+            <div class="item-content">
+              <i class="fa fa-info-circle" ></i><br/>
+              <div class="item-text">My Info</div>
+            </div>
+          </a>
+        </td>
+        <td>
+          <a class="item-icon" href="settings">
+            <div class="item-content">
+              <i class="fa fa-gear" ></i><br/>
+              <div class="item-text">Settings</div>
+            </div>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a class="item-icon">
+            <div class="item-content">
+              <i class="fa fa-home" ></i><br/>
+              <div class="item-text">Home</div>
+            </div>
+          </a>
+        </td>
+        <td>
+          <a class="item-icon">
+            <div class="item-content">
+              <i class="fa fa-question" ></i><br/>
+              <div class="item-text">About</div>
+            </div>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
   <a id="back-button" href="map" style=<%= isMap ? "display:none" : "" %> >
     <i class="fa fa-angle-left"></i>
   </a>
@@ -11,7 +51,8 @@
     <div id="balance"><span id="balance_num"><%= user.balance %></span> Ð</div>
   </div>
   <div class="nav-buttons">
-    <a href="stats"><i class="fa fa-info-circle"></i></a>
-    <a href="settings"><i class="fa fa-gear"></i></a>
+    <!--<a href="stats"><i class="fa fa-info-circle"></i></a>
+    <a href="settings"><i class="fa fa-gear"></i></a>-->
+    <a><i class="fa fa-bars" id="menu-btn"></i></a>
   </div>
 </div>
