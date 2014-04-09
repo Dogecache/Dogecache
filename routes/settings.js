@@ -5,7 +5,7 @@ var googlecharts = require('../libraries/googlechartsapi');
 
 exports.index = function(req, res){
   if (req.user) {
-    res.render('settings', {
+    res.render('settings_disabled', {
       title: 'Settings | Dogecache',
       user: req.user,
       isMap: false,
