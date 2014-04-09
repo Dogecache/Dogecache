@@ -1,0 +1,27 @@
+<%- include header.ejs %>
+<%- include navbar.ejs %>
+<div class="page-wrapper">
+  <div class="page-container">
+    <div class="card">
+      <h1>Deposit</h1>
+      <div class="content">
+          Desposits and withdrawals have been disabled due to a bug.
+      </div>
+    </div>
+    <div class="card">
+      <h1>Withdraw</h1>
+      <div class="content">
+        <div id="reader" style="width: 300px; height: 250px; margin: 0 auto"></div>
+        <form method="post" action="/api/withdraw" id="withdrawForm">
+          <input data-role="none" type="text" name="send_address" placeholder="Send Address..." disabled/>
+          <input data-role="none" type="text" name="amount" placeholder="Amount..." disabled/>
+          <input data-role="none" type="submit" value="Send" disabled>
+          <span>There is a 1 doge fee on withdrawals to cover transaction fees. The minimum withdrawal amount is currently 10 doge.</span>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<%- include footer.ejs %>

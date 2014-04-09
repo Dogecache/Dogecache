@@ -10,6 +10,7 @@ var config = require('../config');
 
 const TX_FEE = 2; //withdrawal fee to cover transaction fee, in doge
 const MIN_WITHDRAW = 10; //minimum withdrawal amount, in doge
+const ENABLED = false;
 
 
 function auth(req, res, callback) {
@@ -76,6 +77,10 @@ exports.cache = function (req, res) {
 
 exports.deposit = function (req, res) {
     auth(req, res, function (err, user) {
+        if (ENABLED == false){
+            res.send("Deposits disabled.");
+        }
+        else
         res.send(user.dogeAddress);
     });
 };
@@ -94,6 +99,11 @@ exports.withdraw = function (req, res) {
         //ensure that the user meets the minimum withdraw
         if (amount < MIN_WITHDRAW) {
             res.send(500,{error: 'Withdrawal amount does not meet minimum of ' + MIN_WITHDRAW + 'doge.'})
+            return;
+        }
+
+        if (ENABLED == false) {
+            res.send(500,{error: 'Deposits and withdrawals are currently not enabled.'})
             return;
         }
 
