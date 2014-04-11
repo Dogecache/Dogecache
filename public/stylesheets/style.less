@@ -89,6 +89,7 @@ body {
     bottom: 0px;
     right: 0px;
     overflow: show;
+    box-shadow: 0px 0px 25px rgba(0,0,0,0.15);
     transition: all 0.5s ease;
     background: @menuBg;
 
@@ -547,6 +548,7 @@ body {
   }
   .notransactions {
     padding-top: 20px;
+    padding-left: 15px;
   }
 
   .qr-code {
@@ -609,6 +611,25 @@ body {
         background-color: white;
       }
     }
+  }
+}
+
+.maintenance {
+
+  text-align: center;
+  color: @btnMainColor;
+
+  .main-icon {
+    font-size: 80px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  h3 {
+    color: #333;
+    margin-bottom: 0px;
   }
 }
 

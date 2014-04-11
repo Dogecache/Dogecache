@@ -51,15 +51,24 @@ app.configure('production', function(){
     });
 });
 
-app.get('/', home.index);
-app.get('/map', map.index);
-app.get('/settings', settings.index);
-app.get('/stats', stats.index);
-app.get('/auth/login', authRoute.login);
-app.get('/auth/callback', authRoute.loginCallback);
-app.get('/auth/logout', authRoute.logout);
-app.post('/api/cache', apiRoute.cache);
-app.post('/api/withdraw', apiRoute.withdraw);
+//site is under construction?
+if (config.maintenance == "true") {
+    app.get('/', function(req, res) {res.render('maintenance', { title: 'Woops! | Dogecache', isMap: false })});
+    console.log("Site under construction.")
+}
+else
+{
+    app.get('/', home.index);
+    app.get('/map', map.index);
+    app.get('/settings', settings.index);
+    app.get('/stats', stats.index);
+    app.get('/auth/login', authRoute.login);
+    app.get('/auth/callback', authRoute.loginCallback);
+    app.get('/auth/logout', authRoute.logout);
+    app.post('/api/cache', apiRoute.cache);
+    app.post('/api/withdraw', apiRoute.withdraw);
+}
+
 
 
 http.createServer(app).listen(app.get('port'), function(){

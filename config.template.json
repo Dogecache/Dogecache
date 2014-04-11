@@ -6,5 +6,6 @@
     "sendgridapi_key": "",
     "facebook_clientid": "",
     "facebook_clientsecret": "",
-    "cookie_key": ""
+    "cookie_key": "SECURE-COOKIE-PASS-HERE",
+    "maintenance": "false"
 }
