@@ -4,6 +4,8 @@ var doge = new dogeAPI();
 var User = require('./models/user');
 var History = require('./models/history');
 
+var commit = require('./libraries/commit');
+
 const HOT_WALLET = 'dogecachemaster';
 
 exports.poll = function (callback) {

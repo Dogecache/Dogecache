@@ -8,6 +8,8 @@ var async = require('async');
 
 var config = require('../config');
 
+var Commit = require('../libraries/commit');
+
 //@TODO scope these globally
 const TX_FEE = 2; //withdrawal fee to cover transaction fee, in doge
 const MIN_WITHDRAW = 10; //minimum withdrawal amount, in doge
@@ -25,47 +27,6 @@ function __auth(req, res, callback) {
         } else {
             callback(err);
         }
-    })
-}
-/**
- * Initiate a new commit
- * @private
- */
-function __newCommit(user, type, loss, gain, longditude, latitude, callback) {
-    //update the user balance
-    var diff = gain - loss;
-    user.balance += diff;
-    user.save(function (err, res) {
-        if (!err) {
-            //add the transaction entry
-            History.addHistory(user, type, loss, gain, longditude, latitude, function (err, history) {
-                var commitID = history._id;
-                callback(err, commitID);
-            })
-        }
-        else callback(err, res);
-    })
-}
-
-/**
- * Complete an initiated commit
- * @param commitID
- * @private
- */
-function __completeCommit(commitID, callback) {
-    History.changeCommitStatus(commitID, "success", function (err, result) {
-        callback(err, result);
-    })
-}
-
-function __failCommit(commitID, user, amount, callback) {
-    //roll back user balance
-    user.balance += amount;
-    user.save(function (err) {
-        //fail commit
-        History.changeCommitStatus(commitID, "failure", function (err, result) {
-            callback(err, result);
-        });
     })
 }
 
@@ -153,8 +114,9 @@ exports.withdraw = function (req, res) {
 
         //Adjust for transaction fees
         var adj_amount = amount - TX_FEE; //amount actually withdrawn, not deducted
-
-        __newCommit(user, "withdrawal", amount, 0, 0, 0, function (err, commitID) {
+        var commit = new Commit(user, "withdrawal", amount, 0, 0, 0);
+        console.log(commit);
+        commit.begin( function (err, commitID) {
             if (err) {
                 console.log(err);
                 return res.send(500, {error: 'Error sending funds. No amount withdrawn.'});
@@ -163,12 +125,12 @@ exports.withdraw = function (req, res) {
             //@TODO hotwallet address should be global var
             doge.withdrawFromUser('dogecachemaster', address, adj_amount, config.dogeapiPin, function (err, result) {
                 if (err) {
-                    __failCommit(commitID, user, amount, function(err, result){
+                    commit.fail(function(err, result){
                         if (err) console.log(err);
                     });
                 }
                 else {
-                    __completeCommit(commitID, function(err, result){
+                    commit.complete(function(err, result){
                         if (err) console.log(err);
                     });
                 }
