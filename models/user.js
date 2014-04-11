@@ -7,12 +7,12 @@ var config = require('../config');
 async = require("async");
 
 var userSchema = new mongoose.Schema({
-    fbId: {type: Number, unique: true},
-    uuid: {type: String, unique: true},
-    displayName: String,
-    dogeAddress: {type: String, unique: true},
-    email: String,
-    balance: Number
+    fbId: {type: Number, unique: true},                 //user's facebook id
+    uuid: {type: String, unique: true},                 //unique identifier id
+    displayName: String,                                //real display name
+    dogeAddress: {type: String, unique: true},          //doge deposit address
+    email: String,                                      //user email
+    balance: Number                                    //user balance
 });
 
 userSchema.statics.findOrCreate = function (profile, callback) {
