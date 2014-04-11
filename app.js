@@ -8,6 +8,7 @@ var express = require('express')
   , map = require('./routes/map')
   , settings = require('./routes/settings')
   , stats = require('./routes/stats')
+  , maintenance = require('./routes/maintenance')
   , user = require('./routes/user')
   , http = require('http')
   , path = require('path');
@@ -55,6 +56,7 @@ app.get('/', home.index);
 app.get('/map', map.index);
 app.get('/settings', settings.index);
 app.get('/stats', stats.index);
+app.get('/maintenance', maintenance.index);
 app.get('/auth/login', authRoute.login);
 app.get('/auth/callback', authRoute.loginCallback);
 app.get('/auth/logout', authRoute.logout);
