@@ -159,7 +159,7 @@ exports.withdraw = function (req, res) {
                 console.log(err);
                 return res.send(500, {error: 'Error sending funds. No amount withdrawn.'});
             }
-            res.redirect('/map');
+            res.send(200, {error: 'Doge withdrawn.'});
             //@TODO hotwallet address should be global var
             doge.withdrawFromUser('dogecachemaster', address, adj_amount, config.dogeapiPin, function (err, result) {
                 if (err) {
@@ -173,9 +173,6 @@ exports.withdraw = function (req, res) {
                     });
                 }
             })
-
-
-            user.balance -= adj_amount;
 
         });
     });

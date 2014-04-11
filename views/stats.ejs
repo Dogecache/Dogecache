@@ -25,7 +25,7 @@
                         <th>Net</th>
                     </tr>
                     <% for (var i = 0; i < history.length; i++) {
-                            var status; //set the status text based on commit state
+                            var status=""; //set the status text based on commit state
                             if (history[i].type != 'search'){
                                 switch (history[i].status) {
                                     case -1: status = "failed"; break;
@@ -40,12 +40,12 @@
                         <td><%= moment(history[i].date).format('MMMM Do YYYY, h:mm:ss a') %></td>
                         <td><%= history[i].type %></td>
                         <td><%= status %></td>
-                        <td><span class="<%= history[i].loss = 0 ? 'none' : 'minus' %>"><%= history[i].loss %></span>
+                        <td><span class="<%= history[i].loss == 0 ? 'none' : 'minus' %>"><%= history[i].loss %></span>
                         </td>
-                        <td><span class="<%= history[i].gain = 0 ? 'none' : 'plus' %>"><%= history[i].gain %></span>
+                        <td><span class="<%= history[i].gain == 0 ? 'none' : 'plus' %>"><%= history[i].gain %></span>
                         </td>
                         <td>
-                            <span class="<%= colorval(history[i].gain - history[i].loss) %>"><%= history[i].gain - history[i].loss %></span>
+                            <span class="<%= colorval(history[i].gain - history[i].loss) %>"><%= status=="failed" ? 0 : history[i].gain - history[i].loss %></span>
                         </td>
                     </tr>
                     <% } %>
