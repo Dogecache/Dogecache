@@ -2,6 +2,7 @@ var dogeAPI = require('./libraries/dogeapi');
 var doge = new dogeAPI();
 
 var User = require('./models/user');
+var History = require('./models/history');
 
 const HOT_WALLET = 'dogecachemaster';
 
@@ -41,6 +42,10 @@ exports.poll = function (callback) {
                             console.log(error);
                             // @todo Handle error
                         }
+                        var user = {"uuid": elem.userid};//format user as object for history
+                        History.addHistory(user, "deposit", 0, elem.inc, 0, 0, function (err, history) {
+                            if (err) console.log(err);
+                        })
                         console.log('Success:', transactionid);
                         done();
                     })

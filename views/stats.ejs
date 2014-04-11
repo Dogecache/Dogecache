@@ -18,13 +18,28 @@
                 <table>
                     <tr>
                         <th>Date</th>
+                        <th>Type</th>
+                        <th>Status</th>
                         <th>Ð Wagered</th>
                         <th>Ð Found</th>
                         <th>Net</th>
                     </tr>
-                    <% for(var i = 0; i < history.length; i++) { %>
+                    <% for (var i = 0; i < history.length; i++) {
+                            var status; //set the status text based on commit state
+                            if (history[i].type != 'search'){
+                                switch (history[i].status) {
+                                    case -1: status = "failed"; break;
+                                    case 0: status = "pending"; break;
+                                    case 1: status = "success"; break;
+                                    default: status = "-"; break;
+                                }
+                            }
+                        else status = "success";
+                    %>
                     <tr>
                         <td><%= moment(history[i].date).format('MMMM Do YYYY, h:mm:ss a') %></td>
+                        <td><%= history[i].type %></td>
+                        <td><%= status %></td>
                         <td><span class="<%= history[i].loss = 0 ? 'none' : 'minus' %>"><%= history[i].loss %></span>
                         </td>
                         <td><span class="<%= history[i].gain = 0 ? 'none' : 'plus' %>"><%= history[i].gain %></span>
