@@ -69,8 +69,6 @@ else
     app.post('/api/withdraw', apiRoute.withdraw);
 }
 
-var dbupgrade = require('./upgrade_database');
-dbupgrade.upgradev1();
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
