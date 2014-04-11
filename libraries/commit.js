@@ -70,8 +70,8 @@ Commit.prototype.fail = function (callback) {
     if (this.commitID == null) callback("Commit not created");
     //roll back user balance
     var diff = this.gain - this.loss;
-    this.user.balance -= diff;
-    this.user.save(function (err) {
+    that.user.balance -= diff;
+    that.user.save(function (err) {
         if (err) console.log(err);
         //fail commit
         History.changeCommitStatus(that.commitID, "failure", function (err, result) {

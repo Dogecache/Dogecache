@@ -115,16 +115,17 @@ exports.withdraw = function (req, res) {
         //Adjust for transaction fees
         var adj_amount = amount - TX_FEE; //amount actually withdrawn, not deducted
         var commit = new Commit(user, "withdrawal", amount, 0, 0, 0);
-        console.log(commit);
         commit.begin( function (err, commitID) {
             if (err) {
                 console.log(err);
                 return res.send(500, {error: 'Error sending funds. No amount withdrawn.'});
             }
-            res.send(200, {error: 'Doge withdrawn.'});
+            res.send(200, {balance: user.balance, error: 'Doge withdrawn.'});
             //@TODO hotwallet address should be global var
             doge.withdrawFromUser('dogecachemaster', address, adj_amount, config.dogeapiPin, function (err, result) {
+                console.log(err, result);
                 if (err) {
+                    console.log(err);
                     commit.fail(function(err, result){
                         if (err) console.log(err);
                     });

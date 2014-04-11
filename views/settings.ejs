@@ -47,7 +47,10 @@
         var options = {
             dataType: 'json',
             error: function(err){alert(err.responseJSON.error);$('input[name="amount"]').val('');},
-            success: function(res){alert('Thank you for your withdrawal!');$('input[name="amount"]').val('');}
+            success: function(res){
+                alert('Thank you for your withdrawal!');
+                $("#balance_num").text(res.balance);
+                $('input[name="amount"]').val('');}
         };
         $('#withdrawForm').ajaxForm(options);
     });
