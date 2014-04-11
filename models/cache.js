@@ -5,7 +5,7 @@ var async = require('async');
 const WAGER_FEE = 1; //wager fee deducted at time of wager, in percent
 
 var cacheSchema = new mongoose.Schema({
-    fbId: Number,
+    uuid: String,
     amount: Number,
     loc: {
         index: '2dsphere',
@@ -20,7 +20,7 @@ cacheSchema.statics.addCache = function (user, amount, longitude, latitude, call
     if (user.balance < amount) return callback("Not enough money remaining");
 
     // Subtract the amount from the balance
-    User.update({fbId: user.fbId}, {$inc: {balance: -amount}}, function (err) {
+    User.update({uuid: user.uuid}, {$inc: {balance: -amount}}, function (err) {
         if (err) {
             console.log(err);
             return callback(err);
@@ -30,7 +30,7 @@ cacheSchema.statics.addCache = function (user, amount, longitude, latitude, call
 
         // Create the cache
         var cache = new that({
-            fbId: user.fbId,
+            uuid: user.uuid,
             amount: amount,
             loc: [longitude, latitude]
         });
@@ -44,8 +44,8 @@ cacheSchema.statics.addCache = function (user, amount, longitude, latitude, call
 cacheSchema.statics.findCaches = function (user, maxDistance, longitude, latitude, callback) {
     var that = this;
     that.find({
-        fbId: {
-            $ne: user.fbId
+        uuid: {
+            $ne: user.uuid
         },
         loc: {
             $near: {
@@ -79,7 +79,7 @@ cacheSchema.statics.gatherCaches = function (user, caches, callback) {
             },
             // add balance to user
             function (done) {
-                User.update({fbId: user.fbId}, {$inc: {balance: total}}, done);
+                User.update({uuid: user.uuid}, {$inc: {balance: total}}, done);
             }
         ], function (err) {
             callback(err, total);

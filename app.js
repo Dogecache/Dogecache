@@ -8,7 +8,6 @@ var express = require('express')
   , map = require('./routes/map')
   , settings = require('./routes/settings')
   , stats = require('./routes/stats')
-  , user = require('./routes/user')
   , http = require('http')
   , path = require('path');
 
@@ -20,6 +19,7 @@ var authRoute = require('./routes/auth');
 var apiRoute = require('./routes/api');
 
 var polldogebalances = require('./polldogebalances');
+var config = require('./config');
 
 var app = express();
 
@@ -28,7 +28,7 @@ app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
   app.use(express.favicon());
-  app.use(express.cookieParser('uu*Sw*9&A4h1*UaA85z1xFL1iFpT4l'));
+  app.use(express.cookieParser(config.cookie_key));
   app.use(express.session());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
@@ -51,16 +51,26 @@ app.configure('production', function(){
     });
 });
 
-app.get('/', home.index);
-app.get('/map', map.index);
-app.get('/settings', settings.index);
-app.get('/stats', stats.index);
-app.get('/auth/login', authRoute.login);
-app.get('/auth/callback', authRoute.loginCallback);
-app.get('/auth/logout', authRoute.logout);
-app.post('/api/cache', apiRoute.cache);
-app.post('/api/withdraw', apiRoute.withdraw);
+//site is under construction?
+if (config.maintenance == "true") {
+    app.get('/', function(req, res) {res.render('maintenance', { title: 'Woops! | Dogecache', isMap: false })});
+    console.log("Site under construction.")
+}
+else
+{
+    app.get('/', home.index);
+    app.get('/map', map.index);
+    app.get('/settings', settings.index);
+    app.get('/stats', stats.index);
+    app.get('/auth/login', authRoute.login);
+    app.get('/auth/callback', authRoute.loginCallback);
+    app.get('/auth/logout', authRoute.logout);
+    app.post('/api/cache', apiRoute.cache);
+    app.post('/api/withdraw', apiRoute.withdraw);
+}
 
+var dbupgrade = require('./upgrade_database');
+dbupgrade.upgradev1();
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
