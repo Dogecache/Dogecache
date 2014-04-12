@@ -71,9 +71,11 @@ userSchema.statics.findOrCreate = function (profile, callback) {
 userSchema.statics.bulkUpdateBalances = function (userBalArray, callback) {
     var that = this;
     async.each(userBalArray, function (elem, callback) {
-        that.update({uuid: elem.userid}, {$inc: {balance: elem.inc}}, function(err, result){
-            callback(err);
-        });
+        if (typeof elem !== "undefined") {
+            that.update({uuid: elem.userid}, {$inc: {balance: elem.inc}}, function (err, result) {
+                callback(err);
+            });
+        }
     }, callback);
 };
 

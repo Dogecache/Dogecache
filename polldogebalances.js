@@ -9,7 +9,7 @@ var commit = require('./libraries/commit');
 const HOT_WALLET = 'dogecachemaster';
 
 exports.poll = function (callback) {
-    console.log('Polling balances...');
+    //console.log('Polling balances...');
     doge.getUsers(function (error, res) {
         if (error) {
             console.log(error);
@@ -28,20 +28,24 @@ exports.poll = function (callback) {
         });
 
         if (usersToUpdate.length == 0) {
-            console.log('No updated balances');
+            //console.log('No updated balances');
             return callback();
         }
 
         console.log('Updating ' + usersToUpdate.length + ' balances');
 
+        var commits = []; //keep track of commits
         //@TODO ERROR CHECKING - only update balance when move succeeds
-        async.parallel([
+        async.series([
             function (done) {
                 async.each(usersToUpdate, function (elem, callback) {
                     console.log('Moving', elem.inc, 'doge from user', elem.userid, 'to ' + HOT_WALLET);
                     doge.moveToUser(HOT_WALLET, elem.userid, elem.inc, function (error, transactionid) {
                         if (error) {
                             console.log(error);
+                            delete usersToUpdate[usersToUpdate.indexOf(elem)]; //remove the user from the update command
+                            console.log("ERROR: Moving " + elem.inc + " doge for user " + elem.userid + " has failed.");
+                            callback(error);
                             // @todo Handle error
                         }
                         var user = {"uuid": elem.userid};//format user as object for history
@@ -49,8 +53,13 @@ exports.poll = function (callback) {
                             if (err) console.log(err);
                         })
                         console.log('Success:', transactionid);
-                        done();
+                        callback();
                     })
+                }, function(err){
+                    if (err){
+                        console.log("Element in async.each failed to process - terminating iterator");
+                    }
+                    done(err);
                 });
             },
             function (done) {
@@ -59,6 +68,7 @@ exports.poll = function (callback) {
                         console.log(error);
                     else
                         console.log('Updated all local balance numbers');
+                    done();
                 });
             }
         ], callback);

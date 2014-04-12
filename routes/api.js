@@ -115,7 +115,7 @@ exports.withdraw = function (req, res) {
         //Adjust for transaction fees
         var adj_amount = amount - TX_FEE; //amount actually withdrawn, not deducted
         var commit = new Commit(user, "withdrawal", amount, 0, 0, 0);
-        commit.begin( function (err, commitID) {
+        commit.begin(true, function (err, commitID) {
             if (err) {
                 console.log(err);
                 return res.send(500, {error: 'Error sending funds. No amount withdrawn.'});
@@ -126,7 +126,7 @@ exports.withdraw = function (req, res) {
                 console.log(err, result);
                 if (err) {
                     console.log(err);
-                    commit.fail(function(err, result){
+                    commit.fail(true, function(err, result){
                         if (err) console.log(err);
                     });
                 }

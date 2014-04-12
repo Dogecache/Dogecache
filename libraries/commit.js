@@ -27,9 +27,10 @@ function Commit(user, type, loss, gain, longditude, latitude) {
 
 /**
  * Initiate a new commit
+ * @param credit        whether or not to credit the account
  * @param callback
  */
-Commit.prototype.begin = function (callback) {
+Commit.prototype.begin = function (credit, callback) {
     var that = this;
     //update the user balance
     var diff = this.gain - this.loss;
@@ -53,7 +54,7 @@ Commit.prototype.begin = function (callback) {
  * @param callback
  * @private
  */
-Commit.prototype.complete = function (callback) {
+Commit.prototype.complete = function ( callback) {
     var that = this;
     if (this.commitID == null) callback("Commit not created");
     History.changeCommitStatus(that.commitID, "success", function (err, result) {
@@ -63,9 +64,10 @@ Commit.prototype.complete = function (callback) {
 
 /**
  * Fail a pending commit
+ * @param credit                    whether or not to credit the account
  * @param callback
  */
-Commit.prototype.fail = function (callback) {
+Commit.prototype.fail = function (credit, callback) {
     var that = this;
     if (this.commitID == null) callback("Commit not created");
     //roll back user balance
