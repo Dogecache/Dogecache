@@ -32,7 +32,7 @@ exports.upgradev1 = function () {
                             }
                             console.log("Updating db histories for user " + user.uuid);
                             console.log(num + " results affected.");
-                            done;
+                            done();
                         })
                     },
                     function (done) {
@@ -42,7 +42,7 @@ exports.upgradev1 = function () {
                             }
                             console.log("Updating db caches for user " + user.uuid);
                             console.log(num + " results affected.");
-                            done;
+                            done();
                         })
                     }
                 ], function(err){
