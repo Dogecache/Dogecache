@@ -20,6 +20,16 @@ var historySchema = new mongoose.Schema({
     }
 });
 
+/**
+ * add a new history entry
+ * @param user          user object
+ * @param type          type of history (deposit, search, withdrawal)
+ * @param loss          doge lost (deducted from balance)
+ * @param gain          doge gained (added to balance)
+ * @param longitude     longitude of search
+ * @param latitude      latitude of search
+ * @param callback      callback function
+ */
 historySchema.statics.addHistory = function (user, type, loss, gain, longitude, latitude, callback) {
     var that = this;
     var status = 0;
@@ -43,6 +53,13 @@ historySchema.statics.addHistory = function (user, type, loss, gain, longitude, 
     });
 };
 
+/**
+ * change the status of a previously created history entry
+ * @param commitID          id of the previously created entry
+ * @param data              new data to insert
+ * @param newStatus         new status of the entry (-1 or "failed", 0 or "pending", 1 or "success")
+ * @param callback          callback function
+ */
 historySchema.statics.changeCommitStatus = function(commitID, data, newStatus, callback) {
     var that = this;
     data = {} || data;
@@ -55,6 +72,12 @@ historySchema.statics.changeCommitStatus = function(commitID, data, newStatus, c
     })
 }
 
+/**
+ * get the previous limit entries from user
+ * @param user              user object
+ * @param limit             number of entries to retrieve
+ * @param callback          callback function
+ */
 historySchema.statics.getHistory = function (user, limit, callback) {
     var that = this;
     that
@@ -66,6 +89,11 @@ historySchema.statics.getHistory = function (user, limit, callback) {
         });
 };
 
+/**
+ * get statistics for searches from user
+ * @param user          user object
+ * @param callback      callback function
+ */
 historySchema.statics.getAggregate = function(user, callback) {
     var that = this;
 

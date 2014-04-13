@@ -15,7 +15,14 @@ const TX_FEE = 2; //withdrawal fee to cover transaction fee, in doge
 const MIN_WITHDRAW = 10; //minimum withdrawal amount, in doge
 const ENABLED = true; //whether withdrawals and deposits are enabled @TODO automatic loading of view
 
-
+/**
+ * authenticate user by uuid and return user object
+ * @param req           express req object
+ * @param res           expess res object
+ * @param callback      callback function
+ * @returns {*}         user object or error
+ * @private
+ */
 function __auth(req, res, callback) {
     if (req.user) return callback(null, req.user);
 
@@ -30,7 +37,11 @@ function __auth(req, res, callback) {
     })
 }
 
-
+/**
+ * searching - add, find, gather caches and add history entry
+ * @param req   express req object
+ * @param res   express res object
+ */
 exports.cache = function (req, res) {
     var user;
     async.waterfall([
@@ -80,6 +91,12 @@ exports.cache = function (req, res) {
     })
 };
 
+/**
+ * get deposit addresss
+ * @param req       express req object
+ * @param res       express res object
+ * @returns         error or deposit address
+ */
 exports.deposit = function (req, res) {
     __auth(req, res, function (err, user) {
         if (ENABLED == false) {
@@ -90,6 +107,12 @@ exports.deposit = function (req, res) {
     });
 };
 
+/**
+ * make a withdrawal
+ * @param req       express req object
+ * @param res       express res object
+ * @todo validate doge address
+ */
 exports.withdraw = function (req, res) {
     __auth(req, res, function (err, user) {
         var address = req.body.send_address;
