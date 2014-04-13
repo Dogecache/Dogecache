@@ -5,14 +5,23 @@ var async = require('async');
 const WAGER_FEE = 1; //wager fee deducted at time of wager, in percent
 
 var cacheSchema = new mongoose.Schema({
-    uuid: String,
-    amount: Number,
-    loc: {
+    uuid: String,                           //uuid of user who dropped the cache
+    amount: Number,                         //cache value (post fee deduction)
+    loc: {                                  //location of the cache [longitude, latitude]
         index: '2dsphere',
         type: [Number]
     }
 });
 
+/**
+ * Add a new cache to the collection
+ * @param user                  user object
+ * @param amount                cache value  (pre fee deduction)
+ * @param longitude             longitude of the cache
+ * @param latitude              latitude of the cache
+ * @param callback              callback function
+ * @returns {*}
+ */
 cacheSchema.statics.addCache = function (user, amount, longitude, latitude, callback) {
     var that = this;
 
@@ -21,11 +30,12 @@ cacheSchema.statics.addCache = function (user, amount, longitude, latitude, call
 
     // Subtract the amount from the balance
     User.update({uuid: user.uuid}, {$inc: {balance: -amount}}, function (err) {
-        if (err) {
+        if (err) { //@todo let two phase commit handle balance modifications
             console.log(err);
-            return callback(err);
+            return callback(err, null);
         }
 
+        //adjust the amount for the wager fee
         amount = amount*(1-WAGER_FEE*0.01);
 
         // Create the cache
@@ -36,11 +46,22 @@ cacheSchema.statics.addCache = function (user, amount, longitude, latitude, call
         });
 
         cache.save(function (err) {
-            callback(err, cache);
+            if (err) {
+                return callback(err, null);
+            }
+            return callback(err, cache);
         });
     });
 };
 
+/**
+ * find all caches within maxDistance that do not equal user.uuid
+ * @param user                      user object
+ * @param maxDistance               max search distance (radius)
+ * @param longitude                 longitude of cache
+ * @param latitude                  latitude of cache
+ * @param callback                  callback function
+ */
 cacheSchema.statics.findCaches = function (user, maxDistance, longitude, latitude, callback) {
     var that = this;
     that.find({
@@ -61,6 +82,13 @@ cacheSchema.statics.findCaches = function (user, maxDistance, longitude, latitud
     });
 };
 
+
+/**
+ * gather all caches in caches array, deleting them and crediting the user
+ * @param user              user object
+ * @param caches            array of caches
+ * @param callback          callback function
+ */
 cacheSchema.statics.gatherCaches = function (user, caches, callback) {
     // total up the amount of doge received
     var total = 0;
@@ -68,7 +96,6 @@ cacheSchema.statics.gatherCaches = function (user, caches, callback) {
         for (var i = 0; i < caches.length; i++) {
             total += caches[i].amount;
         }
-
 
         async.parallel([
             // remove the caches

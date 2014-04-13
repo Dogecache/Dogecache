@@ -34,29 +34,29 @@ exports.poll = function (callback) {
 
         console.log('Updating ' + usersToUpdate.length + ' balances');
 
-        var commits = []; //keep track of commits
-        //@TODO ERROR CHECKING - only update balance when move succeeds
         async.series([
             function (done) {
                 async.each(usersToUpdate, function (elem, callback) {
                     console.log('Moving', elem.inc, 'doge from user', elem.userid, 'to ' + HOT_WALLET);
-                    doge.moveToUser(HOT_WALLET, elem.userid, elem.inc, function (error, transactionid) {
+                    doge.moveToUser(HOT_WALLET, elem.userid, elem.inc, function (error, fee) {
                         if (error) {
                             console.log(error);
                             delete usersToUpdate[usersToUpdate.indexOf(elem)]; //remove the user from the update command
                             console.log("ERROR: Moving " + elem.inc + " doge for user " + elem.userid + " has failed.");
                             callback(error);
-                            // @todo Handle error
                         }
-                        var user = {"uuid": elem.userid};//format user as object for history
-                        History.addHistory(user, "deposit", 0, elem.inc, 0, 0, function (err, history) {
-                            if (err) console.log(err);
-                        })
-                        console.log('Success:', transactionid);
-                        callback();
+                        else {
+                            var user = {"uuid": elem.userid};//format user as object for history
+                            History.addHistory(user, "deposit", 0, elem.inc, 0, 0, function (err, history) {
+                                if (err) console.log(err);
+                            })
+                            console.log('Success:', fee);
+                            //Success: {"data":{"success":{"fee":1.25}}}
+                            callback();
+                        }
                     })
-                }, function(err){
-                    if (err){
+                }, function (err) {
+                    if (err) {
                         console.log("Element in async.each failed to process - terminating iterator");
                     }
                     done(err);
