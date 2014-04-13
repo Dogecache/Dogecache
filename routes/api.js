@@ -103,7 +103,7 @@ exports.withdraw = function (req, res) {
 
         //ensure that the user meets the minimum withdraw
         if (amount < MIN_WITHDRAW) {
-            res.send(500, {error: 'Withdrawal amount does not meet minimum of ' + MIN_WITHDRAW + 'doge.'})
+            res.send(500, {error: 'Withdrawal amount does not meet minimum of ' + MIN_WITHDRAW + ' doge.'})
             return;
         }
 
@@ -126,12 +126,13 @@ exports.withdraw = function (req, res) {
                 console.log(err, result);
                 if (err) {
                     console.log(err);
-                    commit.fail(true, function(err, result){
+                    commit.fail(null, true, function(err, result){
                         if (err) console.log(err);
                     });
                 }
                 else {
-                    commit.complete(function(err, result){
+                    result = JSON.parse(result);
+                    commit.complete({"txid": result.data.txid}, function(err, result){
                         if (err) console.log(err);
                     });
                 }

@@ -9,10 +9,11 @@ Fixes: startup script: verify on startup that all transactions have completed.
 var historySchema = new mongoose.Schema({
     uuid: String,                                                       //The facebook id of the user
     type: {type: String, enum: ['search', 'withdrawal', 'deposit']},    //type of transaction
-    status: {type: Number, enum: [-1,0,1], default: 1},                 //status: -1 is failure, 0 is pending, 1 is complete
+    status: {type: Number, enum: [-1,0,1], default: 0},                 //status: -1 is failure, 0 is pending, 1 is complete
     loss: Number,                                                       //amount subtracted from balance
     gain: Number,                                                       //amount added to balance
     date: {type: Date, default: Date.now},                              //full date of the transaction
+    txid: String,                                                       //txid for withdrawals and deposits
     loc: {                                                              //location of the search
         index: '2dsphere',
         type: [Number]
@@ -42,12 +43,14 @@ historySchema.statics.addHistory = function (user, type, loss, gain, longitude, 
     });
 };
 
-historySchema.statics.changeCommitStatus = function(commitID, newStatus, callback) {
+historySchema.statics.changeCommitStatus = function(commitID, data, newStatus, callback) {
     var that = this;
-    if (newStatus == "failure" || newStatus == -1) newStatus = -1;
+    data = {} || data;
+    if (newStatus == "failed" || newStatus == -1) newStatus = -1;
     if (newStatus == "pending" || newStatus == 0) newStatus = 0;
     if (newStatus == "success" || newStatus == 1) newStatus = 1;
-    that.update({_id: commitID}, {$set: {status: newStatus} }, function (err, result) {
+    data.status = newStatus;
+    that.update({_id: commitID}, {$set: data }, function (err, result) {
         callback(err, result);
     })
 }

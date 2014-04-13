@@ -38,7 +38,7 @@ exports.poll = function (callback) {
             function (done) {
                 async.each(usersToUpdate, function (elem, callback) {
                     console.log('Moving', elem.inc, 'doge from user', elem.userid, 'to ' + HOT_WALLET);
-                    doge.moveToUser(HOT_WALLET, elem.userid, elem.inc, function (error, transactionid) {
+                    doge.moveToUser(HOT_WALLET, elem.userid, elem.inc, function (error, fee) {
                         if (error) {
                             console.log(error);
                             delete usersToUpdate[usersToUpdate.indexOf(elem)]; //remove the user from the update command
@@ -50,7 +50,8 @@ exports.poll = function (callback) {
                             History.addHistory(user, "deposit", 0, elem.inc, 0, 0, function (err, history) {
                                 if (err) console.log(err);
                             })
-                            console.log('Success:', transactionid);
+                            console.log('Success:', fee);
+                            //Success: {"data":{"success":{"fee":1.25}}}
                             callback();
                         }
                     })

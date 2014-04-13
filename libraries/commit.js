@@ -51,23 +51,25 @@ Commit.prototype.begin = function (credit, callback) {
 
 /**
  * Complete a pending commit
+ * @param data                      data to insert
  * @param callback
  * @private
  */
-Commit.prototype.complete = function ( callback) {
+Commit.prototype.complete = function (data, callback) {
     var that = this;
     if (this.commitID == null) callback("Commit not created");
-    History.changeCommitStatus(that.commitID, "success", function (err, result) {
+    History.changeCommitStatus(that.commitID, data, "success", function (err, result) {
         callback(err, result);
     })
 }
 
 /**
  * Fail a pending commit
+ * @param data                      data to insert
  * @param credit                    whether or not to credit the account
  * @param callback
  */
-Commit.prototype.fail = function (credit, callback) {
+Commit.prototype.fail = function (data, credit, callback) {
     var that = this;
     if (this.commitID == null) callback("Commit not created");
     //roll back user balance
@@ -76,7 +78,7 @@ Commit.prototype.fail = function (credit, callback) {
     that.user.save(function (err) {
         if (err) console.log(err);
         //fail commit
-        History.changeCommitStatus(that.commitID, "failure", function (err, result) {
+        History.changeCommitStatus(that.commitID, data, "failed", function (err, result) {
             callback(err, result);
         });
     })
