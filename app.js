@@ -74,6 +74,12 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
 
-setInterval(function() {
-    polldogebalances.poll(function() {});
-}, 10000);
+// TODO: check stack limits and memory usage of nested callbacks
+function poll() {
+    setTimeout(function() {
+        polldogebalances.poll(function(){
+            poll();
+        });
+    }, 10000);
+}
+poll();
