@@ -18,8 +18,8 @@
       <div class="content">
         <div id="reader" style="width: 300px; height: 250px; margin: 0 auto"></div>
         <form method="post" action="/api/withdraw" id="withdrawForm">
-          <input data-role="none" type="text" name="send_address" placeholder="Send Address..." />
-          <input data-role="none" type="text" name="amount" placeholder="Amount..." />
+          <input data-role="none" required="true" type="text" name="send_address" placeholder="Send Address..." />
+          <input data-role="none" required="true" type="number" name="amount" min="0" placeholder="Amount..." />
           <input data-role="none" type="submit" value="Send">
           <span>There is a 1 doge fee on withdrawals to cover transaction fees. The minimum withdrawal amount is currently 10 doge.</span>
         </form>
@@ -35,7 +35,8 @@
             },
             function(error){
                 console.log('read error', error);
-            }, function(videoError){
+            },
+            function(videoError){
                 console.log('video stream error', videoError);
             }
     );
@@ -46,11 +47,29 @@
     $(document).ready(function() {
         var options = {
             dataType: 'json',
-            error: function(err){alert(err.responseJSON.error);$('input[name="amount"]').val('');},
+            beforeSubmit: function(arr, $form, options) {
+                // The array of form data takes the following form:
+                // [ { name: 'send_address', value: 'jresig' }, { name: 'amount', value: 'secret' }]
+                // return false to cancel submit
+                for (var i=0; i<arr.length; i++) {
+                    var elem = arr[i];
+                    if (elem.value == "") {
+                        alert("Error: Please fill out all fields.");
+                        return false;
+                    }
+                }
+                return true;
+            },
+            error: function(err){
+                console.log(err);
+                alert(err.responseJSON.error);
+                $('input[name="amount"]').val('');
+            },
             success: function(res){
-                alert('Thank you for your withdrawal!');
+                alert('Thank you for your withdrawal! You can check the status on the "My Info" page.');
                 $("#balance_num").text(res.balance);
-                $('input[name="amount"]').val('');}
+                $('input[name="amount"]').val('');
+            }
         };
         $('#withdrawForm').ajaxForm(options);
     });

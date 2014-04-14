@@ -52,8 +52,9 @@ app.configure('production', function(){
 });
 
 //site is under construction?
-if (config.maintenance == "true") {
-    app.get('/', function(req, res) {res.render('maintenance', { title: 'Woops! | Dogecache', isMap: false })});
+if (config.maintenance == true) {
+    app.get('/', function(req, res) {res.redirect('maintenance')});
+    app.get('/maintenance', function(req, res) {res.render('maintenance', { title: 'Woops! | Dogecache', isMap: false, "maintenance_text": config.maintenance_text })})
     console.log("Site under construction.")
 }
 else
@@ -67,6 +68,16 @@ else
     app.get('/auth/logout', authRoute.logout);
     app.post('/api/cache', apiRoute.cache);
     app.post('/api/withdraw', apiRoute.withdraw);
+
+    // TODO: check stack limits and memory usage of nested callbacks
+    function poll() {
+        setTimeout(function() {
+            polldogebalances.poll(function(){
+                poll();
+            });
+        }, 10000);
+    }
+    poll();
 }
 
 
@@ -74,6 +85,3 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
 
-setInterval(function() {
-    polldogebalances.poll(function() {});
-}, 10000);
