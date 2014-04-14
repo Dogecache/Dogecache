@@ -1,4 +1,10 @@
 $(document).ready(function(){
+    /*
+    Home page stuff
+     */
+    $('.fb-login-button').on('click', function(){$('.fb-login-button').attr('disabled',true)});
+
+
     //TODO clean up selectors
     var del=0;
     $('.card').each(function(){

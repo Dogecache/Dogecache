@@ -33,40 +33,43 @@ userSchema.statics.findOrCreate = function (profile, callback) {
             callback(null, result);
         } else {
             // generate new address
-            doge.createUser(userId, function (error, res) {
+            doge.createUser(profile.userId, function (error, res) {
                 if (error) {
                     console.log(error);
+                    callback(err);
                     // @TODO: Handle error
                 }
-                //console.log(profile);
-                // create a new user
-                var user = new that({
-                    fbId: profile.id,
-                    uuid: profile.userId,
-                    displayName: profile.displayName,
-                    email: profile.emails[0].value,
-                    dogeAddress: JSON.parse(res).data.address,
-                    balance: 0
-                });
-                //console.log('New user:', user);
-                //save the user
-                user.save(function (err, user) {
-                    if (err) callback(err);
-                    callback(null, user);
-                    //send the new user an email
-                    var sendgrid = require('sendgrid')(config.sendgridapi_user, config.sendgridapi_key);
-                    sendgrid.send({
-                        to: profile.emails[0].value,
-                        from: 'dogecache@gmail.com',
-                        subject: 'Welcome to Dogecache!',
-                        text: 'Welcome to the Dogecache community! We hope you enjoy dogecaching!'
-                    }, function (err, json) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        console.log(json);
+                else {
+                    //console.log(profile);
+                    // create a new user
+                    var user = new that({
+                        fbId: profile.id,
+                        uuid: profile.userId,
+                        displayName: profile.displayName,
+                        email: profile.emails[0].value,
+                        dogeAddress: JSON.parse(res).data.address,
+                        balance: 0
                     });
-                });
+                    //console.log('New user:', user);
+                    //save the user
+                    user.save(function (err, user) {
+                        if (err) callback(err);
+                        callback(null, user);
+                        //send the new user an email
+                        var sendgrid = require('sendgrid')(config.sendgridapi_user, config.sendgridapi_key);
+                        sendgrid.send({
+                            to: profile.emails[0].value,
+                            from: 'dogecache@gmail.com',
+                            subject: 'Welcome to Dogecache!',
+                            text: 'Welcome to the Dogecache community! We hope you enjoy dogecaching!'
+                        }, function (err, json) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            //console.log(json);
+                        });
+                    });
+                }
             });
         }
     });
