@@ -7,8 +7,8 @@ var config = require('../config');
 async = require("async");
 
 var userSchema = new mongoose.Schema({
-    fbId: {type: Number, unique: true},                 //user's facebook id
-    uuid: {type: String, unique: true},                 //unique identifier id
+    fbId: {type: Number, unique: true, dropDups: true},                 //user's facebook id
+    uuid: {type: String, unique: true, dropDups: true},                 //unique identifier id
     displayName: String,                                //real display name
     dogeAddress: {type: String, unique: true},          //doge deposit address
     email: String,                                      //user email

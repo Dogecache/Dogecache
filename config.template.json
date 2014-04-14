@@ -7,5 +7,6 @@
     "facebook_clientid": "",
     "facebook_clientsecret": "",
     "cookie_key": "SECURE-COOKIE-PASS-HERE",
-    "maintenance": false
+    "maintenance": false,
+    "maintenance-text": ""
 }
