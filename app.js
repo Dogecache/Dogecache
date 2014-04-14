@@ -52,7 +52,7 @@ app.configure('production', function(){
 });
 
 //site is under construction?
-if (config.maintenance == true) {
+if (config.maintenance == true || "true") {
     app.get('/', function(req, res) {res.redirect('maintenance')});
     app.get('/maintenance', function(req, res) {res.render('maintenance', { title: 'Woops! | Dogecache', isMap: false, "maintenance_text": config.maintenance_text })})
     console.log("Site under construction.")
