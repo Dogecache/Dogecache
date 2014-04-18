@@ -1,5 +1,4 @@
-var dogeAPI = require('./libraries/dogeapi');
-var doge = new dogeAPI();
+var doge = require('./dogeapi');
 
 var User = require('./models/user');
 var History = require('./models/history');
