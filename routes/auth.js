@@ -1,6 +1,6 @@
 var passport = require('passport') ,
     FacebookStrategy = require('passport-facebook').Strategy ,
-    TwitterStrategy = rrequire('passport-twitter').Strategy ,
+    TwitterStrategy = require('passport-twitter').Strategy ,
     GoogleStrategy = require('passport-google-oauth').OAuth2Strategy ,
     User = require('../models/user') ,
     config = require('../config');
@@ -26,7 +26,7 @@ passport.use(new TwitterStrategy({
 }));
 
 passport.use(new GoogleStrategy({
-    clientId: config.google_clientid,
+    clientID: config.google_clientid,
     clientSecret: config.google_clientsecret,
     callbackURL: (process.env.NODE_ENV == 'production') ? 'http://www.dogecache.com/auth/callback' : 'http://localhost:3000/auth/callback' //@TODO possibly move to config
 }, function(accessToken, refreshToken, profile, done) {
