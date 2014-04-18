@@ -59,13 +59,22 @@ if (config.maintenance == true || config.maintenance == "true") {
 }
 else
 {
+    //Setup main page routes
     app.get('/', home.index);
     app.get('/map', map.index);
     app.get('/settings', settings.index);
     app.get('/stats', stats.index);
-    app.get('/auth/login', authRoute.login);
-    app.get('/auth/callback', authRoute.loginCallback);
+
+    //Setup authentication routes
+    app.get('/auth/facebook/login', authRoute.login_facebook);
+    app.get('/auth/facebook/callback', authRoute.loginCallback_facebook);
+    app.get('/auth/twitter/login', authRoute.login_twitter);
+    app.get('/auth/twitter/callback', authRoute.loginCallback_twitter);
+    app.get('/auth/google/login', authRoute.login_google);
+    app.get('/auth/google/callback', authRoute.loginCallback_google);
     app.get('/auth/logout', authRoute.logout);
+
+    //Setup api routes
     app.post('/api/cache', apiRoute.cache);
     app.post('/api/withdraw', apiRoute.withdraw);
 
