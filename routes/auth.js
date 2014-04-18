@@ -1,84 +1,73 @@
-var passport = require('passport') ,
-    FacebookStrategy = require('passport-facebook').Strategy ,
-    TwitterStrategy = require('passport-twitter').Strategy ,
-    GoogleStrategy = require('passport-google-oauth').OAuth2Strategy ,
-    User = require('../models/user') ,
-    config = require('../config');
+var passport = require('passport');
+var FacebookStrategy = require('passport-facebook').Strategy;
+var TwitterStrategy = require('passport-twitter').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var User = require('../models/user');
+var config = require('../config');
 
-passport.use(new FacebookStrategy({
-    clientID: config.facebook_clientid,
-    clientSecret: config.facebook_clientsecret,
-    callbackURL: config.url + '/auth/callback'
-}, function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate('facebook', profile, function(err, user) {
-        done(null, user);
-    });
-}));
+if (config.facebook_clientid && config.facebook_clientsecret || process.env.NODE_ENV == 'PRODUCTION') {
+    passport.use(new FacebookStrategy({
+        profileFields: ['id', 'displayName', 'photos', 'emails'],
+        clientID: config.facebook_clientid,
+        clientSecret: config.facebook_clientsecret,
+        callbackURL: config.url + '/auth/callback/facebook'
+    }, function (accessToken, refreshToken, profile, done) {
+        User.findOrCreate(profile, done);
+    }));
+} else {
+    console.log('Facebook login provider not configured');
+}
 
-passport.use(new TwitterStrategy({
-    consumerKey: config.twitter_clientid,
-    consumerSecret: config.twitter_clientsecret,
-    callbackURL: (process.env.NODE_ENV == 'production') ? 'http://www.dogecache.com/auth/callback' : 'http://localhost:3000/auth/callback' //@TODO possibly move to config
-}, function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate('twitter', profile, function(err, user) {
-        done(null, user);
-    });
-}));
+if (config.twitter_clientid && config.twitter_clientsecret || process.env.NODE_ENV == 'PRODUCTION') {
+    passport.use(new TwitterStrategy({
+        profileFields: ['id', 'displayName', 'photos', 'emails'],
+        consumerKey: config.twitter_clientid,
+        consumerSecret: config.twitter_clientsecret,
+        callbackURL: config.url + '/auth/callback/twitter'
+    }, function(accessToken, refreshToken, profile, done) {
+        User.findOrCreate(profile, function(err, user) {
+            done(err, user);
+        });
+    }));
+} else {
+    console.log('Twitter login provider not configured');
+}
 
-passport.use(new GoogleStrategy({
-    clientID: config.google_clientid,
-    clientSecret: config.google_clientsecret,
-    callbackURL: (process.env.NODE_ENV == 'production') ? 'http://www.dogecache.com/auth/callback' : 'http://localhost:3000/auth/callback' //@TODO possibly move to config
-}, function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate('twitter', profile, function(err, user) {
-        done(null, user);
-    });
-}));
+if (config.google_clientid && config.google_clientsecret || process.env.NODE_ENV == 'PRODUCTION') {
+    passport.use(new GoogleStrategy({
+        profileFields: ['id', 'displayName', 'photos', 'emails'],
+        clientId: config.google_clientid,
+        clientSecret: config.google_clientsecret,
+        callbackURL: config.url + '/auth/callback/google'
+    }, function(accessToken, refreshToken, profile, done) {
+        User.findOrCreate(profile, function(err, user) {
+            done(null, user);
+        });
+    }));
+} else {
+    console.log('Google login provider not configured');
+}
 
 passport.serializeUser(function(user, done) {
-    done(null, user.id);
+    done(null, user._id);
 });
 
 passport.deserializeUser(function(id, done) {
-    User.findOne({_id: id}, function(err, user) {
+    User.findById(id, function(err, user) {
         done(err, user);
     });
 });
 
-//export authentication methods for facebook
-exports.login_facebook = passport.authenticate('facebook', {
-    scope: "email",
-    failureRedirect: '/'
-});
+exports.login = function(req, res) {
+    return passport.authenticate(req.params.provider, {scope: "email"})(req, res);
+};
 
-exports.loginCallback_facebook = passport.authenticate('facebook', {
-    successRedirect: '/map',
-    failureRedirect: '/'
-});
-
-//export authentication methods for twitter
-exports.login_twitter = passport.authenticate('twitter', {
-    failureRedirect: '/'
-});
-
-exports.loginCallback_twitter = passport.authenticate('twitter', {
-    successRedirect: '/map',
-    failureRedirect: '/'
-});
-
-//export authentication methods for google
-exports.login_google = passport.authenticate('google', {
-    scope: [
-        'https://www.googleapis.com/auth/userinfo.profile',
-        'https://www.googleapis.com/auth/userinfo.email'
-    ],
-    failureRedirect: '/'
-});
-
-exports.loginCallback_google = passport.authenticate('google', {
-    successRedirect: '/map',
-    failureRedirect: '/'
-});
+exports.loginCallback = function(req, res) {
+    return passport.authenticate(req.params.provider, {
+        successRedirect: '/map',
+        failureRedirect: '/'
+    })(req, res);
+};
 
 exports.logout = function(req, res) {
     req.logout();

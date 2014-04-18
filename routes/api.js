@@ -16,7 +16,7 @@ const MIN_WITHDRAW = 10; //minimum withdrawal amount, in doge
 const ENABLED = true; //whether withdrawals and deposits are enabled @TODO automatic loading of view
 
 /**
- * authenticate user by uuid and return user object
+ * authenticate user by API key and return user object
  * @param req           express req object
  * @param res           expess res object
  * @param callback      callback function
@@ -26,7 +26,7 @@ const ENABLED = true; //whether withdrawals and deposits are enabled @TODO autom
 function __auth(req, res, callback) {
     if (req.user) return callback(null, req.user);
 
-    User.findOne({uuid: req.body.uuid}, function (err, user) {
+    User.findOne({apiKey: req.body.apiKey}, function (err, user) {
         if (!err) {
             req.login(user, function (err) {
                 callback(null, user);
