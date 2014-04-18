@@ -49,9 +49,10 @@
 
   <div class="home-button-wrapper">
     <% if (isLoggedIn) { %>
-      <button type="button" class="home-button map-button" onclick="window.location.href='/map'">
+      <a type="button" class="home-button map-button" href="/map">
+        <i class="fa fa-map-marker"></i>
       Go to Map
-      </button>
+      </a>
     <% } else { %>
       <a type="button" class="home-button facebook-login-button" href="/auth/login/facebook">
         <i class="fa fa-facebook"></i>
