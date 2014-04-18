@@ -8,5 +8,6 @@
     "facebook_clientsecret": "",
     "cookie_key": "SECURE-COOKIE-PASS-HERE",
     "maintenance": false,
-    "maintenance_text": ""
+    "maintenance_text": "",
+    "url": "http://localhost:3000"
 }
