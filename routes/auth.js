@@ -36,7 +36,7 @@ if (config.twitter_clientid && config.twitter_clientsecret || process.env.NODE_E
 if (config.google_clientid && config.google_clientsecret || process.env.NODE_ENV == 'PRODUCTION') {
     passport.use(new GoogleStrategy({
         profileFields: ['id', 'displayName', 'photos', 'emails'],
-        clientId: config.google_clientid,
+        clientID: config.google_clientid,
         clientSecret: config.google_clientsecret,
         callbackURL: config.url + '/auth/callback/google'
     }, function(accessToken, refreshToken, profile, done) {
