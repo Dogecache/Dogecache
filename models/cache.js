@@ -5,7 +5,7 @@ var async = require('async');
 const WAGER_FEE = 1; //wager fee deducted at time of wager, in percent
 
 var cacheSchema = new mongoose.Schema({
-    uuid: String,                           //uuid of user who dropped the cache
+    userId: mongoose.Schema.ObjectId,       //id of user who dropped the cache
     amount: Number,                         //cache value (post fee deduction)
     loc: {                                  //location of the cache [longitude, latitude]
         index: '2dsphere',
@@ -29,7 +29,7 @@ cacheSchema.statics.addCache = function (user, amount, longitude, latitude, call
     if (user.balance < amount) return callback("Not enough money remaining");
 
     // Subtract the amount from the balance
-    User.update({uuid: user.uuid}, {$inc: {balance: -amount}}, function (err) {
+    User.update({userId: user._id}, {$inc: {balance: -amount}}, function (err) {
         if (err) { //@todo let two phase commit handle balance modifications
             console.log(err);
             return callback(err, null);
@@ -40,7 +40,7 @@ cacheSchema.statics.addCache = function (user, amount, longitude, latitude, call
 
         // Create the cache
         var cache = new that({
-            uuid: user.uuid,
+            userId: user._id,
             amount: amount,
             loc: [longitude, latitude]
         });
@@ -55,7 +55,7 @@ cacheSchema.statics.addCache = function (user, amount, longitude, latitude, call
 };
 
 /**
- * find all caches within maxDistance that do not equal user.uuid
+ * find all caches within maxDistance that do not equal user._id
  * @param user                      user object
  * @param maxDistance               max search distance (radius)
  * @param longitude                 longitude of cache
@@ -64,9 +64,9 @@ cacheSchema.statics.addCache = function (user, amount, longitude, latitude, call
  */
 cacheSchema.statics.findCaches = function (user, maxDistance, longitude, latitude, callback) {
     var that = this;
-    that.find({
-        uuid: {
-            $ne: user.uuid
+    var findParams = {
+        userId: {
+            $ne: user._id
         },
         loc: {
             $near: {
@@ -77,7 +77,11 @@ cacheSchema.statics.findCaches = function (user, maxDistance, longitude, latitud
                 $maxDistance: maxDistance
             }
         }
-    }, function (err, results) {
+    };
+    if (user.uuid) {
+        findParams.uuid = {$ne: user.uuid};
+    }
+    that.find(findParams, function (err, results) {
         callback(err, results);
     });
 };
@@ -106,7 +110,7 @@ cacheSchema.statics.gatherCaches = function (user, caches, callback) {
             },
             // add balance to user
             function (done) {
-                User.update({uuid: user.uuid}, {$inc: {balance: total}}, done);
+                User.update({_id: user._id}, {$inc: {balance: total}}, done);
             }
         ], function (err) {
             callback(err, total);

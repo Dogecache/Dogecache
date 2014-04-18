@@ -4,6 +4,7 @@ var User = require('../models/user');
 var config = require('../config');
 
 passport.use(new FacebookStrategy({
+    profileFields: ['id', 'displayName', 'photos', 'emails'],
     clientID: config.facebook_clientid,
     clientSecret: config.facebook_clientsecret,
     callbackURL: config.url + '/auth/callback'
@@ -14,11 +15,11 @@ passport.use(new FacebookStrategy({
 }));
 
 passport.serializeUser(function(user, done) {
-    done(null, user.fbId);
+    done(null, user._id);
 });
 
 passport.deserializeUser(function(id, done) {
-    User.findOne({fbId: id}, function(err, user) {
+    User.findById(id, function(err, user) {
         done(err, user);
     });
 });
