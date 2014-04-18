@@ -8,7 +8,7 @@ var passport = require('passport') ,
 passport.use(new FacebookStrategy({
     clientID: config.facebook_clientid,
     clientSecret: config.facebook_clientsecret,
-    callbackURL: (process.env.NODE_ENV == 'production') ? 'http://www.dogecache.com/auth/callback' : 'http://localhost:3000/auth/callback' //@TODO possibly move to config
+    callbackURL: config.url + '/auth/callback'
 }, function(accessToken, refreshToken, profile, done) {
     User.findOrCreate('facebook', profile, function(err, user) {
         done(null, user);
