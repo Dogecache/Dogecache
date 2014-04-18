@@ -7,7 +7,7 @@ passport.use(new FacebookStrategy({
     profileFields: ['id', 'displayName', 'photos', 'emails'],
     clientID: config.facebook_clientid,
     clientSecret: config.facebook_clientsecret,
-    callbackURL: config.url + '/auth/callback'
+    callbackURL: config.url + '/auth/callback/facebook'
 }, function(accessToken, refreshToken, profile, done) {
     User.findOrCreate(profile, function(err, user) {
         done(null, user);
@@ -24,12 +24,16 @@ passport.deserializeUser(function(id, done) {
     });
 });
 
-exports.login = passport.authenticate('facebook', {scope: "email"});
+exports.login = function(req, res) {
+    return passport.authenticate(req.params.provider, {scope: "email"})(req, res);
+};
 
-exports.loginCallback = passport.authenticate('facebook', {
-    successRedirect: '/map',
-    failureRedirect: '/'
-});
+exports.loginCallback = function(req, res) {
+    return passport.authenticate(req.params.provider, {
+        successRedirect: '/map',
+        failureRedirect: '/'
+    })(req, res);
+};
 
 exports.logout = function(req, res) {
     req.logout();

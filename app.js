@@ -63,8 +63,8 @@ else
     app.get('/map', map.index);
     app.get('/settings', settings.index);
     app.get('/stats', stats.index);
-    app.get('/auth/login', authRoute.login);
-    app.get('/auth/callback', authRoute.loginCallback);
+    app.get('/auth/login/:provider', authRoute.login);
+    app.get('/auth/callback/:provider', authRoute.loginCallback);
     app.get('/auth/logout', authRoute.logout);
     app.post('/api/cache', apiRoute.cache);
     app.post('/api/withdraw', apiRoute.withdraw);
