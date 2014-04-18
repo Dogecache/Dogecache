@@ -2,8 +2,7 @@ var Cache = require('../models/cache');
 var User = require('../models/user');
 var History = require('../models/history');
 
-var dogeAPI = require('../libraries/dogeapi');
-var doge = new dogeAPI();
+var doge = require('../dogeapi');
 var async = require('async');
 
 var config = require('../config');
