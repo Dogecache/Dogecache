@@ -1,49 +1,52 @@
 {
-    "name": "Dogecache",
-    "version": "0.0.1",
-    "author": "Dogecache <dogecache@gmail.com>",
-    "description": "",
-    "contributors": [
-        {
-            "name": "Zachary Liu",
-            "email": "",
-            "url": ""
-        },
-        {
-            "name": "Austin Eng",
-            "email": "",
-            "url": ""
-        },
-        {
-            "name": "Andrew Millman",
-            "email": "",
-            "url": ""
-        },
-        {
-            "name": "Matthew Hsu",
-            "email": "",
-            "url": ""
-        }],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Dogecache/Dogecache"
+  "name": "Dogecache",
+  "version": "0.0.1",
+  "author": "Dogecache <dogecache@gmail.com>",
+  "description": "",
+  "contributors": [
+    {
+      "name": "Zachary Liu",
+      "email": "",
+      "url": ""
     },
-    "private": true,
-    "scripts": {
-        "start": "node app"
+    {
+      "name": "Austin Eng",
+      "email": "",
+      "url": ""
     },
-    "dependencies": {
-        "express": "3.0.5",
-        "ejs": "*",
-        "less-middleware": "*",
-        "passport": "~0.2.0",
-        "passport-facebook": "~1.0.3",
-        "validator": "~3.5.0",
-        "request": "~2.34.0",
-        "async": "~0.2.10",
-        "sendgrid": "~1.0.2",
-        "moment": "~2.4.0",
-        "mongoose": "~3.8.8",
-        "node-uuid": "~1.4.1"
+    {
+      "name": "Andrew Millman",
+      "email": "",
+      "url": ""
+    },
+    {
+      "name": "Matthew Hsu",
+      "email": "",
+      "url": ""
     }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Dogecache/Dogecache"
+  },
+  "private": true,
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "express": "3.0.5",
+    "ejs": "*",
+    "less-middleware": "*",
+    "passport": "~0.2.0",
+    "passport-facebook": "~1.0.3",
+    "validator": "~3.5.0",
+    "request": "~2.34.0",
+    "async": "~0.2.10",
+    "sendgrid": "~1.0.2",
+    "moment": "~2.4.0",
+    "mongoose": "~3.8.8",
+    "node-uuid": "~1.4.1",
+    "passport-twitter": "~1.0.2",
+    "passport-google-oauth": "~0.1.5"
+  }
 }

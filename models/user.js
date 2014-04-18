@@ -7,11 +7,12 @@ var sendgrid = require('sendgrid')(config.sendgridapi_user, config.sendgridapi_k
 
 async = require("async");
 
+// TODO: prevent duplication on fields without use of unique option
 var userSchema = new mongoose.Schema({
     provider: String,                                   //login provider
     providerId: String,                                 //user's profile id
     displayName: String,                                //real display name
-    dogeAddress: {type: String, unique: true},          //doge deposit address
+    dogeAddress: String,                                //doge deposit address
     email: String,                                      //user email
     balance: Number,                                    //user balance
     profilePhoto: String,                               //profile photo URL
@@ -80,7 +81,7 @@ userSchema.statics.findOrCreate = function (profile, callback) {
                             async.waterfall([
                                 function(done) {
                                     // create user
-                                    doge.createUser(user._id, done);
+                                    doge.createUser(user._id.toString(), done);
                                 },
                                 function(res, done) {
                                     // save dogecoin address
