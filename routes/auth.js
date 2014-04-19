@@ -25,9 +25,7 @@ if (config.twitter_clientid && config.twitter_clientsecret || process.env.NODE_E
         consumerSecret: config.twitter_clientsecret,
         callbackURL: config.url + '/auth/callback/twitter'
     }, function(accessToken, refreshToken, profile, done) {
-        User.findOrCreate(profile, function(err, user) {
-            done(err, user);
-        });
+        User.findOrCreate(profile, done);
     }));
 } else {
     console.log('Twitter login provider not configured');
@@ -40,9 +38,7 @@ if (config.google_clientid && config.google_clientsecret || process.env.NODE_ENV
         clientSecret: config.google_clientsecret,
         callbackURL: config.url + '/auth/callback/google'
     }, function(accessToken, refreshToken, profile, done) {
-        User.findOrCreate(profile, function(err, user) {
-            done(null, user);
-        });
+        User.findOrCreate(profile, done);
     }));
 } else {
     console.log('Google login provider not configured');
