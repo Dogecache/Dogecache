@@ -2,7 +2,10 @@ $(document).ready(function(){
     /*
     Home page stuff
      */
-    $('.fb-login-button').on('click', function(){$('.fb-login-button').attr('disabled',true)});
+
+    $('.facebook-login-button,.twitter-login-button,.google-login-button').one("click", function() {
+        $(this).click(function () { return false; });
+    });
 
 
     //TODO clean up selectors
@@ -54,8 +57,9 @@ function notify(title, body) {
 }
 
 function closeNotify() {
-  $('.notification .pane').unbind();
-  $('.notification .pane').animate({
+  $('.notification .pane')
+    .unbind()
+    .animate({
     top: -1*$(window).height()
   }, 300);
   $('.notification').animate({
