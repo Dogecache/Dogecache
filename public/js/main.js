@@ -3,6 +3,12 @@ $(document).ready(function(){
     Home page stuff
      */
 
+     $('.home-button.login-button').click(function() {
+        notify(
+          "Sign in using:", '<div class="home-button-wrapper"><a type="button" class="home-button facebook-login-button" href="/auth/login/facebook"><i class="fa fa-facebook"></i>Facebook</a><a type="button" class="home-button twitter-login-button" href="/auth/login/twitter"><i class="fa fa-twitter"></i>Twitter</a><a type="button" class="home-button google-login-button" href="/auth/login/google"><i class="fa fa-google-plus"></i>Google</a></div>'
+        );
+     });
+
     $('.facebook-login-button,.twitter-login-button,.google-login-button').one("click", function() {
         $(this).click(function () { return false; });
     });
