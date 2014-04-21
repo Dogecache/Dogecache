@@ -1,6 +1,6 @@
 <%- include header.ejs %>
 <div id="home-nav">
-<%- include navbar.ejs %>
+<%- include pub_navbar.ejs %>
 </div>
 <div class="splash-page">
   <div class="logo">
@@ -44,7 +44,7 @@
     But if you do find some, it's yours!
   </div>
 
-  <div class="header-icon" style=<%= isLoggedIn ? "color:#d35400" : "color:#3b5998" %> >
+  <div class="header-icon" style="color:#d35400" >
     <i class="fa fa-chevron-down"></i></div>
   <div class="description">
     What're you waiting for? Play now!
@@ -57,17 +57,8 @@
       Go to Map
       </a>
     <% } else { %>
-      <a type="button" class="home-button facebook-login-button" href="/auth/login/facebook">
-        <i class="fa fa-facebook"></i>
-      Sign in with Facebook
-      </a>
-      <a type="button" class="home-button twitter-login-button" href="/auth/login/twitter">
-          <i class="fa fa-twitter"></i>
-          Sign in with Twitter
-      </a>
-      <a type="button" class="home-button google-login-button" href="/auth/login/google">
-          <i class="fa fa-google-plus"></i>
-          Sign in with Google
+      <a type="button" class="home-button login-button">
+        Sign in / Sign up
       </a>
     <% } %>
   </div>
