@@ -21,6 +21,12 @@ $(document).ready(function(){
       $('#menu-panel, #menu-btn').toggleClass('open');
     });
 
+    $(document).click(function(e){
+      if( $(e.target).attr('id')!='menu-btn' && $(e.target).parents('#menu-panel').length==0 ) {
+        $('#menu-panel, #menu-btn').removeClass('open');
+      }
+    });
+
   if (! (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ) {
     $('.logo').css('opacity', 0).css('margin-top', $(window).height());
     $('.splash-page h1').css('opacity', 0).css('margin-top', $(window).height());

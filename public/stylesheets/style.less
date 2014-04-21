@@ -83,15 +83,16 @@ body {
     padding: 0px;
     width: 100%;
     max-width: 350px;
-    max-height: 350px;
+    max-height: 525px;
     position: fixed;
-    top: 110%;
+    top: 65px;
     bottom: 0px;
-    right: 0px;
+    right: -350px;
     overflow: show;
     box-shadow: 0px 0px 25px rgba(0,0,0,0.15);
     transition: all 0.5s ease;
     background: @menuBg;
+    opacity: 0;
 
     &:before {
       position: absolute;
@@ -106,7 +107,8 @@ body {
     }
 
     &.open {
-      top: 65px;
+      right: 0px;
+      opacity: 1;
     }
 
     tbody {
@@ -116,7 +118,7 @@ body {
 
       tr {
         width:100%;
-        height: 50%;
+        height: 33.33333333333%;
         overflow:hidden;
 
         td {

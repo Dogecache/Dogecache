@@ -8,6 +8,8 @@ var express = require('express')
   , map = require('./routes/map')
   , settings = require('./routes/settings')
   , stats = require('./routes/stats')
+  , about = require('./routes/about')
+  , press = require('./routes/press')
   , http = require('http')
   , path = require('path');
 
@@ -63,6 +65,8 @@ else
     app.get('/map', map.index);
     app.get('/settings', settings.index);
     app.get('/stats', stats.index);
+    app.get('/about', about.index);
+    app.get('/press', press.index);
     app.get('/auth/login/:provider', authRoute.login);
     app.get('/auth/callback/:provider', authRoute.loginCallback);
     app.get('/auth/logout', authRoute.logout);
