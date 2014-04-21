@@ -10,10 +10,11 @@ var config = require('../config');
 
 var Commit = require('../libraries/commit');
 
-//@TODO scope these globally
-var TX_FEE = 2; //withdrawal fee to cover transaction fee, in doge
-var MIN_WITHDRAW = 10; //minimum withdrawal amount, in doge
-var ENABLED = true; //whether withdrawals and deposits are enabled @TODO automatic loading of view
+
+var TX_FEE = config.settings.tx_fee; //withdrawal fee to cover transaction fee, in doge
+var MIN_WITHDRAW = config.settings.min_withdraw; //minimum withdrawal amount, in doge
+var ENABLED = config.settings.wd_enabled; //whether withdrawals and deposits are enabled
+var HOT_WALLET = config.settings.hot_wallet; //hotwallet to transfer funds from
 
 /**
  * authenticate user by API key and return user object
@@ -144,8 +145,7 @@ exports.withdraw = function (req, res) {
                 return res.send(500, {error: 'Error sending funds. No amount withdrawn.'});
             }
             res.send(200, {balance: user.balance, error: 'Doge withdrawn.'});
-            //@TODO hotwallet address should be global var
-            doge.withdrawFromUser('dogecachemaster', address, adj_amount, config.dogeapiPin, function (err, result) {
+            doge.withdrawFromUser(HOT_WALLET, address, adj_amount, config.setup.dogeapiPin, function (err, result) {
                 console.log(err, result);
                 if (err) {
                     console.log(err);
