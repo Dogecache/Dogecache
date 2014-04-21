@@ -1,9 +1,10 @@
 /*
  * GET stats page.
  */
+"use strict"
 var History = require('../models/history.js');
 var moment = require('moment');
-const RETRIEVAL_LIMIT = 10;
+var RETRIEVAL_LIMIT = 10;
 //@todo make retrieval limit global
 
 

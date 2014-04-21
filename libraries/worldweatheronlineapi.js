@@ -1,3 +1,4 @@
+"use strict";
 var config = require('../config');
 var defaultSettings = {
     endpoint: 'http://api.worldweatheronline.com/',

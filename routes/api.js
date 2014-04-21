@@ -1,3 +1,4 @@
+"use strict";
 var Cache = require('../models/cache');
 var User = require('../models/user');
 var History = require('../models/history');
@@ -10,9 +11,9 @@ var config = require('../config');
 var Commit = require('../libraries/commit');
 
 //@TODO scope these globally
-const TX_FEE = 2; //withdrawal fee to cover transaction fee, in doge
-const MIN_WITHDRAW = 10; //minimum withdrawal amount, in doge
-const ENABLED = true; //whether withdrawals and deposits are enabled @TODO automatic loading of view
+var TX_FEE = 2; //withdrawal fee to cover transaction fee, in doge
+var MIN_WITHDRAW = 10; //minimum withdrawal amount, in doge
+var ENABLED = true; //whether withdrawals and deposits are enabled @TODO automatic loading of view
 
 /**
  * authenticate user by API key and return user object

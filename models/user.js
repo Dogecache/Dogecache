@@ -1,10 +1,11 @@
+"use strict";
 var mongoose = require('mongoose');
 var uuid = require('node-uuid');
 var doge = require('../dogeapi');
 var config = require('../config');
 var sendgrid = require('sendgrid')(config.sendgridapi_user, config.sendgridapi_key);
 
-async = require("async");
+var async = require("async");
 
 // TODO: prevent duplication on fields without use of unique option
 var userSchema = new mongoose.Schema({

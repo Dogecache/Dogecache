@@ -1,6 +1,7 @@
 /*
  * GET settings page.
  */
+"use strict";
 var googlecharts = require('../libraries/googlechartsapi');
 
 exports.index = function(req, res){

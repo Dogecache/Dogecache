@@ -1,8 +1,9 @@
+"use strict";
 var mongoose = require('mongoose');
 var User = require('./user');
 var async = require('async');
 
-const WAGER_FEE = 1; //wager fee deducted at time of wager, in percent
+var WAGER_FEE = 1; //wager fee deducted at time of wager, in percent
 
 var cacheSchema = new mongoose.Schema({
     userId: mongoose.Schema.ObjectId,       //id of user who dropped the cache

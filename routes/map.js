@@ -1,8 +1,7 @@
-
 /*
- * GET home page.
+ * GET map page.
  */
-
+"use strict";
 exports.index = function(req, res){
   if (req.user) {
     res.render('map', {

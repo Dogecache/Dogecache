@@ -1,3 +1,4 @@
+"use strict";
 var doge = require('./dogeapi');
 
 var User = require('./models/user');
@@ -5,7 +6,7 @@ var History = require('./models/history');
 
 var commit = require('./libraries/commit');
 
-const HOT_WALLET = 'dogecachemaster';
+var HOT_WALLET = 'dogecachemaster';
 
 exports.poll = function (callback) {
     //console.log('Polling balances...');

@@ -2,7 +2,7 @@
 /**
  * Module dependencies.
  */
-
+"use strict";
 var express = require('express')
   , home = require('./routes/home')
   , map = require('./routes/map')
@@ -73,17 +73,17 @@ else
     app.post('/api/cache', apiRoute.cache);
     app.post('/api/withdraw', apiRoute.withdraw);
 
-    // TODO: check stack limits and memory usage of nested callbacks
-    function poll() {
-        setTimeout(function() {
-            polldogebalances.poll(function(){
-                poll();
-            });
-        }, 10000);
-    }
     poll();
 }
 
+// TODO: check stack limits and memory usage of nested callbacks
+function poll() {
+    setTimeout(function() {
+        polldogebalances.poll(function(){
+            poll();
+        });
+    }, 10000);
+}
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

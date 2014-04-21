@@ -1,3 +1,4 @@
+"use strict";
 var dogeAPI = require('dogeapi');
 var config = require('./config');
 module.exports = new dogeAPI({

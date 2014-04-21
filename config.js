@@ -1,3 +1,4 @@
+"use strict";
 var fs = require('fs');
 if (fs.existsSync('./config.json')) {
     var configData = require('./config.json');
