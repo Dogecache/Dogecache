@@ -1,14 +1,16 @@
 "use strict";
+
 var Cache = require('../models/cache');
 var User = require('../models/user');
 var History = require('../models/history');
+var Commit = require('../libraries/commit');
 
 var doge = require('../dogeapi');
 var async = require('async');
+var coinstring = require('coinstring');
 
 var config = require('../config');
 
-var Commit = require('../libraries/commit');
 
 
 var TX_FEE = config.settings.tx_fee; //withdrawal fee to cover transaction fee, in doge
@@ -131,8 +133,15 @@ exports.withdraw = function (req, res) {
             return;
         }
 
+        //ensure that withdrawals and deposits are enabled
         if (ENABLED == false) {
             res.send(500, {error: 'Deposits and withdrawals are currently not enabled.'})
+            return;
+        }
+
+        //ensure that dogecoin address is valid
+        if (coinstring.validate(0x1E, address) == false) {
+            res.send(500, {error: 'Invalid dogecoin address.'})
             return;
         }
 
