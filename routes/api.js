@@ -134,7 +134,7 @@ exports.withdraw = function (req, res) {
         }
 
         //ensure that withdrawals and deposits are enabled
-        if (ENABLED == false) {
+        if (ENABLED == false || ENABLED == 'false') {
             res.send(500, {error: 'Deposits and withdrawals are currently not enabled.'})
             return;
         }
