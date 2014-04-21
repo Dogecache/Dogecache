@@ -4,13 +4,9 @@
  */
 
 exports.index = function(req, res){
-  if (req.user) {
-    res.render('press', {
-      title: 'Press | Dogecache',
-      user: req.user,
-      isMap: false
-    });
-  } else {
-    res.redirect('/');
-  }
+  res.render('press', {
+    title: 'Press | Dogecache',
+    user: req.user,
+    isMap: false
+  });
 };

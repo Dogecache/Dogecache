@@ -61,12 +61,16 @@
     <i class="fa fa-angle-left"></i>
   </a>
   <a id="profile-pic" href="map">
+    <% try { %>
     <img src= <%= user.profilePhoto %> />
+    <% } catch(e) { } %>
   </a>
   <div class="user-info">
+    <% try { %>
     <div id="name"><%= user.displayName %></div>
     <br/>
     <div id="balance"><span id="balance_num"><%= user.balance %></span> Ð</div>
+     <% } catch(e) { } %>
   </div>
   <div class="nav-buttons">
     <!--<a href="stats"><i class="fa fa-info-circle"></i></a>
