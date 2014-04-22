@@ -10,6 +10,7 @@ var express = require('express')
   , stats = require('./routes/stats')
   , about = require('./routes/about')
   , press = require('./routes/press')
+  , presskit = require('./routes/presskit')
   , http = require('http')
   , path = require('path');
 
@@ -67,6 +68,7 @@ else
     app.get('/stats', stats.index);
     app.get('/about', about.index);
     app.get('/press', press.index);
+    app.get('/presskit', presskit.index);
     app.get('/auth/login/:provider', authRoute.login);
     app.get('/auth/callback/:provider', authRoute.loginCallback);
     app.get('/auth/logout', authRoute.logout);

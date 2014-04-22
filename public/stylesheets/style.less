@@ -517,10 +517,31 @@ body {
 }
 
 .page-wrapper {
-  position: absolute;
+  position: relative;
   top: @navHeight + 15px;
   bottom: 0px;
   width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.ui-mobile .ui-page-active {
+  overflow-x: visible;
+}
+
+@media(min-width: 768px) {
+  .page-wrapper {
+    width: 750px;
+  }
+}
+@media(min-width: 992px) {
+  .page-wrapper {
+    width: 970px;
+  }
+}
+@media(min-width: 1200px) {
+  .page-wrapper {
+    width: 1170px;
+  }
 }
 
 .page-container {
@@ -631,6 +652,15 @@ body {
       tr:nth-child(odd) {
         background-color: white;
       }
+    }
+  }
+}
+
+#about-page, #press-page {
+  .card {
+    .content {
+      font-size: 16px;
+      line-height: 1.4em;
     }
   }
 }
