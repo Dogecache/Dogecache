@@ -16,7 +16,7 @@
           <input data-role="none" type="text" name="send_address" placeholder="Send Address..." disabled/>
           <input data-role="none" type="text" name="amount" placeholder="Amount..." disabled/>
           <input data-role="none" type="submit" value="Send" disabled>
-          <span>There is a 1 doge fee on withdrawals to cover transaction fees. The minimum withdrawal amount is currently 10 doge.</span>
+          <span>There is a <%= tx_fee %> doge fee on withdrawals to cover transaction fees. The minimum withdrawal amount is currently <%= min_withdraw %> doge.</span>
         </form>
       </div>
     </div>

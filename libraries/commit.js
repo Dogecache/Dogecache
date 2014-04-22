@@ -1,7 +1,7 @@
 /*
 Implementation of basic two phase commits
  */
-
+"use strict";
 var User = require('../models/user');
 var History = require('../models/history');
 

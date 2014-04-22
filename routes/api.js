@@ -1,22 +1,25 @@
+"use strict";
+
 var Cache = require('../models/cache');
 var User = require('../models/user');
 var History = require('../models/history');
+var Commit = require('../libraries/commit');
 
-var dogeAPI = require('../libraries/dogeapi');
-var doge = new dogeAPI();
+var doge = require('../dogeapi');
 var async = require('async');
+var coinstring = require('coinstring');
 
 var config = require('../config');
 
-var Commit = require('../libraries/commit');
 
-//@TODO scope these globally
-const TX_FEE = 2; //withdrawal fee to cover transaction fee, in doge
-const MIN_WITHDRAW = 10; //minimum withdrawal amount, in doge
-const ENABLED = true; //whether withdrawals and deposits are enabled @TODO automatic loading of view
+
+var TX_FEE = config.settings.tx_fee; //withdrawal fee to cover transaction fee, in doge
+var MIN_WITHDRAW = config.settings.min_withdraw; //minimum withdrawal amount, in doge
+var ENABLED = config.settings.wd_enabled; //whether withdrawals and deposits are enabled
+var HOT_WALLET = config.settings.hot_wallet; //hotwallet to transfer funds from
 
 /**
- * authenticate user by uuid and return user object
+ * authenticate user by API key and return user object
  * @param req           express req object
  * @param res           expess res object
  * @param callback      callback function
@@ -26,7 +29,7 @@ const ENABLED = true; //whether withdrawals and deposits are enabled @TODO autom
 function __auth(req, res, callback) {
     if (req.user) return callback(null, req.user);
 
-    User.findOne({uuid: req.body.uuid}, function (err, user) {
+    User.findOne({apiKey: req.body.apiKey}, function (err, user) {
         if (!err) {
             req.login(user, function (err) {
                 callback(null, user);
@@ -130,8 +133,15 @@ exports.withdraw = function (req, res) {
             return;
         }
 
-        if (ENABLED == false) {
+        //ensure that withdrawals and deposits are enabled
+        if (ENABLED == false || ENABLED == 'false') {
             res.send(500, {error: 'Deposits and withdrawals are currently not enabled.'})
+            return;
+        }
+
+        //ensure that dogecoin address is valid
+        if (coinstring.validate(0x1E, address) == false) {
+            res.send(500, {error: 'Invalid dogecoin address.'})
             return;
         }
 
@@ -144,8 +154,7 @@ exports.withdraw = function (req, res) {
                 return res.send(500, {error: 'Error sending funds. No amount withdrawn.'});
             }
             res.send(200, {balance: user.balance, error: 'Doge withdrawn.'});
-            //@TODO hotwallet address should be global var
-            doge.withdrawFromUser('dogecachemaster', address, adj_amount, config.dogeapiPin, function (err, result) {
+            doge.withdrawFromUser(HOT_WALLET, address, adj_amount, config.setup.dogeapiPin, function (err, result) {
                 console.log(err, result);
                 if (err) {
                     console.log(err);

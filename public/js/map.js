@@ -13,7 +13,8 @@
             searchSlider = new SearchSlider('#search-slider', '#search-drop', '.search-area');
             $(window).mousewheel(function(e) {
                 if (isSearching) return;
-                $("#wager-slider").val(parseInt($("#wager-slider").val()) + e.deltaY * 10).trigger('change'); // TODO: more efficent selector
+                var wager_slider = $("#wager-slider");
+                wager_slider.val(parseInt(wager_slider.val()) + e.deltaY * 10).trigger('change'); // TODO: more efficent selector
             });
             balance = new Balance(window.startingBalance, '#balance_num');
         });

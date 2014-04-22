@@ -1,12 +1,32 @@
 {
-    "dogeapiKey": "",
-    "dogeapiPin": "",
-    "worldweatherapiKey": "",
-    "sendgridapi_user": "",
-    "sendgridapi_key": "",
-    "facebook_clientid": "",
-    "facebook_clientsecret": "",
-    "cookie_key": "SECURE-COOKIE-PASS-HERE",
-    "maintenance": false,
-    "maintenance_text": ""
+    "setup": {
+        "_comment": "Secret api keys.",
+        "dogeapiPin": "",
+        "worldweatherapiKey": "",
+        "sendgridapi_user": "",
+        "sendgridapi_key": "",
+        "facebook_clientid": "",
+        "facebook_clientsecret": "",
+        "google_clientid": "",
+        "google_clientsecret": "",
+        "twitter_clientid": "",
+        "twitter_clientsecret": "",
+        "cookie_key": "SECURE-COOKIE-PASS-HERE",
+        "url": "http://localhost:3000"
+
+    },
+    "settings": {
+        "_comment": "Specific parameter settings for the app.",
+        "hot_wallet": "",
+        "tx_fees": 3,
+        "history_items": 10,
+        "min_withdraw": 10,
+        "wd_enabled": true,
+        "wager_percent_fee": 1
+    },
+    "maintenance": {
+        "_comment": "is_maintenance toggle maintenance mode; maintenance_text is text displayed on page",
+        "is_maintenance": false,
+        "maintenance_text": ""
+    }
 }

@@ -1,3 +1,5 @@
+"use strict";
+
 var mongoose = require('mongoose');
 
 /*
@@ -7,7 +9,7 @@ the history to be out of sync between history and users if failure occurs during
 Fixes: startup script: verify on startup that all transactions have completed.
 */
 var historySchema = new mongoose.Schema({
-    uuid: String,                                                       //The facebook id of the user
+    userId: mongoose.Schema.ObjectId,                                   //The id of the user
     type: {type: String, enum: ['search', 'withdrawal', 'deposit']},    //type of transaction
     status: {type: Number, enum: [-1,0,1], default: 0},                 //status: -1 is failure, 0 is pending, 1 is complete
     loss: Number,                                                       //amount subtracted from balance
@@ -40,7 +42,7 @@ historySchema.statics.addHistory = function (user, type, loss, gain, longitude, 
     }
     // Create the entry
     var history = new that({
-        uuid: user.uuid,
+        userId: user._id,
         type: type,
         status: status,
         loss: loss,
@@ -81,7 +83,7 @@ historySchema.statics.changeCommitStatus = function(commitID, data, newStatus, c
 historySchema.statics.getHistory = function (user, limit, callback) {
     var that = this;
     that
-        .find({uuid: user.uuid})
+        .find({userId: user._id})
         .sort({'date': -1})
         .limit(limit)
         .exec(function (err, results) {
@@ -99,7 +101,7 @@ historySchema.statics.getAggregate = function(user, callback) {
 
     // and here are the grouping request:
     that.aggregate([
-        { $match: {uuid: user.uuid, type: "search"} },
+        { $match: {userId: user._id, type: "search"} },
         {
             $group: {
                 _id: null,

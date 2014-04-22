@@ -1,4 +1,7 @@
 <%- include header.ejs %>
+<div id="home-nav">
+<%- include pub_navbar.ejs %>
+</div>
 <div class="splash-page">
   <div class="logo">
     <img src="/img/dogecache-logo.png" />
@@ -41,7 +44,7 @@
     But if you do find some, it's yours!
   </div>
 
-  <div class="header-icon" style=<%= isLoggedIn ? "color:#d35400" : "color:#3b5998" %> >
+  <div class="header-icon" style="color:#d35400" >
     <i class="fa fa-chevron-down"></i></div>
   <div class="description">
     What're you waiting for? Play now!
@@ -49,14 +52,14 @@
 
   <div class="home-button-wrapper">
     <% if (isLoggedIn) { %>
-      <button type="button" class="map-button" onclick="window.location.href='/map'">
+      <a type="button" class="home-button map-button" href="/map">
+        <i class="fa fa-map-marker"></i>
       Go to Map
-      </button>
+      </a>
     <% } else { %>
-      <button type="button" class="fb-login-button" onclick="window.location.href='/auth/login'">
-        <i class="fa fa-facebook"></i>
-      Sign in with Facebook
-      </button>
+      <a type="button" class="home-button login-button">
+        Sign in / Sign up
+      </a>
     <% } %>
   </div>
 </div>
