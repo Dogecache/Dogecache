@@ -69,7 +69,7 @@ else
     app.get('/stats', stats.index);
     app.get('/about', about.index);
     app.get('/press', press.index);
-    app.get('/presskit', presskit.index);
+    app.get('/press/presskit', presskit.index);
     app.get('/auth/login/:provider', authRoute.login);
     app.get('/auth/callback/:provider', authRoute.loginCallback);
     app.get('/auth/logout', authRoute.logout);
