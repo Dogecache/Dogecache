@@ -2,7 +2,7 @@
  * Database schema updates
  *
  */
-
+"use strict";
 var Cache = require('./models/cache');
 var User = require('./models/user');
 var History = require('./models/history');

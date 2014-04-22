@@ -1,7 +1,8 @@
-
 /**
  * Module dependencies.
  */
+
+"use strict";
 
 var express = require('express')
   , home = require('./routes/home')
@@ -31,7 +32,7 @@ app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
   app.use(express.favicon());
-  app.use(express.cookieParser(config.cookie_key));
+  app.use(express.cookieParser(config.setup.cookie_key));
   app.use(express.session());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
@@ -55,9 +56,9 @@ app.configure('production', function(){
 });
 
 //site is under construction?
-if (config.maintenance == true || config.maintenance == "true") {
+if (config.maintenance.is_maintenance == true || config.maintenance.is_maintenance == "true") {
     app.get('/', function(req, res) {res.redirect('maintenance')});
-    app.get('/maintenance', function(req, res) {res.render('maintenance', { title: 'Woops! | Dogecache', isMap: false, "maintenance_text": config.maintenance_text })})
+    app.get('/maintenance', function(req, res) {res.render('maintenance', { title: 'Woops! | Dogecache', isMap: false, "maintenance_text": config.maintenance.maintenance_text })})
     console.log("Site under construction.")
 }
 else
@@ -75,17 +76,17 @@ else
     app.post('/api/cache', apiRoute.cache);
     app.post('/api/withdraw', apiRoute.withdraw);
 
-    // TODO: check stack limits and memory usage of nested callbacks
-    function poll() {
-        setTimeout(function() {
-            polldogebalances.poll(function(){
-                poll();
-            });
-        }, 10000);
-    }
     poll();
 }
 
+// TODO: check stack limits and memory usage of nested callbacks
+function poll() {
+    setTimeout(function() {
+        polldogebalances.poll(function(){
+            poll();
+        });
+    }, 10000);
+}
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
