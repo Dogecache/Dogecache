@@ -685,29 +685,35 @@ body {
 }
 
 @media(min-width: 1300px) {
-  .splash-page {
+  .splash-bg {
     background-size: 100% auto;
   }
 }
 
 @media(min-height: 864px) {
-  .splash-page {
+  .splash-bg {
     background-size: auto 100%;
   }
 }
 
 @media(min-width: 1300px) and (min-height: 864px) {
-  .splash-page {
+  .splash-bg {
     background-size: 100% 100%;
   }
 }
-
-.splash-page {
+.splash-bg {
   position: fixed;
+  background-image: url("../img/blurred-city.jpg");
+  background-attachment: fixed;
+  left: 0px;
   width: 100%;
   top: 0px;
   bottom: 0px;
-  background-image: url("../img/blurred-city.jpg");
+}
+.splash-page {
+  width: 100%;
+  top: 0px;
+  bottom: 0px;
   overflow-y: auto!important;
   padding-left: 20px;
   padding-right: 20px;
