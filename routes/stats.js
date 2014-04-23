@@ -6,6 +6,7 @@
 var History = require('../models/history');
 var moment = require('moment');
 var config = require('../config');
+var async = require('async');
 
 var RETRIEVAL_LIMIT = config.settings.history_items;
 
