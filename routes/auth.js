@@ -61,6 +61,7 @@ passport.deserializeUser(function(id, done) {
 });
 
 exports.login = function(req, res) {
+    //todo try catch invalid login
     return passport.authenticate(req.params.provider, {scope: "email"})(req, res);
 };
 
