@@ -109,7 +109,7 @@ userSchema.statics.bulkUpdateBalances = function (userBalArray, callback) {
     var that = this;
     async.each(userBalArray, function (elem, callback) {
         if (typeof elem !== "undefined") {
-            that.update({_id: elem._id}, {$inc: {balance: elem.inc}}, function (err, result) {
+            that.update({_id: elem.userId}, {$inc: {balance: elem.inc}}, function (err, result) {
                 callback(err);
             });
         }
