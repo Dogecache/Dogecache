@@ -32,7 +32,7 @@ cacheSchema.statics.addCache = function (user, amount, longitude, latitude, call
     if (user.balance < amount) return callback("Not enough money remaining");
 
     // Subtract the amount from the balance
-    User.update({userId: user._id}, {$inc: {balance: -amount}}, function (err) {
+    User.update({_id: user._id}, {$inc: {balance: -amount}}, function (err) {
         if (err) { //@todo let two phase commit handle balance modifications
             console.log(err);
             return callback(err, null);
