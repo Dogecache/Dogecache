@@ -48,6 +48,8 @@ Dogecache was originally created during the 24-hour [hackBCA hackathon](http://h
 ##Press
 * [Reddit outreach campaign](http://www.reddit.com/r/dogecoin/comments/2282ln/hi_shibes_we_are_high_schoolers_who_have_been/)
 * [Blog post by Jesse Podell, the COO of TechDay](http://www.jessepodell.com/hackbca/)
+* ["DogeCache: Geocaching meets Dogecoin in an App Created by Teens" - Spelunk.in](http://spelunk.in/2014/04/24/dogecache-geocaching-meets-dogecoin-in-an-app-created-by-teens/)
+* ["Dogecache Is Geocaching for Dogecoins" - Motherboard @ Vice](http://motherboard.vice.com/read/dogecache-is-geocaching-for-dogecoins)
 
 ##Contact
 The authors may be reached at [contact@dogecache.com](mailto:contact@dogecache.com).
