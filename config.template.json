@@ -18,7 +18,7 @@
     "settings": {
         "_comment": "Specific parameter settings for the app.",
         "hot_wallet": "",
-        "tx_fees": 3,
+        "tx_fee": 3,
         "history_items": 10,
         "min_withdraw": 10,
         "wd_enabled": true,
