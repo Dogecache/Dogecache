@@ -2,7 +2,16 @@ $(document).ready(function(){
     /*
     Home page stuff
      */
-    $('.fb-login-button').on('click', function(){$('.fb-login-button').attr('disabled',true)});
+
+     $('.home-button.login-button').click(function() {
+        notify(
+          "Sign in using:", '<div class="home-button-wrapper"><a type="button" class="home-button facebook-login-button" href="/auth/login/facebook"><i class="fa fa-facebook"></i>Facebook</a><a type="button" class="home-button twitter-login-button" href="/auth/login/twitter"><i class="fa fa-twitter"></i>Twitter</a><a type="button" class="home-button google-login-button" href="/auth/login/google"><i class="fa fa-google-plus"></i>Google</a></div>'
+        );
+     });
+
+    $('.facebook-login-button,.twitter-login-button,.google-login-button').one("click", function() {
+        $(this).click(function () { return false; });
+    });
 
 
     //TODO clean up selectors
@@ -16,6 +25,12 @@ $(document).ready(function(){
 
     $('#menu-btn').click(function(){
       $('#menu-panel, #menu-btn').toggleClass('open');
+    });
+
+    $(document).click(function(e){
+      if( $(e.target).attr('id')!='menu-btn' && $(e.target).parents('#menu-panel').length==0 ) {
+        $('#menu-panel, #menu-btn').removeClass('open');
+      }
     });
 
   if (! (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ) {
@@ -54,8 +69,9 @@ function notify(title, body) {
 }
 
 function closeNotify() {
-  $('.notification .pane').unbind();
-  $('.notification .pane').animate({
+  $('.notification .pane')
+    .unbind()
+    .animate({
     top: -1*$(window).height()
   }, 300);
   $('.notification').animate({

@@ -1,11 +1,11 @@
+
 /*
- * GET login page.
+ * GET press page.
  */
 "use strict";
 exports.index = function(req, res){
-  res.render('home', {
-    title: 'Dogecache',
-    isLoggedIn: !!req.user,
+  res.render('press', {
+    title: 'Press | Dogecache',
     user: req.user,
     isMap: false
   });

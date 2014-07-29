@@ -1,8 +1,11 @@
+"use strict";
+
 var mongoose = require('mongoose');
 var User = require('./user');
 var async = require('async');
+var config = require('../config');
 
-const WAGER_FEE = 1; //wager fee deducted at time of wager, in percent
+var WAGER_FEE = config.settings.wager_percent_fee; //wager fee deducted at time of wager, in percent
 
 var cacheSchema = new mongoose.Schema({
     userId: mongoose.Schema.ObjectId,       //id of user who dropped the cache
@@ -29,7 +32,7 @@ cacheSchema.statics.addCache = function (user, amount, longitude, latitude, call
     if (user.balance < amount) return callback("Not enough money remaining");
 
     // Subtract the amount from the balance
-    User.update({userId: user._id}, {$inc: {balance: -amount}}, function (err) {
+    User.update({_id: user._id}, {$inc: {balance: -amount}}, function (err) {
         if (err) { //@todo let two phase commit handle balance modifications
             console.log(err);
             return callback(err, null);
@@ -37,6 +40,9 @@ cacheSchema.statics.addCache = function (user, amount, longitude, latitude, call
 
         //adjust the amount for the wager fee
         amount = amount*(1-WAGER_FEE*0.01);
+
+        //round the cache down to two decimal points
+        amount = Math.floor(amount*100)/100;
 
         // Create the cache
         var cache = new that({

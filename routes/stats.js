@@ -1,10 +1,14 @@
 /*
  * GET stats page.
  */
-var History = require('../models/history.js');
+"use strict";
+
+var History = require('../models/history');
 var moment = require('moment');
-const RETRIEVAL_LIMIT = 10;
-//@todo make retrieval limit global
+var config = require('../config');
+var async = require('async');
+
+var RETRIEVAL_LIMIT = config.settings.history_items;
 
 
 exports.index = function (req, res) {

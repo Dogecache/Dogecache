@@ -1,10 +1,12 @@
+"use strict";
+
 var mongoose = require('mongoose');
 var uuid = require('node-uuid');
 var doge = require('../dogeapi');
 var config = require('../config');
-var sendgrid = require('sendgrid')(config.sendgridapi_user, config.sendgridapi_key);
+var sendgrid = require('sendgrid')(config.setup.sendgridapi_user, config.setup.sendgridapi_key);
 
-async = require("async");
+var async = require("async");
 
 // TODO: prevent duplication on fields without use of unique option
 var userSchema = new mongoose.Schema({
@@ -26,7 +28,7 @@ var userSchema = new mongoose.Schema({
  */
 userSchema.statics.findOrCreate = function (profile, callback) {
     var that = this;
-
+    console.log(profile);
     // try to check if user already exists
     that.findOne({$or: [
         {provider: {$exists: false}, fbId: profile.id},
@@ -53,7 +55,7 @@ userSchema.statics.findOrCreate = function (profile, callback) {
                         providerId: profile.id,
                         displayName: profile.displayName,
                         email: (profile.emails && profile.emails.length > 0) ? profile.emails[0].value : null,
-                        profilePhoto: (profile.photos && profile.photos.length > 0) ? profile.photos[0].value : null,
+                        profilePhoto: (profile.photos && profile.photos.length > 0) ? profile.photos[0].value : (profile._json.picture.length > 0 ? profile._json.picture : null),
                         balance: 0,
                         apiKey: uuid.v4()
                     });
@@ -107,7 +109,7 @@ userSchema.statics.bulkUpdateBalances = function (userBalArray, callback) {
     var that = this;
     async.each(userBalArray, function (elem, callback) {
         if (typeof elem !== "undefined") {
-            that.update({_id: elem._id}, {$inc: {balance: elem.inc}}, function (err, result) {
+            that.update({_id: elem.userId}, {$inc: {balance: elem.inc}}, function (err, result) {
                 callback(err);
             });
         }

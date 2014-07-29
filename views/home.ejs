@@ -1,72 +1,77 @@
 <%- include header.ejs %>
-<div class="splash-page">
-  <div class="logo">
-    <img src="/img/dogecache-logo.png" />
-  </div>
-  <h1>
-    Welcome to Dogecache.
-  </h1>
-
-  <div class="description">
-    Explore the world and find dogecoins. Weep or Win.
-  </div>
-
-  <div class="header-icon" style="color:#e74c3c"> <i class="fa fa-map-marker"></i></div>
-  <div class="description">
-    Dogecache is inspired by the worldwide game Geocache, a worldwide scavenger hunt.
-  </div>
-
-  <div class="header-icon" style="color:#95a5a6"> <i class="fa fa-user"></i></div>
-  <div class="description">
-    Like in Geocache, you hunt for something in Dogecache. You're hunting for dogecoin.
-  </div>
-
-  <div class="header-icon" style="color:#3498db"> <i class="fa fa-globe"></i></div>
-  <div class="description">
-    But it isn't just you. It's you versus everyone else.
-  </div>
-
-  <div class="header-icon" style="color:#f1c40f">Ð</div>
-  <div class="description">
-    Look for dogecoin dispersed throughout the world. You'll be bound to find some.
-  </div>
-
-  <div class="header-icon" style="color:#c0392b"><i class="fa fa-frown-o"></i></div>
-  <div class="description">
-    Yes, you do have to drop some dogecoin in order to scavenge for some around your area.
-  </div>
-
-  <div class="header-icon" style="color:#2ecc71"><i class="fa fa-smile-o"></i></div>
-  <div class="description">
-    But if you do find some, it's yours!
-  </div>
-
-  <div class="header-icon" style=<%= isLoggedIn ? "color:#d35400" : "color:#3b5998" %> >
-    <i class="fa fa-chevron-down"></i></div>
-  <div class="description">
-    What're you waiting for? Play now!
-  </div>
-
-  <div class="home-button-wrapper">
-    <% if (isLoggedIn) { %>
-      <a type="button" class="home-button map-button" href="/map">
-        <i class="fa fa-map-marker"></i>
-      Go to Map
-      </a>
-    <% } else { %>
-      <a type="button" class="home-button facebook-login-button" href="/auth/login/facebook">
-        <i class="fa fa-facebook"></i>
-      Sign in with Facebook
-      </a>
-      <a type="button" class="home-button twitter-login-button" href="/auth/login/twitter">
-          <i class="fa fa-twitter"></i>
-          Sign in with Twitter
-      </a>
-      <a type="button" class="home-button google-login-button" href="/auth/login/google">
-          <i class="fa fa-google-plus"></i>
-          Sign in with Google
-      </a>
-    <% } %>
-  </div>
+<div id="home-nav">
+<%- include pub_navbar.ejs %>
 </div>
+<div class="splash-bg"></div>
+<div class="page-wrapper">
+    <div class="page-container">
+      <div class="splash-page">
+        <div class="logo">
+          <img src="/img/dogecache-logo.png" />
+        </div>
+        <h1>
+          Welcome to Dogecache.
+        </h1>
+
+        <div class="description">
+          Explore the world and find dogecoin.
+        </div>
+
+        <div class="header-icon" style="color:#e74c3c"> <i class="fa fa-map-marker"></i></div>
+        <div class="description">
+          Dogecache is inspired by the largely popular activity Geocaching, where people engage in a GPS-assisted scavenger hunt.
+        </div>
+
+        <div class="header-icon" style="color:#95a5a6"> <i class="fa fa-user"></i></div>
+        <div class="description">
+          Like in Geocaching, you hunt for something in Dogecache. You're hunting for dogecoin.
+        </div>
+
+        <div class="header-icon" style="color:#3498db"> <i class="fa fa-globe"></i></div>
+        <div class="description">
+          But it isn't just you. Everyone's in on it.
+        </div>
+
+        <div class="header-icon" style="color:#f1c40f">Ð</div>
+        <div class="description">
+          Look for dogecoin dispersed throughout the world. You'll be bound to find some - dogecoin dropped by others!
+        </div>
+
+        <div class="header-icon" style="color:#c0392b"><i class="fa fa-frown-o"></i></div>
+        <div class="description">
+          Yes, you do have to drop some dogecoin, wherever you are, in order to scavenge for some around your area.
+        </div>
+
+        <div class="header-icon" style="color:#dddddd"><i class="fa fa-search"></i></div>
+        <div class="description">
+          But the more you drop, the bigger area you can search around you!
+        </div>
+
+        <div class="header-icon" style="color:#2ecc71"><i class="fa fa-smile-o"></i></div>
+        <div class="description">
+          Whatever dogecoin you find in your area becomes yours!
+        </div>
+
+        <div class="header-icon" style="color:#d35400" >
+          <i class="fa fa-chevron-down"></i></div>
+        <div class="description">
+          What're you waiting for? Play now!
+        </div>
+
+        <div class="home-button-wrapper">
+          <% if (isLoggedIn) { %>
+            <a type="button" class="home-button map-button" href="/map">
+              <i class="fa fa-map-marker"></i>
+              Go to Map
+            </a>
+          <% } else { %>
+            <a type="button" class="home-button login-button">
+              <i class="fa fa-heart-o"></i>
+              Sign in / Sign up
+            </a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
 <%- include footer.ejs %>

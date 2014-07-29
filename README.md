@@ -32,10 +32,10 @@ If you would like to contribute to development, please follow the instructions b
 * Set up the app configuration.
 
 ###Configuration
-The app configurations can be set in two ways. The presence of a config file overrides the environment file method.
+The app configurations can be set in two ways. The presence of a config file overrides the environment file method. Variables are broken up into three categories: `setup` denotes variables that are used for api configurations or other internal system functions. `settings` denotes variables that are flexible and can be used to customize the app. `maintenance` denotes variables that are used during maintenance mode.
 
 1. Config file - Duplicate `config.template.json` in the root directory and name it `config.json`. Fill out all fields.
-2. Environment variables - Open up `config.template.json`. Use this file as a reference to set environment variables of the same name.
+2. Environment variables - Open up `config.template.json`. Use this file as a reference to set environment variables of the same name. Under this method, config variable categories are ignored. Input environment variables as they appear, without their parent prefix.
 
 ##About
 Dogecache was originally created during the 24-hour [hackBCA hackathon](http://hackbca2014.challengepost.com/) event by four high school students. The main purpose of the app was to create an experimental digital scavenger hunt based around the digital cryptocurrency Dogecoin. The resulting product was judged as the Most Polished app of the competition by a group of expert judges, including Reddit co-founder Alex Ohanian and Vine co-founder Colin Kroll. In addition, the app was awarded a special award by Intel Corporation for quality mobile design.
@@ -48,6 +48,8 @@ Dogecache was originally created during the 24-hour [hackBCA hackathon](http://h
 ##Press
 * [Reddit outreach campaign](http://www.reddit.com/r/dogecoin/comments/2282ln/hi_shibes_we_are_high_schoolers_who_have_been/)
 * [Blog post by Jesse Podell, the COO of TechDay](http://www.jessepodell.com/hackbca/)
+* ["DogeCache: Geocaching meets Dogecoin in an App Created by Teens" - Spelunk.in](http://spelunk.in/2014/04/24/dogecache-geocaching-meets-dogecoin-in-an-app-created-by-teens/)
+* ["Dogecache Is Geocaching for Dogecoins" - Motherboard @ Vice](http://motherboard.vice.com/read/dogecache-is-geocaching-for-dogecoins)
 
 ##Contact
 The authors may be reached at [contact@dogecache.com](mailto:contact@dogecache.com).
