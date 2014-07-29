@@ -62,8 +62,9 @@ DogeAPI.prototype.moveToUser = function(toUserID, fromUserID, amount, callback) 
         'pin': this.secret_pin
     }, function(err, resp) {
         if (!err && resp.status == "success") {
-            var fee = parseFloat(resp.data.network_fee) + parseFloat(resp.data.blockio_fee);
-            return callback(null, fee);
+            resp.data.success = {};
+            resp.data.success.fee = parseFloat(resp.data.network_fee) + parseFloat(resp.data.blockio_fee);
+            return callback(null, JSON.stringify(resp));
         } else {
             return callback(resp);
         }
