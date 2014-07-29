@@ -44,11 +44,7 @@ DogeAPI.prototype.withdrawFromUser = function(userID, paymentAddress, amount, pi
         if (!err && resp.status == "success") {
             return callback(null, JSON.stringify(resp));
         } else {
-            if (resp.data.error_message == "Insufficient available_balance for withdrawal.") {
-                return self.moveToUser(toUserID, fromUserID, resp.data.max_withdrawal_available, callback);
-            } else {
-                return callback(resp);
-            }
+            return callback(resp);
         }
     });
 };
