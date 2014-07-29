@@ -48,7 +48,7 @@
     "node-uuid": "~1.4.1",
     "passport-twitter": "~1.0.2",
     "passport-google-oauth": "~0.1.5",
-    "dogeapi": "git+https://github.com/brutalhonesty/dogeapi.js.git",
+    "block_io": "~0.1.0",
     "coinstring": "~0.2.0"
   }
 }

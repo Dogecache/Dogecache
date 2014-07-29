@@ -1,8 +1,8 @@
 {
     "setup": {
         "_comment": "Secret api keys.",
-        "dogeapiKey": "",
-        "dogeapiPin": "",
+        "blockio_key": "",
+        "blockio_pin": "",
         "worldweatherapiKey": "",
         "sendgridapi_user": "",
         "sendgridapi_key": "",
