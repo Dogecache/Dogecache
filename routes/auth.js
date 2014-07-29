@@ -27,9 +27,7 @@ if (config.setup.twitter_clientid && config.setup.twitter_clientsecret || proces
         consumerSecret: config.setup.twitter_clientsecret,
         callbackURL: config.setup.url + '/auth/callback/twitter'
     }, function(accessToken, refreshToken, profile, done) {
-        User.findOrCreate(profile, function(err, user) {
-            done(err, user);
-        });
+        User.findOrCreate(profile, done);
     }));
 } else {
     console.log('Twitter login provider not configured');
@@ -42,9 +40,7 @@ if (config.setup.google_clientid && config.setup.google_clientsecret || process.
         clientSecret: config.setup.google_clientsecret,
         callbackURL: config.setup.url + '/auth/callback/google'
     }, function(accessToken, refreshToken, profile, done) {
-        User.findOrCreate(profile, function(err, user) {
-            done(null, user);
-        });
+        User.findOrCreate(profile, done);
     }));
 } else {
     console.log('Google login provider not configured');
