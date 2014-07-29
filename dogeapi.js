@@ -19,7 +19,7 @@ DogeAPI.prototype.createUser = function(userID, callback) {
     if(!validator.isAlphanumeric(userID)) return callback('Invalid user id.');
 
     this.block_io.create_user({'label': userID}, function(err, resp) {
-        if (!err) {
+        if (!err && resp.status == "success") {
             self.user_ids[userID] = resp.data.user_id;
             return callback(null, JSON.stringify(resp));
         } else {
@@ -41,7 +41,7 @@ DogeAPI.prototype.withdrawFromUser = function(userID, paymentAddress, amount, pi
         'from_user_ids': this.user_ids[userID].toString(),
         'pin': this.secret_pin
     }, function(err, resp) {
-        if (!err) {
+        if (!err && resp.status == "success") {
             return callback(null, JSON.stringify(resp));
         } else {
             return callback(resp);
@@ -61,7 +61,7 @@ DogeAPI.prototype.moveToUser = function(toUserID, fromUserID, amount, callback) 
         'to_user_id': this.user_ids[toUserID].toString(),
         'pin': this.secret_pin
     }, function(err, resp) {
-        if (!err) {
+        if (!err && resp.status == "success") {
             var fee = parseFloat(resp.data.network_fee) + parseFloat(resp.data.blockio_fee);
             return callback(null, fee);
         } else {
@@ -74,7 +74,7 @@ DogeAPI.prototype.getUsers = function(callback) {
     var self = this;
 
     this.block_io.get_users(function(err, resp) {
-        if (!err) {
+        if (!err && resp.status == "success") {
             var new_resp = {"data": {"users": []}};
             for (var i=0; i<resp.data.addresses.length; i++) {
                 var user = resp.data.addresses[i];
