@@ -41,6 +41,9 @@ cacheSchema.statics.addCache = function (user, amount, longitude, latitude, call
         //adjust the amount for the wager fee
         amount = amount*(1-WAGER_FEE*0.01);
 
+        //round the cache down to two decimal points
+        amount = Math.floor(amount*100)/100;
+
         // Create the cache
         var cache = new that({
             userId: user._id,
