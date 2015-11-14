@@ -34,21 +34,21 @@
     "start": "node app"
   },
   "dependencies": {
-    "express": "3.0.5",
+    "async": "~0.2.10",
+    "block_io": "~0.1.0",
+    "coinstring": "~0.2.0",
     "ejs": "*",
+    "express": "3.0.5",
     "less-middleware": "*",
+    "moment": "~2.4.0",
+    "mongoose": "^3.8.36",
+    "node-uuid": "~1.4.1",
     "passport": "~0.2.0",
     "passport-facebook": "~1.0.3",
-    "validator": "~3.5.0",
-    "request": "~2.34.0",
-    "async": "~0.2.10",
-    "sendgrid": "~1.0.2",
-    "moment": "~2.4.0",
-    "mongoose": "~3.8.8",
-    "node-uuid": "~1.4.1",
-    "passport-twitter": "~1.0.2",
     "passport-google-oauth": "~0.1.5",
-    "block_io": "~0.1.0",
-    "coinstring": "~0.2.0"
+    "passport-twitter": "~1.0.2",
+    "request": "~2.34.0",
+    "sendgrid": "~1.0.2",
+    "validator": "~3.5.0"
   }
 }
